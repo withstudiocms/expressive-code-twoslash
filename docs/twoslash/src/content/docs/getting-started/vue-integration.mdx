@@ -1,0 +1,79 @@
+---
+title: Vue Integration
+description: Learn how to use Twoslash with Vue code blocks.
+sidebar:
+  order: 3
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+[Twoslash Vue](https://twoslash.netlify.app/packages/vue) is a Twoslash integration that added support for Twoslash to handle Vue Single File Component files.
+
+This is an example taken from the Twoslash Vue documentation website.
+
+<Tabs>
+
+<TabItem label='Before'>
+
+``````vue
+
+```vue twoslash
+<script setup>
+import { onMounted, ref } from 'vue'
+//                   ^?
+
+// Reactive state.
+const count = ref(0)
+
+// Functions that mutate state and trigger updates.
+function increment() {
+  count.value++
+}
+
+// Lifecycle hooks.
+onMounted(() => {
+  console.log(`The initial count is ${count.value}.`)
+})
+</script>
+
+<template>
+  <button @click="increment">
+    Count is: {{ count }}
+  </button>
+</template>
+```
+
+``````
+
+</TabItem>
+
+<TabItem label="After">
+
+```vue twoslash
+<script setup>
+import { onMounted, ref } from 'vue'
+//                   ^?
+
+// Reactive state.
+const count = ref(0)
+
+// Functions that mutate state and trigger updates.
+function increment() {
+  count.value++
+}
+
+// Lifecycle hooks.
+onMounted(() => {
+  console.log(`The initial count is ${count.value}.`)
+})
+</script>
+
+<template>
+  <button @click="increment">
+    Count is: {{ count }}
+  </button>
+</template>
+```
+</TabItem>
+
+</Tabs>
