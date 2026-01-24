@@ -45,7 +45,8 @@
 		"mdast-util-from-markdown": "^2.0.2",
 		"mdast-util-gfm": "^3.1.0",
 		"mdast-util-to-hast": "^13.2.0",
-		"twoslash": "^0.2.12"
+		"twoslash": "^0.2.12",
+		"twoslash-vue": "^0.3.6"
 	},
 	"devDependencies": {
 		"@types/uglify-js": "^3.17.5",
