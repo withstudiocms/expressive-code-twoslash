@@ -1,6 +1,6 @@
 import { type ExpressiveCodePlugin, definePlugin } from "@expressive-code/core";
 import { ExpressiveCode } from "expressive-code";
-import { createTwoslasher } from 'twoslash';
+import { type TwoslashInstance, createTwoslasher } from 'twoslash';
 import { createTwoslasher as createTwoslasherVue } from "twoslash-vue";
 import ts, { type CompilerOptions } from "typescript";
 import {
@@ -86,23 +86,14 @@ export default function ecTwoSlash(
 		twoslashOptions = checkForCustomTagsAndMerge(options.twoslashOptions),
 	} = options;
 
-	/**
-	 * Initializes and returns a new instance of the Twoslasher.
-	 *
-	 * @returns {Twoslasher} A new instance of the Twoslasher.
-	 */
-	const twoslasher = createTwoslasher({
-		...twoslashOptions,
-	});
-
-	/**
-	 * Initializes and returns a new instance of the Twoslasher for Vue.
-	 *
-	 * @returns {Twoslasher} A new instance of the Twoslasher for Vue.
-	 */
-	const twoslasherVue = createTwoslasherVue({
-		...twoslashOptions,
-	});
+	const availableTwoSlashers: Record<string, TwoslashInstance> = {
+		'default': createTwoslasher({
+			...twoslashOptions,
+		}),
+		'vue': createTwoslasherVue({
+			...twoslashOptions,
+		}),
+	};
 
 	const shouldTransform = buildMetaChecker(languages, explicitTrigger);
 
@@ -132,8 +123,7 @@ export default function ecTwoSlash(
 					if (include) includes.add(include, codeWithIncludes);
 
 					// Select the appropriate twoslasher based on language
-					const isVue = codeBlock.language === 'vue';
-					const selectedTwoslasher = isVue ? twoslasherVue : twoslasher;
+					const selectedTwoslasher = availableTwoSlashers[codeBlock.language] ?? availableTwoSlashers.default;
 
 					// Twoslash the code block
 					const twoslash = selectedTwoslasher(codeWithIncludes, codeBlock.language, {
