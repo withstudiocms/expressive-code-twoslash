@@ -1,5 +1,14 @@
 # expressive-code-twoslash
 
+## 0.6.0
+
+### Minor Changes
+
+- [#52](https://github.com/MatthiesenXYZ/EC-Plugins/pull/52) [`c2baab2`](https://github.com/MatthiesenXYZ/EC-Plugins/commit/c2baab2a9955ff7efc5746800bb9c272b30b9976) Thanks [@ackzell](https://github.com/ackzell)! - # Adding support for Twoslash Vue
+
+  A new `"vue"` entry to the `languages` option was added.
+  The plugin will now determine which instance of `createTwoSlasher` to use: the TS one or the Vue one.
+
 ## 0.5.3
 
 ### Patch Changes
