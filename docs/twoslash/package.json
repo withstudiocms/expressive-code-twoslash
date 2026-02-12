@@ -13,18 +13,19 @@
 	},
 	"dependencies": {
 		"@astrojs/starlight": "^0.31.1",
+		"@types/mdast": "^4.0.4",
 		"astro": "^5.3.0",
 		"astro-expressive-code": "^0.40.2",
-		"sharp": "^0.33.5",
 		"expressive-code-twoslash": "workspace:*",
-		"starlight-package-managers": "^0.10.0",
-		"rehype-expressive-code": "^0.40.2",
+		"mdast": "^3.0.0",
+		"mdast-util-from-markdown": "^2.0.2",
 		"mdast-util-to-markdown": "^2.1.2",
 		"mdast-util-to-string": "4.0.0",
-		"mdast-util-from-markdown": "^2.0.2",
-		"mdast": "^3.0.0",
-		"@types/mdast": "^4.0.4",
-		"unist-util-visit": "^5.0.0"
+		"rehype-expressive-code": "^0.40.2",
+		"sharp": "^0.33.5",
+		"starlight-package-managers": "^0.10.0",
+		"unist-util-visit": "^5.0.0",
+		"vue": "^3.5.27"
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.4",

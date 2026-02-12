@@ -1,6 +1,7 @@
 import { type ExpressiveCodePlugin, definePlugin } from "@expressive-code/core";
 import { ExpressiveCode } from "expressive-code";
-import { createTwoslasher } from "twoslash";
+import { type TwoslashInstance, createTwoslasher } from 'twoslash';
+import { createTwoslasher as createTwoslasherVue } from "twoslash-vue";
 import ts, { type CompilerOptions } from "typescript";
 import {
 	TwoslashCompletionAnnotation,
@@ -79,20 +80,20 @@ export default function ecTwoSlash(
 	 */
 	const {
 		explicitTrigger = true,
-		languages = ["ts", "tsx"],
+		languages = ["ts", "tsx", "vue"],
 		includeJsDoc = true,
 		allowNonStandardJsDocTags = false,
 		twoslashOptions = checkForCustomTagsAndMerge(options.twoslashOptions),
 	} = options;
 
-	/**
-	 * Initializes and returns a new instance of the Twoslasher.
-	 *
-	 * @returns {Twoslasher} A new instance of the Twoslasher.
-	 */
-	const twoslasher = createTwoslasher({
-		...twoslashOptions,
-	});
+	const availableTwoSlashers: Record<string, TwoslashInstance> = {
+		'default': createTwoslasher({
+			...twoslashOptions,
+		}),
+		'vue': createTwoslasherVue({
+			...twoslashOptions,
+		}),
+	};
 
 	const shouldTransform = buildMetaChecker(languages, explicitTrigger);
 
@@ -121,8 +122,11 @@ export default function ecTwoSlash(
 					// Add the include to the includes map if it exists
 					if (include) includes.add(include, codeWithIncludes);
 
+					// Select the appropriate twoslasher based on language
+					const selectedTwoslasher = availableTwoSlashers[codeBlock.language] ?? availableTwoSlashers.default;
+
 					// Twoslash the code block
-					const twoslash = twoslasher(codeWithIncludes, codeBlock.language, {
+					const twoslash = selectedTwoslasher(codeWithIncludes, codeBlock.language, {
 						...twoslashOptions,
 						compilerOptions: {
 							...defaultCompilerOptions,
