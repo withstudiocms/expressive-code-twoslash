@@ -2,3 +2,21 @@ packages:
   - packages/*
   - docs/*
   - playground
+
+linkWorkspacePackages: true
+
+minimumReleaseAge: 4320
+
+minimumReleaseAgeExclude:
+  - studiocms
+  - '@studiocms/*'
+  - '@withstudiocms/*'
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - esbuild
+  - sharp
+
+preferWorkspacePackages: true
+
+saveWorkspaceProtocol: false
