@@ -14,7 +14,7 @@
 		"ec-plugin",
 		"twoslash"
 	],
-	"homepage": "https://twoslash.matthiesen.dev",
+	"homepage": "https://twoslash.studiocms.dev",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/withstudiocms/expressive-code-twoslash.git",

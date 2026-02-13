@@ -4,7 +4,7 @@ Add Twoslash support to your Expressive Code TypeScript code blocks.
 
 ## Documentation
 
-[Read the full documentation →](https://twoslash.matthiesen.dev)
+[Read the full documentation →](https://twoslash.studiocms.dev)
 
 ### TODO
 - [ ] Make Annotations accessible
