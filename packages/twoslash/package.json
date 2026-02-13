@@ -17,7 +17,7 @@
 	"homepage": "https://twoslash.matthiesen.dev",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/MatthiesenXYZ/EC-Plugins",
+		"url": "https://github.com/withstudiocms/expressive-code-twoslash.git",
 		"directory": "packages/twoslash"
 	},
 	"publishConfig": {
