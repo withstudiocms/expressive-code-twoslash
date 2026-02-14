@@ -1,6 +1,6 @@
 packages:
-  - packages/*
-  - docs/*
+  - package
+  - docs
   - playground
 
 linkWorkspacePackages: true

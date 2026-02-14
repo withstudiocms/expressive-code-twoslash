@@ -3,7 +3,7 @@ import type { List, Root } from 'mdast'
 import { loadChangelog, semverCategories } from './lib/changelogs'
 import { writeFileLines } from './lib/utils'
 
-const changelog = loadChangelog('../../packages/twoslash/CHANGELOG.md')
+const changelog = loadChangelog('../../package/CHANGELOG.md')
 
 // Generate markdown output
 const output: string[] = []
@@ -19,7 +19,7 @@ output.push(
 	'---',
 	'',
     'This document contains release notes for the `expressive-code-twoslash` package.',
-    'For more information, see the [CHANGELOG file](https://github.com/MatthiesenXYZ/EC-Plugins/blob/main/packages/twoslash/CHANGELOG.md)',
+    'For more information, see the [CHANGELOG file](https://github.com/withstudiocms/expressive-code-twoslash/blob/main/package/CHANGELOG.md)',
 	''
 )
 
