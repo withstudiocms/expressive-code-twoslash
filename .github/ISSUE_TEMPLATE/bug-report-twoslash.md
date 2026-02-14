@@ -1,5 +1,5 @@
 ---
-name: Bug report (expressive-code-twoslash)
+name: Bug report
 about: Create a report to help us improve expressive-code-twoslash
 title: '(Twoslash) Bug: [NAME]'
 labels: 

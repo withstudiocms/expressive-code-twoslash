@@ -2,7 +2,7 @@
 	"$schema": "https://unpkg.com/@changesets/config@3.0.3/schema.json",
 	"changelog": [
 		"@changesets/changelog-github",
-		{ "repo": "matthiesenxyz/ec-plugins" }
+		{ "repo": "withstudiocms/expressive-code-twoslash" }
 	],
 	"commit": false,
 	"fixed": [],
@@ -10,5 +10,5 @@
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
-	"ignore": ["playground", "docs-twoslash"]
+	"ignore": []
 }
