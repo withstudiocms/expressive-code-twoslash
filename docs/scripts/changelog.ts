@@ -3,7 +3,7 @@ import type { List, Root } from 'mdast'
 import { loadChangelog, semverCategories } from './lib/changelogs'
 import { writeFileLines } from './lib/utils'
 
-const changelog = loadChangelog('../../package/CHANGELOG.md')
+const changelog = loadChangelog('../package/CHANGELOG.md')
 
 // Generate markdown output
 const output: string[] = []
