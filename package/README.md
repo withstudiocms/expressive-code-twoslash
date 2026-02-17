@@ -38,7 +38,7 @@ A Expressive Code plugin that adds Twoslash support to your Expressive Code Type
 
 ## Licensing
 
-[MIT Licensed](https://github.com/withstudiocms/expressive-code-twoslash/tree/main/packages/twoslash/LICENSE).
+[MIT Licensed](https://github.com/withstudiocms/expressive-code-twoslash/tree/main/package/LICENSE).
 
 ## Acknowledgements
 
