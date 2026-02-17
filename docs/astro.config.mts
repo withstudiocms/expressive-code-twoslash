@@ -18,6 +18,11 @@ export default defineConfig({
 			social: {
 				github:
 					"https://github.com/withstudiocms/express-code-twoslash/",
+				discord: "https://chat.studiocms.dev",
+				"x.com": "https://x.com/withstudiocms",
+				blueSky: "https://bsky.app/profile/studiocms.dev",
+				openCollective:
+					"https://opencollective.com/studiocms",
 			},
 			editLink: {
 				baseUrl:
