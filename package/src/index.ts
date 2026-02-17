@@ -69,6 +69,7 @@ export default function ecTwoSlash(
 		explicitTrigger = true,
 		languages = ["ts", "tsx", "vue"],
 		includeJsDoc = true,
+		// This setting is important to allow users to use customTag annotations in their codeblocks
 		allowNonStandardJsDocTags = true,
 		twoslashOptions = checkForCustomTagsAndMerge(options.twoslashOptions),
 	} = options;
