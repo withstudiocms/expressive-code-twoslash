@@ -2,7 +2,6 @@
 title: My docs
 description: Learn more about my project in this docs site built with Starlight.
 ---
-
 ## Basic
 
 ```ts twoslash
@@ -96,9 +95,9 @@ const hello = "world";
 ### Errors
 
 ```ts twoslash
+
 // @error: test
 const exampleErrorCallout = 1
-
 ```
 
 ### Warnings
