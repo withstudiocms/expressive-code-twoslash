@@ -1,5 +1,7 @@
 # `expressive-code-twoslash`
 
+![!og image](https://cdn.studiocms.dev/twoslash/og.png)
+
 [![NPM Version](https://img.shields.io/npm/v/expressive-code-twoslash)](https://npm.im/expressive-code-twoslash)
 [![Formatted with Biome](https://img.shields.io/badge/Formatted_with-Biome-60a5fa?style=flat&logo=biome)](https://biomejs.dev/)
 
