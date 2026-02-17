@@ -49,6 +49,7 @@ declare module "@expressive-code/core" {
  */
 const defaultCompilerOptions: CompilerOptions = {
     moduleResolution: 100 satisfies ModuleResolutionKind.Bundler,
+	lib: ["lib.es2022.d.ts", "lib.dom.d.ts", "lib.dom.iterable.d.ts"],
 };
 
 /**
