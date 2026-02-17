@@ -6,7 +6,7 @@
 		"node": ">=22.20.0"
 	},
 	"workspaces": [
-		"package"
+		"./package"
 	],
 	"scripts": {
 		"playground:dev": "pnpm --filter playground dev",
