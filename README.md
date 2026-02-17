@@ -7,4 +7,4 @@ An Expressive-Code plugin to add Twoslash support to your Expressive Code TypeSc
 
 ![twoslash enabled codeblock](https://github.com/user-attachments/assets/d245d71e-158f-41a5-9df2-00c129a09f89)
 
-Read more on the [`expressive-code-twoslash` Docs](https://twoslash.matthiesen.dev)
+Read more on the [`expressive-code-twoslash` Docs](https://twoslash.studiocms.dev)
