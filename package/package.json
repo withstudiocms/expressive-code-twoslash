@@ -44,8 +44,8 @@
 	"dependencies": {
 		"mdast-util-from-markdown": "^2.0.2",
 		"mdast-util-gfm": "^3.1.0",
-		"mdast-util-to-hast": "^13.2.0",
-		"twoslash": "^0.2.12",
+		"mdast-util-to-hast": "^13.2.1",
+		"twoslash": "^0.3.6",
 		"twoslash-vue": "^0.3.6"
 	},
 	"devDependencies": {
@@ -55,6 +55,6 @@
 	"peerDependencies": {
 		"@expressive-code/core": ">=0.40.0",
 		"expressive-code": ">=0.40.0",
-		"typescript": "^5.7"
+		"typescript": ">=5.7"
 	}
 }

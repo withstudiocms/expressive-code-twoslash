@@ -106,8 +106,8 @@ importers:
         specifier: ^13.2.0
         version: 13.2.0
       twoslash:
-        specifier: ^0.2.12
-        version: 0.2.12(typescript@5.7.3)
+        specifier: ^0.3.6
+        version: 0.3.6(typescript@5.7.3)
       twoslash-vue:
         specifier: ^0.3.6
         version: 0.3.6(typescript@5.7.3)
@@ -3153,9 +3153,6 @@ packages:
     resolution: {integrity: sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==}
     engines: {node: '>=0.6.11 <=0.7.0 || >=0.7.3'}
 
-  twoslash-protocol@0.2.12:
-    resolution: {integrity: sha512-5qZLXVYfZ9ABdjqbvPc4RWMr7PrpPaaDSeaYY55vl/w1j6H6kzsWK/urAEIXlzYlyrFmyz1UbwIt+AA0ck+wbg==}
-
   twoslash-protocol@0.3.6:
     resolution: {integrity: sha512-FHGsJ9Q+EsNr5bEbgG3hnbkvEBdW5STgPU824AHUjB4kw0Dn4p8tABT7Ncg1Ie6V0+mDg3Qpy41VafZXcQhWMA==}
 
@@ -3163,11 +3160,6 @@ packages:
     resolution: {integrity: sha512-HXYxU+Y7jZiMXJN4980fQNMYflLD8uqKey1qVW5ri8bqYTm2t5ILmOoCOli7esdCHlMq4/No3iQUWBWDhZNs9w==}
     peerDependencies:
       typescript: ^5.5.0
-
-  twoslash@0.2.12:
-    resolution: {integrity: sha512-tEHPASMqi7kqwfJbkk7hc/4EhlrKCSLcur+TcvYki3vhIfaRMXnXjaYFgXpoZRbT6GdprD4tGuVBEmTpUgLBsw==}
-    peerDependencies:
-      typescript: '*'
 
   twoslash@0.3.6:
     resolution: {integrity: sha512-VuI5OKl+MaUO9UIW3rXKoPgHI3X40ZgB/j12VY6h98Ae1mCBihjPvhOPeJWlxCYcmSbmeZt5ZKkK0dsVtp+6pA==}
@@ -7168,8 +7160,6 @@ snapshots:
 
   tunnel@0.0.6: {}
 
-  twoslash-protocol@0.2.12: {}
-
   twoslash-protocol@0.3.6: {}
 
   twoslash-vue@0.3.6(typescript@5.7.3):
@@ -7177,14 +7167,6 @@ snapshots:
       '@vue/language-core': 3.2.3
       twoslash: 0.3.6(typescript@5.7.3)
       twoslash-protocol: 0.3.6
-      typescript: 5.7.3
-    transitivePeerDependencies:
-      - supports-color
-
-  twoslash@0.2.12(typescript@5.7.3):
-    dependencies:
-      '@typescript/vfs': 1.6.2(typescript@5.7.3)
-      twoslash-protocol: 0.2.12
       typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color

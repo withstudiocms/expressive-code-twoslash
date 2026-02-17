@@ -36,7 +36,7 @@ export interface PluginTwoslashOptions {
 	 * Non-standard tags are tags that are not included in the default JSDoc tag list.
 	 *
 	 * @example `@customTag, @docs, @omglookatthis`
-	 * @default false
+	 * @default true
 	 */
 	readonly allowNonStandardJsDocTags?: boolean;
 

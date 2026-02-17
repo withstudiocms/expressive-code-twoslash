@@ -1,10 +1,37 @@
 # `expressive-code-twoslash`
 
-Add Twoslash support to your Expressive Code TypeScript code blocks.
+![!og image](https://cdn.studiocms.dev/twoslash/og.png)
+
+[![NPM Version](https://img.shields.io/npm/v/expressive-code-twoslash)](https://npm.im/expressive-code-twoslash)
+[![Formatted with Biome](https://img.shields.io/badge/Formatted_with-Biome-60a5fa?style=flat&logo=biome)](https://biomejs.dev/)
+
+A Expressive Code plugin that adds Twoslash support to your Expressive Code TypeScript code blocks.
 
 ## Documentation
 
 [Read the full documentation →](https://twoslash.studiocms.dev)
+
+## Currently Supported Languages
+
+| Language | Identifier |
+| -------- | ---------- |
+| TypeScript | `ts` |
+| React TSX | `tsx` |
+| Vue | `vue` |
+
+## Currently Supported Features
+
+| Feature                                                   | Supported Status |
+|-----------------------------------------------------------|------------------|
+| [JSDocs and Type Hover boxes](/getting-started/basic)     | ✅               |
+| [Error Handling/Messages](/usage/banners/errors)          | ✅               |
+| [Type Extraction](/usage/queries/extractions)             | ✅               |
+| [Code Completions](/usage/queries/completions)            | ✅               |
+| [Code Highlighting](/usage/queries/highlights)            | ✅               |
+| [Code Cutting](/usage/code-cutting)                       | ✅               |
+| [Callouts](/usage/banners/callouts)                       | ✅               |
+| [TS Compiler Overrides](/usage/ts-compiler-flags)         | ✅               |
+| [Show Emitted Files](/usage/show-emitted-files)           | ⛔️               |
 
 ### TODO
 - [ ] Make Annotations accessible
@@ -13,7 +40,7 @@ Add Twoslash support to your Expressive Code TypeScript code blocks.
 
 ## Licensing
 
-[MIT Licensed](https://github.com/withstudiocms/expressive-code-twoslash/tree/main/packages/twoslash/LICENSE).
+[MIT Licensed](https://github.com/withstudiocms/expressive-code-twoslash/tree/main/package/LICENSE).
 
 ## Acknowledgements
 

@@ -2,7 +2,7 @@ import { type ExpressiveCodePlugin, definePlugin } from "@expressive-code/core";
 import { ExpressiveCode } from "expressive-code";
 import { type TwoslashInstance, createTwoslasher } from 'twoslash';
 import { createTwoslasher as createTwoslasherVue } from "twoslash-vue";
-import ts, { type CompilerOptions } from "typescript";
+import { ModuleResolutionKind, type CompilerOptions } from "typescript";
 import {
 	TwoslashCompletionAnnotation,
 	TwoslashCustomTagsAnnotation,
@@ -43,33 +43,26 @@ declare module "@expressive-code/core" {
  *
  * @constant
  * @type {CompilerOptions}
- * @property {boolean} strict - Enable all strict type-checking options.
- * @property {ts.ScriptTarget} target - Specify ECMAScript target version.
- * @property {boolean} exactOptionalPropertyTypes - Ensure optional property types are exactly as declared.
- * @property {boolean} downlevelIteration - Provide full support for iterables in ES5/ES3.
- * @property {boolean} skipLibCheck - Skip type checking of declaration files.
- * @property {string[]} lib - List of library files to be included in the compilation.
- * @property {boolean} noEmit - Do not emit outputs.
+ * @default
+ * 
+ * The `moduleResolution` option is set to `ModuleResolutionKind.Bundler` (100) to ensure that module resolution works correctly in various environments, including bundlers and modern JavaScript runtimes.
+ * 
+ * These defaults are chosen to provide a good baseline for most TypeScript code samples, but they can be overridden by passing custom compiler options in the `twoslashOptions` when initializing the plugin.
+ * 
+ * @see https://github.com/shikijs/shiki/blob/213f19bf464423795f20ce51fe73fe7bb5d45e00/packages/twoslash/src/index.ts#L22-L32 for Shiki's default Twoslash compiler options.
+ * 
+ * The `lib` option is our default set of libraries that we include for Twoslash code blocks, which includes the latest ECMAScript features and DOM APIs. This ensures that users can use modern JavaScript and TypeScript features in their code blocks without needing to manually specify these libraries in their compiler options.
  */
 const defaultCompilerOptions: CompilerOptions = {
-	strict: true,
-	target: ts.ScriptTarget.ES2022,
-	exactOptionalPropertyTypes: true,
-	downlevelIteration: true,
-	skipLibCheck: true,
-	lib: ["Bundler", "ES2022", "DOM", "DOM.Iterable"],
-	noEmit: true,
+    moduleResolution: 100 satisfies ModuleResolutionKind.Bundler,
+	lib: ["lib.es2022.d.ts", "lib.dom.d.ts", "lib.dom.iterable.d.ts"],
 };
 
 /**
  * Add Twoslash support to your Expressive Code TypeScript code blocks.
  *
  * @param {PluginTwoslashOptions} options - Configuration options for the plugin.
- * @param {Boolean | RegExp} options.explicitTrigger - Settings for the explicit trigger.
- * @param {String[]} options.languages - The languages to apply this transformer to.
- * @param {Boolean} options.includeJsDoc - If `true`, includes JSDoc comments in the hover popup.
- * @param {PluginTwoslashOptions['twoslashOptions']} options.twoslashOptions - Options to forward to `twoslash`.
- * @see https://twoslash.matthiesen.dev for the full documentation.
+ * @see https://twoslash.studiocms.dev for the full documentation.
  * @returns A plugin object with the specified configuration.
  */
 export default function ecTwoSlash(
@@ -82,17 +75,14 @@ export default function ecTwoSlash(
 		explicitTrigger = true,
 		languages = ["ts", "tsx", "vue"],
 		includeJsDoc = true,
-		allowNonStandardJsDocTags = false,
+		// This setting is important to allow users to use customTag annotations in their codeblocks
+		allowNonStandardJsDocTags = true,
 		twoslashOptions = checkForCustomTagsAndMerge(options.twoslashOptions),
 	} = options;
 
 	const availableTwoSlashers: Record<string, TwoslashInstance> = {
-		'default': createTwoslasher({
-			...twoslashOptions,
-		}),
-		'vue': createTwoslasherVue({
-			...twoslashOptions,
-		}),
+		'default': createTwoslasher(twoslashOptions),
+		'vue': createTwoslasherVue(twoslashOptions),
 	};
 
 	const shouldTransform = buildMetaChecker(languages, explicitTrigger);
