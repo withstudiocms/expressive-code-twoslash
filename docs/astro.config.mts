@@ -10,7 +10,6 @@ export default defineConfig({
 			description:
 				"A plugin for Astro that adds Twoslash support to code blocks.",
 			tagline: "Twoslash support for Expressive Code",
-			favicon: "/favicon.svg",
 			logo: {
 				src: "./src/assets/twoslash.png",
 				alt: "EC Twoslash Logo",
@@ -37,6 +36,59 @@ export default defineConfig({
 						},
 					]
 					: []),
+				{
+					tag: 'link',
+					attrs: {
+						type: 'image/png',
+						rel: 'icon',
+						href: '/favicon-96x96.png',
+						sizes: '96x96',
+					},
+				},
+				{
+					tag: 'link',
+					attrs: {
+						type: 'image/svg+xml',
+						rel: 'icon',
+						href: '/favicon.svg',
+					},
+				},
+				{
+					tag: 'link',
+					attrs: {
+						rel: 'shortcut icon',
+						href: '/favicon.ico',
+					}
+				},
+				{
+					tag: 'link',
+					attrs: {
+						rel: 'apple-touch-icon',
+						href: '/apple-touch-icon.png',
+						sizes: '180x180',
+					}
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'apple-mobile-web-app-title',
+					},
+					content: 'EC Twoslash',
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'theme-color',
+					},
+					content: '#13dcef',
+				},
+				{
+					tag: 'link',
+					attrs: {
+						rel: 'manifest',
+						href: '/site.webmanifest',
+					}
+				}
 			],
 			sidebar: [
 				{
