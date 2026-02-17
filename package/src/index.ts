@@ -46,6 +46,12 @@ declare module "@expressive-code/core" {
  * @default
  * 
  * The `moduleResolution` option is set to `ModuleResolutionKind.Bundler` (100) to ensure that module resolution works correctly in various environments, including bundlers and modern JavaScript runtimes.
+ * 
+ * These defaults are chosen to provide a good baseline for most TypeScript code samples, but they can be overridden by passing custom compiler options in the `twoslashOptions` when initializing the plugin.
+ * 
+ * @see https://github.com/shikijs/shiki/blob/213f19bf464423795f20ce51fe73fe7bb5d45e00/packages/twoslash/src/index.ts#L22-L32 for Shiki's default Twoslash compiler options.
+ * 
+ * The `lib` option is our default set of libraries that we include for Twoslash code blocks, which includes the latest ECMAScript features and DOM APIs. This ensures that users can use modern JavaScript and TypeScript features in their code blocks without needing to manually specify these libraries in their compiler options.
  */
 const defaultCompilerOptions: CompilerOptions = {
     moduleResolution: 100 satisfies ModuleResolutionKind.Bundler,
