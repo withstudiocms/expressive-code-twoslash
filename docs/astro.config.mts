@@ -24,6 +24,7 @@ export default defineConfig({
 					"https://github.com/withstudiocms/express-code-twoslash/edit/main/docs/",
 			},
 			head: [
+				// Analytics Script - Only include in production
 				...(process.env.NODE_ENV === 'production'
 					? [
 						{
@@ -36,6 +37,8 @@ export default defineConfig({
 						},
 					]
 					: []),
+
+				// Favicon Meta Tags
 				{
 					tag: 'link',
 					attrs: {
@@ -88,7 +91,40 @@ export default defineConfig({
 						rel: 'manifest',
 						href: '/site.webmanifest',
 					}
-				}
+				},
+
+				// Open Graph Meta Tags
+				{
+					tag: 'meta',
+					attrs: {
+						property: 'og:image',
+					},
+					content: 'https://twoslash.studiocms.dev/og-image.png',
+				},
+
+				// Twitter Card Meta Tags
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'twitter:title',
+					},
+					content: 'Expressive Code Twoslash',
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'twitter:description',
+					},
+					content:
+						'A plugin for Astro that adds Twoslash support to code blocks.',
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						name: 'twitter:image',
+					},
+					content: 'https://twoslash.studiocms.dev/og-image.png',
+				},
 			],
 			sidebar: [
 				{
