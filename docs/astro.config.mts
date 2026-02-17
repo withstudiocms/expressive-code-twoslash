@@ -3,7 +3,7 @@ import starlight from "@astrojs/starlight";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://twoslash.matthiesen.dev",
+	site: "https://twoslash.studiocms.dev",
 	integrations: [
 		starlight({
 			title: "Expressive Code Twoslash",
@@ -18,12 +18,26 @@ export default defineConfig({
 			credits: true,
 			social: {
 				github:
-					"https://github.com/MatthiesenXYZ/EC-Plugins/tree/main/packages/twoslash",
+					"https://github.com/withstudiocms/express-code-twoslash/",
 			},
 			editLink: {
 				baseUrl:
-					"https://github.com/MatthiesenXYZ/EC-Plugins/edit/main/docs/twoslash/",
+					"https://github.com/withstudiocms/express-code-twoslash/edit/main/docs/",
 			},
+			head: [
+				...(process.env.NODE_ENV === 'production'
+					? [
+						{
+							tag: 'script' as const,
+							attrs: {
+								src: 'https://analytics.studiocms.cloud/script.js',
+								'data-website-id': 'c6b56a8f-f4d1-4a52-b318-93c9cb442c9c',
+								defer: true,
+							},
+						},
+					]
+					: []),
+			],
 			sidebar: [
 				{
 					label: "Getting Started",
