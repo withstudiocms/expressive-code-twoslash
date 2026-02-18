@@ -1,6 +1,7 @@
 {
 	"editor.defaultFormatter": "biomejs.biome",
 	"cSpell.words": [
+		"astrojs",
 		"describedby",
 		"ectwoslash",
 		"esbuild",
@@ -9,6 +10,7 @@
 		"MDAST",
 		"noline",
 		"omglookatthis",
+		"rehype",
 		"shiki",
 		"studiocms",
 		"twocustom",
