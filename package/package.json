@@ -35,10 +35,10 @@
 		"dist"
 	],
 	"scripts": {
-		"build-module": "node ./scripts/minify.ts ./src/module-code/popup.ts",
+		"update-js-module": "node ./scripts/minify.ts ./js-modules/popup.ts ./src/module-code/popup.min.ts",
 		"compile": "tsdown --config ./tsdown.config.ts",
-		"build": "pnpm build-module && pnpm compile",
-		"dev": "pnpm build-module && tsdown --config ./tsdown.config.ts --watch --no-clean"
+		"build": "pnpm compile",
+		"dev": "tsdown --config ./tsdown.config.ts --watch --no-clean"
 	},
 	"type": "module",
 	"dependencies": {
