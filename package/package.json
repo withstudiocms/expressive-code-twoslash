@@ -35,7 +35,7 @@
 		"dist"
 	],
 	"scripts": {
-		"build-module": "node ./scripts/minify.ts",
+		"build-module": "node ./scripts/minify.ts ./src/module-code/popup.ts",
 		"compile": "tsdown --config ./tsdown.config.ts",
 		"build": "pnpm build-module && pnpm compile",
 		"dev": "pnpm build-module && tsdown --config ./tsdown.config.ts --watch --no-clean"

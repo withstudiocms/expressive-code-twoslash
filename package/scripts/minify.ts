@@ -1,6 +1,13 @@
 import { writeFileSync } from "node:fs";
 import { build } from "tsdown";
 
+// Get file parameter from command line arguments
+const filePath = process.argv[2];
+const filePathWithoutExt = filePath.endsWith(".ts") ? filePath.slice(0, -3) : filePath;
+
+const sourceFileWithoutPath = filePath.split("/").pop() || filePath;
+console.log(`Processing file: ${sourceFileWithoutPath}`);
+
 // Generate markdown output
 const output: string[] = [];
 
@@ -9,7 +16,7 @@ output.push(
 	"/*",
 	"	GENERATED FILE - DO NOT EDIT",
 	"	----------------------------",
-	'	This JS module code was built from the source file "popup.ts".',
+	`	This JS module code was built from the source file "${sourceFileWithoutPath}".`,
 	"	To change it, modify the source file and then re-run the build script.",
 	"*/",
 	"",
@@ -17,7 +24,7 @@ output.push(
 
 // Build the minified code using tsdown
 const buildResult = await build({
-	entry: "./src/module-code/popup.ts",
+	entry: filePath,
 	format: "esm",
 	dts: false,
 	minify: true,
@@ -49,6 +56,7 @@ if (!result) {
 output.push(`export default '${result}';`);
 
 // Write output to file
-writeFileSync("./src/module-code/popup.min.ts", output.join("\n"));
+const outputPath = `${filePathWithoutExt}.min.ts`;
+writeFileSync(outputPath, output.join("\n"));
 
-console.log("Minified code written to ./src/module-code/popup.min.ts");
+console.log(`Minified code written to ${outputPath}`);
