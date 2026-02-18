@@ -25,7 +25,8 @@
 		"ci:install": "pnpm install --frozen-lockfile",
 		"ci:version": "changeset version",
 		"ci:publish": "changeset publish",
-		"ci:build": "pnpm build"
+		"ci:build": "pnpm build",
+		"ci:lint": "pnpm lint"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.14",
