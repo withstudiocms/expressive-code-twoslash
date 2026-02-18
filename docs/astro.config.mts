@@ -1,5 +1,5 @@
-import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -8,127 +8,145 @@ export default defineConfig({
 		starlight({
 			title: "Expressive Code Twoslash",
 			description:
-				"A plugin for Astro that adds Twoslash support to code blocks.",
-			tagline: "Twoslash support for Expressive Code",
+				"A Expressive Code plugin that adds Twoslash support to your Expressive Code TypeScript code blocks.",
+			tagline: "A Expressive Code plugin that adds Twoslash support to your Expressive Code TypeScript code blocks.",
 			logo: {
 				src: "./src/assets/twoslash.png",
 				alt: "EC Twoslash Logo",
 			},
 			credits: true,
-			social: {
-				github:
-					"https://github.com/withstudiocms/express-code-twoslash/",
-				discord: "https://chat.studiocms.dev",
-				"x.com": "https://x.com/withstudiocms",
-				blueSky: "https://bsky.app/profile/studiocms.dev",
-				openCollective:
-					"https://opencollective.com/studiocms",
-			},
+			social: [
+				{
+					label: "GitHub",
+					href: "https://github.com/withstudiocms/express-code-twoslash/",
+					icon: "github",
+				},
+				{
+					label: "Discord",
+					href: "https://chat.studiocms.dev",
+					icon: "discord",
+				},
+				{
+					label: "X",
+					href: "https://x.com/withstudiocms",
+					icon: "x.com",
+				},
+				{
+					label: "BlueSky",
+					href: "https://bsky.app/profile/studiocms.dev",
+					icon: "blueSky",
+				},
+				{
+					label: "Open Collective",
+					href: "https://opencollective.com/studiocms",
+					icon: "openCollective",
+				},
+			],
 			editLink: {
 				baseUrl:
 					"https://github.com/withstudiocms/express-code-twoslash/edit/main/docs/",
 			},
 			head: [
 				// Analytics Script - Only include in production
-				...(process.env.NODE_ENV === 'production'
+				...(process.env.NODE_ENV === "production"
 					? [
-						{
-							tag: 'script' as const,
-							attrs: {
-								src: 'https://analytics.studiocms.cloud/script.js',
-								'data-website-id': 'c6b56a8f-f4d1-4a52-b318-93c9cb442c9c',
-								defer: true,
+							{
+								tag: "script" as const,
+								attrs: {
+									src: "https://analytics.studiocms.cloud/script.js",
+									"data-website-id": "c6b56a8f-f4d1-4a52-b318-93c9cb442c9c",
+									defer: true,
+								},
 							},
-						},
-					]
+						]
 					: []),
 
 				// Favicon Meta Tags
 				{
-					tag: 'link',
+					tag: "link",
 					attrs: {
-						type: 'image/png',
-						rel: 'icon',
-						href: '/favicon-96x96.png',
-						sizes: '96x96',
+						type: "image/png",
+						rel: "icon",
+						href: "/favicon-96x96.png",
+						sizes: "96x96",
 					},
 				},
 				{
-					tag: 'link',
+					tag: "link",
 					attrs: {
-						type: 'image/svg+xml',
-						rel: 'icon',
-						href: '/favicon.svg',
+						type: "image/svg+xml",
+						rel: "icon",
+						href: "/favicon.svg",
 					},
 				},
 				{
-					tag: 'link',
+					tag: "link",
 					attrs: {
-						rel: 'shortcut icon',
-						href: '/favicon.ico',
-					}
-				},
-				{
-					tag: 'link',
-					attrs: {
-						rel: 'apple-touch-icon',
-						href: '/apple-touch-icon.png',
-						sizes: '180x180',
-					}
-				},
-				{
-					tag: 'meta',
-					attrs: {
-						name: 'apple-mobile-web-app-title',
+						rel: "shortcut icon",
+						href: "/favicon.ico",
 					},
-					content: 'EC Twoslash',
 				},
 				{
-					tag: 'meta',
+					tag: "link",
 					attrs: {
-						name: 'theme-color',
+						rel: "apple-touch-icon",
+						href: "/apple-touch-icon.png",
+						sizes: "180x180",
 					},
-					content: '#13dcef',
 				},
 				{
-					tag: 'link',
+					tag: "meta",
 					attrs: {
-						rel: 'manifest',
-						href: '/site.webmanifest',
-					}
+						name: "apple-mobile-web-app-title",
+						content: "EC Twoslash",
+					},
+				},
+				{
+					tag: "meta",
+					attrs: {
+						name: "theme-color",
+						content: "#13dcef",
+					},
+				},
+				{
+					tag: "link",
+					attrs: {
+						rel: "manifest",
+						href: "/site.webmanifest",
+					},
 				},
 
 				// Open Graph Meta Tags
 				{
-					tag: 'meta',
+					tag: "meta",
 					attrs: {
-						property: 'og:image',
+						property: "og:image",
+						content: "https://twoslash.studiocms.dev/og-image.png",
 					},
-					content: 'https://twoslash.studiocms.dev/og-image.png',
 				},
 
 				// Twitter Card Meta Tags
 				{
-					tag: 'meta',
+					tag: "meta",
 					attrs: {
-						name: 'twitter:title',
+						name: "twitter:title",
+						content: "Expressive Code Twoslash",
 					},
-					content: 'Expressive Code Twoslash',
 				},
 				{
-					tag: 'meta',
+					tag: "meta",
 					attrs: {
-						name: 'twitter:description',
+						name: "twitter:description",
+						content:
+						"A plugin for Astro that adds Twoslash support to code blocks.",
 					},
-					content:
-						'A plugin for Astro that adds Twoslash support to code blocks.',
 				},
 				{
-					tag: 'meta',
+					tag: "meta",
 					attrs: {
-						name: 'twitter:image',
+						name: "twitter:image",
+						content: "https://twoslash.studiocms.dev/og-image.png",
 					},
-					content: 'https://twoslash.studiocms.dev/og-image.png',
 				},
 			],
 			sidebar: [

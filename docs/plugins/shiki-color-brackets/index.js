@@ -101,7 +101,7 @@ function splitBracketTokens(rawToken, config, lang) {
 			.join("|"),
 	);
 
-	let tokens = [rawToken];
+	const tokens = [rawToken];
 	// eslint-disable-next-line no-constant-condition
 	while (true) {
 		const token = tokens.pop();

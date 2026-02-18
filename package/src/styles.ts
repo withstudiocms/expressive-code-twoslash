@@ -1,8 +1,8 @@
 import {
+	lighten,
 	PluginStyleSettings,
 	type ResolverContext,
 	type StyleResolverFn,
-	lighten,
 	toHexColor,
 } from "@expressive-code/core";
 import type { TwoSlashStyleSettings } from "./types";

@@ -1,8 +1,8 @@
-import { type ExpressiveCodePlugin, definePlugin } from "@expressive-code/core";
+import { definePlugin, type ExpressiveCodePlugin } from "@expressive-code/core";
 import { ExpressiveCode } from "expressive-code";
-import { type TwoslashInstance, createTwoslasher } from 'twoslash';
+import { createTwoslasher, type TwoslashInstance } from 'twoslash';
 import { createTwoslasher as createTwoslasherVue } from "twoslash-vue";
-import { ModuleResolutionKind, type CompilerOptions } from "typescript";
+import { type CompilerOptions, ModuleResolutionKind } from "typescript";
 import {
 	TwoslashCompletionAnnotation,
 	TwoslashCustomTagsAnnotation,
@@ -13,7 +13,6 @@ import {
 	TwoslashStaticAnnotation,
 } from "./annotations";
 import {
-	TwoslashIncludesManager,
 	buildMetaChecker,
 	checkForCustomTagsAndMerge,
 	compareNodes,
@@ -23,6 +22,7 @@ import {
 	processTwoslashCodeBlock,
 	renderJSDocs,
 	renderType,
+	TwoslashIncludesManager,
 } from "./helpers";
 import floatingUiCore from "./module-code/floating-ui-core.min";
 import floatingUiDom from "./module-code/floating-ui-dom.min";

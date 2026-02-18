@@ -147,19 +147,26 @@ Default config options shown.
 ```ts twoslash
 import { defineEcConfig } from 'astro-expressive-code'
 import ecTwoSlash from "expressive-code-twoslash";
+import ts from "typescript";
 
 export default defineEcConfig({
   plugins: [
 // ---cut-before---            
 ecTwoSlash({
-    explicitTrigger: true,
-    includeJsDoc: true,
-    allowNonStandardJsDocTags: false,
-    languages: ["ts", "tsx", "vue"],
-    twoslashOptions: {},
+  explicitTrigger: true,
+  languages: ["ts", "tsx", "vue"],
+  includeJsDoc: true,
+// @annotate: allowNonStandardJsDocTags is required for like this to work
+	allowNonStandardJsDocTags: true,
+  twoslashOptions: {
+    compilerOptions: {
+      moduleResolution: 100 satisfies ts.ModuleResolutionKind.Bundler,
+      lib: ["lib.es2022.d.ts", "lib.dom.d.ts", "lib.dom.iterable.d.ts"],
+    }
+  },
 })
 // ---cut-after---
-  ],
+],
 });
 ```
 
