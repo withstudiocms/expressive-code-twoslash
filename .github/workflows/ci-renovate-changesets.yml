@@ -1,0 +1,22 @@
+name: CI - Bot Changesets
+
+on:
+  pull_request:
+
+permissions: {}
+
+env:
+  FORCE_COLOR: true
+  # 7 GiB by default on GitHub, setting to 6 GiB
+  # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+  NODE_OPTIONS: --max-old-space-size=6144
+
+jobs:
+  renovate:
+    name: Update Renovate PR
+    if: contains(github.event.pull_request.labels.*.name, 'dependencies')
+    permissions:
+      contents: write
+      pull-requests: write
+    secrets: inherit
+    uses: withstudiocms/automations/.github/workflows/renovate-changeset.yml@f286863f2f7a414794b9a10ee6f1cadbb07f722f # main

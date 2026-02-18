@@ -10,19 +10,22 @@
 	],
 	"scripts": {
 		"changeset": "changeset",
+		"changeset:status": "changeset status --since=origin/main",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
 
-		"dev": "TODO",
-		"build": "TODO",
-
-		"playground:dev": "pnpm --filter playground dev",
-		"twoslash:build": "pnpm --filter expressive-code-twoslash build",
+		"docs:build": "pnpm --filter docs-twoslash build",
 		"docs:dev": "pnpm --filter docs-twoslash dev",
+
+		"twoslash:build": "pnpm --filter expressive-code-twoslash build",
+
+		"dev": "pnpm --filter playground --filter expressive-code-twoslash -r --parallel dev",
+		"build": "pnpm twoslash:build",
 
 		"ci:install": "pnpm install --frozen-lockfile",
 		"ci:version": "changeset version",
-		"ci:publish": "changeset publish"
+		"ci:publish": "changeset publish",
+		"ci:build": "pnpm build"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.14",

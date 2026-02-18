@@ -1,9 +1,18 @@
 <!-- Thank you for opening a PR! We really appreciate you taking the time to help out 🙌 -->
 
-#### Description
+## Description
 
 - Closes # <!-- If applicable add an issue number to this PR so it can be closed otherwise feel free to remove this. -->
-- What does this PR change? Give us a brief description.
+- What does this PR change?
+- Be short and concise. Bullet points can help!
+- Before/after screenshots can help as well.
+- Don't forget a changeset! Run `pnpm changeset`.
+
+<!-- NOTE: If you make changes to a package and do not include a changeset, your PR might be closed. -->
+
+## Docs
+
+<!-- Could this affect a user’s behavior? We probably need to update docs! -->
 
 <!--
 Here’s what will happen next:
