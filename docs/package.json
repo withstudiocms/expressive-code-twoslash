@@ -9,7 +9,7 @@
 		"build": "pnpm make-changelog && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"make-changelog": "tsm --require=../scripts/filter-warnings.cjs ./scripts/changelog.ts"
+		"make-changelog": "node ./scripts/changelog.ts"
 	},
 	"dependencies": {
 		"@astrojs/starlight": "catalog:",

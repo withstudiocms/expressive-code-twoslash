@@ -29,8 +29,7 @@
 		"@changesets/cli": "^2.29.8",
 		"@changesets/config": "^3.1.2",
 		"@changesets/changelog-github": "^0.5.2",
-		"tsm": "^2.3.0",
-		"tsup": "^8.3.5",
+		"tsdown": "^0.20.3",
 		"@types/node": "catalog:",
 		"pkg-pr-new": "^0.0.63"
 	}

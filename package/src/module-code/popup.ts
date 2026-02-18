@@ -3,25 +3,32 @@
 // It also uses the MutationObserver to update the popups when the page changes
 // It also listens for the astro:page-load event to update the popups when the page is loaded
 
-function setupTooltip(ToolTip, isMobileScreen) {
+function setupTooltip(ToolTip: Element, isMobileScreen: boolean) {
 	const hoverAnnotation = ToolTip.querySelector(".twoslash-popup-container");
-	const expressiveCodeBlock = hoverAnnotation.closest(".expressive-code");
+	const expressiveCodeBlock = hoverAnnotation?.closest(".expressive-code");
 
 	// Ensure each tooltip has a unique ID for `aria-describedby`
 	const randomId = `twoslash_popup_${[Math.random(), Date.now()].map((n) => n.toString(36).substring(2, 10)).join("_")}`;
 
 	// Set role and tabindex for accessibility
-	hoverAnnotation.setAttribute("role", "tooltip");
-	hoverAnnotation.setAttribute("tabindex", "-1");
+	hoverAnnotation?.setAttribute("role", "tooltip");
+	hoverAnnotation?.setAttribute("tabindex", "-1");
 
 	if (hoverAnnotation?.parentNode) {
 		hoverAnnotation.parentNode.removeChild(hoverAnnotation);
 	}
 
+	// @ts-expect-error - We know this import works, but TypeScript may not be able to infer the types correctly from the minified module
+	const floatingUiDom = FloatingUIDOM as any; // Type assertion to avoid TypeScript errors with the imported module
+
 	// Helper function to update tooltip position
 	function updatePosition() {
+		if (!hoverAnnotation || hoverAnnotation === null) {
+			console.warn("Twoslash popup container not found for tooltip:", ToolTip);
+			return;
+		}
 		// Ensure `hoverAnnotation` remains attached to the expressiveCodeBlock for each tooltip
-		expressiveCodeBlock.appendChild(hoverAnnotation);
+		expressiveCodeBlock?.appendChild(hoverAnnotation);
 
 		new Promise((resolve) =>
 			requestAnimationFrame(() => {
@@ -29,12 +36,12 @@ function setupTooltip(ToolTip, isMobileScreen) {
 			}),
 		)
 			.then(() =>
-				FloatingUIDOM.computePosition(ToolTip, hoverAnnotation, {
+				floatingUiDom.computePosition(ToolTip, hoverAnnotation, {
 					placement: isMobileScreen ? "bottom" : "bottom-start",
 					middleware: [
-						FloatingUIDOM.size({
-							apply({ availableWidth }) {
-								Object.assign(hoverAnnotation.style, {
+						floatingUiDom.size({
+							apply({ availableWidth }: { availableWidth: number }) {
+								Object.assign((hoverAnnotation as HTMLElement).style, {
 									maxWidth: `${Math.max(300, availableWidth)}px`,
 									maxHeight: "100%",
 								});
@@ -44,7 +51,7 @@ function setupTooltip(ToolTip, isMobileScreen) {
 				}),
 			)
 			.then(({ x, y }) => {
-				Object.assign(hoverAnnotation.style, {
+				Object.assign((hoverAnnotation as HTMLElement).style, {
 					display: "block",
 					left: `${isMobileScreen ? 20 : x}px`,
 					top: `${y}px`,
@@ -53,29 +60,31 @@ function setupTooltip(ToolTip, isMobileScreen) {
 	}
 
 	let isMouseOverTooltip = false;
-	let hideTimeout;
+	let hideTimeout: ReturnType<typeof setTimeout>;
 	const TimeoutDelay = 100; // ms
 
 	// Show tooltip
 	function showTooltip() {
 		clearTimeout(hideTimeout);
 		updatePosition();
-		hoverAnnotation.setAttribute("aria-hidden", "false");
+		hoverAnnotation?.setAttribute("aria-hidden", "false");
 		ToolTip.querySelector(".twoslash-hover span")?.setAttribute(
 			"aria-describedby",
 			randomId,
 		);
-		hoverAnnotation.setAttribute("id", randomId);
+		hoverAnnotation?.setAttribute("id", randomId);
 	}
 
 	// Hide tooltip
 	function hideTooltip() {
-		hoverAnnotation.setAttribute("aria-hidden", "true");
+		hoverAnnotation?.setAttribute("aria-hidden", "true");
 		ToolTip.querySelector(".twoslash-hover span")?.removeAttribute(
 			"aria-describedby",
 		);
-		hoverAnnotation.removeAttribute("id");
-		hoverAnnotation.style.display = "none"; // Hide instead of removing from DOM
+		hoverAnnotation?.removeAttribute("id");
+		if (hoverAnnotation) {
+			(hoverAnnotation as HTMLElement).style.display = "none"; // Hide instead of removing from DOM
+		}
 	}
 
 	// Event listeners for both mouse and keyboard accessibility
@@ -86,12 +95,12 @@ function setupTooltip(ToolTip, isMobileScreen) {
 		}, TimeoutDelay);
 	});
 
-	hoverAnnotation.addEventListener("mouseenter", () => {
+	hoverAnnotation?.addEventListener("mouseenter", () => {
 		clearTimeout(hideTimeout);
 		isMouseOverTooltip = true;
 	});
 
-	hoverAnnotation.addEventListener("mouseleave", () => {
+	hoverAnnotation?.addEventListener("mouseleave", () => {
 		isMouseOverTooltip = false;
 		hideTimeout = setTimeout(() => {
 			if (!ToolTip.matches(":hover")) hideTooltip();
@@ -107,7 +116,7 @@ function setupTooltip(ToolTip, isMobileScreen) {
 
 const isMobileScreen = window.matchMedia("(max-width: 500px)").matches;
 
-function initTwoslashPopups(container) {
+function initTwoslashPopups(container: HTMLElement | Document) {
 	container.querySelectorAll?.(".twoslash-hover").forEach((el) => {
 		setupTooltip(el, isMobileScreen);
 	});
@@ -118,7 +127,7 @@ initTwoslashPopups(document);
 const newTwoslashPopupObserver = new MutationObserver((mutations) =>
 	mutations.forEach((mutation) =>
 		mutation.addedNodes.forEach((node) => {
-			initTwoslashPopups(node);
+			initTwoslashPopups(node as HTMLElement);
 		}),
 	),
 );

@@ -1,7 +1,7 @@
 import type { List, Root } from "mdast";
 import { toMarkdown } from "mdast-util-to-markdown";
-import { loadChangelog, semverCategories } from "./lib/changelogs";
-import { writeFileLines } from "./lib/utils";
+import { loadChangelog, semverCategories } from "./lib/changelogs.ts";
+import { writeFileLines } from "./lib/utils.ts";
 
 const changelog = loadChangelog("../package/CHANGELOG.md");
 
@@ -65,3 +65,6 @@ output.push(toMarkdown(ast, { bullet: "-" }));
 
 // Write output to file
 writeFileLines("./src/content/docs/getting-started/changelog.md", output);
+
+// Report changelog generation success
+console.log("Changelog generated successfully.");
