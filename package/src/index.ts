@@ -1,8 +1,8 @@
 import { definePlugin, type ExpressiveCodePlugin } from "@expressive-code/core";
 import { ExpressiveCode } from "expressive-code";
-import { createTwoslasher, type TwoslashInstance } from 'twoslash';
+import { createTwoslasher, type TwoslashInstance } from "twoslash";
 import { createTwoslasher as createTwoslasherVue } from "twoslash-vue";
-import { type CompilerOptions, ModuleResolutionKind } from "typescript";
+import type { CompilerOptions, ModuleResolutionKind } from "typescript";
 import {
 	TwoslashCompletionAnnotation,
 	TwoslashCustomTagsAnnotation,
@@ -44,17 +44,17 @@ declare module "@expressive-code/core" {
  * @constant
  * @type {CompilerOptions}
  * @default
- * 
+ *
  * The `moduleResolution` option is set to `ModuleResolutionKind.Bundler` (100) to ensure that module resolution works correctly in various environments, including bundlers and modern JavaScript runtimes.
- * 
+ *
  * These defaults are chosen to provide a good baseline for most TypeScript code samples, but they can be overridden by passing custom compiler options in the `twoslashOptions` when initializing the plugin.
- * 
+ *
  * @see https://github.com/shikijs/shiki/blob/213f19bf464423795f20ce51fe73fe7bb5d45e00/packages/twoslash/src/index.ts#L22-L32 for Shiki's default Twoslash compiler options.
- * 
+ *
  * The `lib` option is our default set of libraries that we include for Twoslash code blocks, which includes the latest ECMAScript features and DOM APIs. This ensures that users can use modern JavaScript and TypeScript features in their code blocks without needing to manually specify these libraries in their compiler options.
  */
 const defaultCompilerOptions: CompilerOptions = {
-    moduleResolution: 100 satisfies ModuleResolutionKind.Bundler,
+	moduleResolution: 100 satisfies ModuleResolutionKind.Bundler,
 	lib: ["lib.es2022.d.ts", "lib.dom.d.ts", "lib.dom.iterable.d.ts"],
 };
 
@@ -65,9 +65,7 @@ const defaultCompilerOptions: CompilerOptions = {
  * @see https://twoslash.studiocms.dev for the full documentation.
  * @returns A plugin object with the specified configuration.
  */
-export default function ecTwoSlash(
-	options: PluginTwoslashOptions = {},
-): ExpressiveCodePlugin {
+export default function ecTwoSlash(options: PluginTwoslashOptions = {}): ExpressiveCodePlugin {
 	/**
 	 * Destructure the options object to extract configuration settings.
 	 */
@@ -81,8 +79,8 @@ export default function ecTwoSlash(
 	} = options;
 
 	const availableTwoSlashers: Record<string, TwoslashInstance> = {
-		'default': createTwoslasher(twoslashOptions),
-		'vue': createTwoslasherVue(twoslashOptions),
+		default: createTwoslasher(twoslashOptions),
+		vue: createTwoslasherVue(twoslashOptions),
 	};
 
 	const shouldTransform = buildMetaChecker(languages, explicitTrigger);
@@ -113,7 +111,8 @@ export default function ecTwoSlash(
 					if (include) includes.add(include, codeWithIncludes);
 
 					// Select the appropriate twoslasher based on language
-					const selectedTwoslasher = availableTwoSlashers[codeBlock.language] ?? availableTwoSlashers.default;
+					const selectedTwoslasher =
+						availableTwoSlashers[codeBlock.language] ?? availableTwoSlashers.default;
 
 					// Twoslash the code block
 					const twoslash = selectedTwoslasher(codeWithIncludes, codeBlock.language, {
@@ -152,12 +151,7 @@ export default function ecTwoSlash(
 									node,
 									line,
 									await renderType(node.text, ecEngine),
-									await renderJSDocs(
-										node,
-										includeJsDoc,
-										ecEngine,
-										allowNonStandardJsDocTags,
-									),
+									await renderJSDocs(node, includeJsDoc, ecEngine, allowNonStandardJsDocTags),
 								),
 							);
 						}
@@ -200,12 +194,7 @@ export default function ecTwoSlash(
 								new TwoslashHoverAnnotation(
 									node,
 									await renderType(node.text, ecEngine),
-									await renderJSDocs(
-										node,
-										includeJsDoc,
-										ecEngine,
-										allowNonStandardJsDocTags,
-									),
+									await renderJSDocs(node, includeJsDoc, ecEngine, allowNonStandardJsDocTags),
 								),
 							);
 						}
@@ -231,8 +220,7 @@ export default function ecTwoSlash(
 										processed.startCharacter >= columnStart &&
 										processed.startCharacter <= columnEnd
 									) {
-										annotation.inlineRange.columnStart =
-											processed.startCharacter;
+										annotation.inlineRange.columnStart = processed.startCharacter;
 									}
 								}
 
@@ -244,9 +232,7 @@ export default function ecTwoSlash(
 								}
 							}
 
-							line.addAnnotation(
-								new TwoslashCompletionAnnotation(processed, node, line),
-							);
+							line.addAnnotation(new TwoslashCompletionAnnotation(processed, node, line));
 						}
 					}
 

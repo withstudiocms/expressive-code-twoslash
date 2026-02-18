@@ -14,9 +14,7 @@ export function readFileLines(filePath: string) {
 }
 
 export function writeFileLines(filePath: string, lines: string | string[]) {
-	const normalizedLines = splitLines(
-		Array.isArray(lines) ? lines.join("\n") : lines,
-	);
+	const normalizedLines = splitLines(Array.isArray(lines) ? lines.join("\n") : lines);
 	fs.writeFileSync(filePath, normalizedLines.join(EOL));
 }
 

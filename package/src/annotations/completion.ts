@@ -58,9 +58,7 @@ export class TwoslashCompletionAnnotation extends ExpressiveCodeAnnotation {
 									{
 										class: `
 										${
-											item.isDeprecated
-												? "twoslash-completion-item-deprecated"
-												: ""
+											item.isDeprecated ? "twoslash-completion-item-deprecated" : ""
 										} ${index === 0 ? "" : "twoslash-completion-item-separator"}`,
 									},
 									[
@@ -79,9 +77,7 @@ export class TwoslashCompletionAnnotation extends ExpressiveCodeAnnotation {
 											]),
 											h("span.twoslash-completion-name-unmatched", [
 												item.name.startsWith(this.query.completionsPrefix)
-													? item.name.slice(
-															this.query.completionsPrefix.length || 0,
-														)
+													? item.name.slice(this.query.completionsPrefix.length || 0)
 													: item.name,
 											]),
 										]),

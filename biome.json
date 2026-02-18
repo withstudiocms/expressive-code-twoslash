@@ -6,19 +6,20 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": ["**", "!**/module-code/*.js"]
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
-		"includes": ["!**/module-code/*.js"]
+		"lineWidth": 100,
+		"lineEnding": "lf"
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
 			"recommended": true
-		},
-		"includes": ["!**/module-code/*.js"]
+		}
 	},
 	"javascript": {
 		"formatter": {

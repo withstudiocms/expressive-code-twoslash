@@ -44,9 +44,7 @@ export class TwoslashCustomTagsAnnotation extends ExpressiveCodeAnnotation {
 						class: customTagClass,
 					},
 					[
-						h("span.twoslash-custom-box-icon", [
-							customTagsIcons[tag.name as CustomTagsIcon],
-						]),
+						h("span.twoslash-custom-box-icon", [customTagsIcons[tag.name as CustomTagsIcon]]),
 						h("span.twoslash-custom-box-content", [
 							h("span.twoslash-custom-box-content-title", [
 								`${getCustomTagString(tag.name as TwoslashTag)}:`,

@@ -1,7 +1,4 @@
-import {
-	type AnnotationRenderOptions,
-	ExpressiveCodeAnnotation,
-} from "@expressive-code/core";
+import { type AnnotationRenderOptions, ExpressiveCodeAnnotation } from "@expressive-code/core";
 import { type Element, h, type Root } from "@expressive-code/core/hast";
 import type { NodeHover } from "twoslash";
 import type { RenderJSDocs } from "../types";
@@ -43,9 +40,7 @@ export class TwoslashHoverAnnotation extends ExpressiveCodeAnnotation {
 							"div.twoslash-popup-container.not-content",
 
 							[
-								h("code.twoslash-popup-code", [
-									h("span.twoslash-popup-code-type", this.codeType),
-								]),
+								h("code.twoslash-popup-code", [h("span.twoslash-popup-code-type", this.codeType)]),
 								this.renderedDocs.docs,
 								this.renderedDocs.tags,
 							],

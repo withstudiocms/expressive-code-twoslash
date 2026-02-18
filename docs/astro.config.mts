@@ -9,7 +9,8 @@ export default defineConfig({
 			title: "Expressive Code Twoslash",
 			description:
 				"A Expressive Code plugin that adds Twoslash support to your Expressive Code TypeScript code blocks.",
-			tagline: "A Expressive Code plugin that adds Twoslash support to your Expressive Code TypeScript code blocks.",
+			tagline:
+				"A Expressive Code plugin that adds Twoslash support to your Expressive Code TypeScript code blocks.",
 			logo: {
 				src: "./src/assets/twoslash.png",
 				alt: "EC Twoslash Logo",
@@ -43,8 +44,7 @@ export default defineConfig({
 				},
 			],
 			editLink: {
-				baseUrl:
-					"https://github.com/withstudiocms/express-code-twoslash/edit/main/docs/",
+				baseUrl: "https://github.com/withstudiocms/express-code-twoslash/edit/main/docs/",
 			},
 			head: [
 				// Analytics Script - Only include in production
@@ -137,8 +137,7 @@ export default defineConfig({
 					tag: "meta",
 					attrs: {
 						name: "twitter:description",
-						content:
-						"A plugin for Astro that adds Twoslash support to code blocks.",
+						content: "A plugin for Astro that adds Twoslash support to code blocks.",
 					},
 				},
 				{

@@ -5,7 +5,6 @@ import {
 	type StyleResolverFn,
 	toHexColor,
 } from "@expressive-code/core";
-import type { TwoSlashStyleSettings } from "./types";
 
 /**
  * Represents the style settings for the TwoSlash plugin.
@@ -16,10 +15,7 @@ export const twoSlashStyleSettings = new PluginStyleSettings({
 			// Main styles
 			borderColor: ({ theme }) =>
 				theme.colors["titleBar.border"] ||
-				lighten(
-					theme.colors["editor.background"],
-					theme.type === "dark" ? 0.5 : -0.15,
-				) ||
+				lighten(theme.colors["editor.background"], theme.type === "dark" ? 0.5 : -0.15) ||
 				"transparent",
 			background: ({ theme }) => theme.colors["editor.background"] || theme.bg,
 			hoverUnderlineColor: ({ theme }) => theme.fg || "#888",
@@ -29,8 +25,7 @@ export const twoSlashStyleSettings = new PluginStyleSettings({
 
 			// Link styles
 			linkColor: ({ theme }) => theme.colors["terminal.ansiBrightBlue"],
-			linkColorVisited: ({ theme }) =>
-				theme.colors["terminal.ansiBrightMagenta"],
+			linkColorVisited: ({ theme }) => theme.colors["terminal.ansiBrightMagenta"],
 			linkColorHover: ({ theme }) => theme.colors["terminal.ansiBrightCyan"],
 			linkColorActive: ({ theme }) => theme.colors["terminal.ansiBrightGreen"],
 
@@ -59,10 +54,7 @@ export const twoSlashStyleSettings = new PluginStyleSettings({
 			completionBoxBorder: ({ theme }) =>
 				theme.colors["editorSuggestWidget.border"] ||
 				theme.colors["titleBar.border"] ||
-				lighten(
-					theme.colors["editor.background"],
-					theme.type === "dark" ? 0.5 : -0.15,
-				) ||
+				lighten(theme.colors["editor.background"], theme.type === "dark" ? 0.5 : -0.15) ||
 				"transparent",
 			completionBoxColor: ({ theme }) =>
 				theme.colors["editorSuggestWidget.foreground"] ||
@@ -705,9 +697,10 @@ export function getTwoSlashBaseStyles({ cssVar }: ResolverContext): string {
  * @param {Function} params.resolveSetting - A function to resolve the setting values.
  * @returns {Object} An object containing the resolved background and border styles.
  */
-function resolveHighlight({
-	resolveSetting: r,
-}: Parameters<StyleResolverFn>[0]): { background: string; border: string } {
+function resolveHighlight({ resolveSetting: r }: Parameters<StyleResolverFn>[0]): {
+	background: string;
+	border: string;
+} {
 	return {
 		background: toHexColor(
 			`lch(${r("twoSlash.highlightDefaultLuminance")} ${r("twoSlash.highlightDefaultChroma")} ${r("twoSlash.highlightHue")} / ${r("twoSlash.highlightBackgroundOpacity")})`,

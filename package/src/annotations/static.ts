@@ -54,9 +54,7 @@ export class TwoslashStaticAnnotation extends ExpressiveCodeAnnotation {
 					},
 					[
 						h("div.twoslash-static-container.not-content", [
-							h("code.twoslash-popup-code", [
-								h("span.twoslash-popup-code-type", this.codeType),
-							]),
+							h("code.twoslash-popup-code", [h("span.twoslash-popup-code-type", this.codeType)]),
 							this.renderedDocs.docs,
 							this.renderedDocs.tags,
 						]),

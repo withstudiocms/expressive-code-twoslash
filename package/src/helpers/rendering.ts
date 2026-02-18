@@ -27,10 +27,7 @@ import {
  * @param ec - An instance of ExpressiveCode used to render the code blocks.
  * @returns A promise that resolves to an array of HAST nodes representing the processed markdown content.
  */
-export async function renderMarkdownWithCodeBlocks(
-	md: string,
-	ec: ExpressiveCode,
-) {
+export async function renderMarkdownWithCodeBlocks(md: string, ec: ExpressiveCode) {
 	const mdast = fromMarkdown(
 		md.replace(reJsDocLink, "$1"), // replace jsdoc links
 		{ mdastExtensions: [gfmFromMarkdown()] },
@@ -106,11 +103,7 @@ export async function renderMarkdownWithCodeBlocks(
 export async function renderMDInline(md: string, ec: ExpressiveCode) {
 	const children = await renderMarkdownWithCodeBlocks(md, ec);
 
-	if (
-		children.length === 1 &&
-		children[0].type === "element" &&
-		children[0].tagName === "p"
-	)
+	if (children.length === 1 && children[0].type === "element" && children[0].tagName === "p")
 		return children[0].children;
 	return children;
 }
@@ -215,12 +208,7 @@ export async function renderJSDocs(
 	return {
 		docs: hover.docs
 			? h("div.twoslash-popup-docs", [
-					h(
-						"p",
-						hover.docs
-							? await renderMarkdownWithCodeBlocks(hover.docs, ec)
-							: [],
-					),
+					h("p", hover.docs ? await renderMarkdownWithCodeBlocks(hover.docs, ec) : []),
 				])
 			: [],
 		tags: hover.tags
@@ -228,20 +216,12 @@ export async function renderJSDocs(
 					...(await Promise.all(
 						hover.tags
 							? hover.tags.map(async (tag) =>
-									(
-										allowNonStandardJsDocTags
-											? true
-											: jsdocTags.includes(tag[0])
-									)
+									(allowNonStandardJsDocTags ? true : jsdocTags.includes(tag[0]))
 										? h("p.twoslash-popup-docs-tagline", [
 												h("span.twoslash-popup-docs-tag-name", `@${tag[0]}`),
 												tag[1]
 													? [
-															(await checkIfSingleParagraph(
-																tag[1],
-																filterTags(tag[0]),
-																ec,
-															))
+															(await checkIfSingleParagraph(tag[1], filterTags(tag[0]), ec))
 																? " ― "
 																: " ",
 															h(

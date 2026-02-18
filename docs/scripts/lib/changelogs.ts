@@ -1,7 +1,7 @@
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 import type { List } from "mdast";
 import { fromMarkdown } from "mdast-util-from-markdown";
-import { toString } from "mdast-util-to-string";
+import { toString as mToString } from "mdast-util-to-string";
 import { visit } from "unist-util-visit";
 
 export type Changelog = {
@@ -40,20 +40,18 @@ export function loadChangelog(path: string): Changelog {
 	let version: Version | undefined;
 	let semverCategory: SemverCategory | undefined;
 
-	function handleNode(
-		node: ReturnType<typeof fromMarkdown>["children"][number],
-	) {
+	function handleNode(node: ReturnType<typeof fromMarkdown>["children"][number]) {
 		if (node.type === "heading") {
 			if (node.depth === 1) {
 				if (state !== "packageName") throw new Error("Unexpected h1");
-				changelog.packageName = toString(node);
+				changelog.packageName = mToString(node);
 				state = "version";
 				return;
 			}
 			if (node.depth === 2) {
 				if (state === "packageName") throw new Error("Unexpected h2");
 				version = {
-					version: toString(node),
+					version: mToString(node),
 					changes: {
 						major: { type: "list", children: [] },
 						minor: { type: "list", children: [] },
@@ -66,11 +64,8 @@ export function loadChangelog(path: string): Changelog {
 				return;
 			}
 			if (node.depth === 3) {
-				if (state === "packageName" || state === "version")
-					throw new Error("Unexpected h3");
-				semverCategory = (
-					toString(node).split(" ")[0] || ""
-				).toLowerCase() as SemverCategory;
+				if (state === "packageName" || state === "version") throw new Error("Unexpected h3");
+				semverCategory = (mToString(node).split(" ")[0] || "").toLowerCase() as SemverCategory;
 				if (!semverCategories.includes(semverCategory))
 					throw new Error(`Unexpected semver category: ${semverCategory}`);
 				state = "changes";
@@ -78,14 +73,9 @@ export function loadChangelog(path: string): Changelog {
 			}
 		}
 		if (node.type === "list") {
-			if (state !== "changes" || !version || !semverCategory)
-				throw new Error("Unexpected list");
+			if (state !== "changes" || !version || !semverCategory) throw new Error("Unexpected list");
 			// Go through list items
-			for (
-				let listItemIdx = 0;
-				listItemIdx < node.children.length;
-				listItemIdx++
-			) {
+			for (let listItemIdx = 0; listItemIdx < node.children.length; listItemIdx++) {
 				const listItem = node.children[listItemIdx];
 				if (!listItem) continue;
 
@@ -95,7 +85,7 @@ export function loadChangelog(path: string): Changelog {
 				if (lastChild?.type === "list") {
 					const packageRefs: string[] = [];
 					lastChild.children.forEach((subListItem) => {
-						const text = toString(subListItem);
+						const text = mToString(subListItem);
 						if (parsePackageReference(text)) packageRefs.push(text);
 					});
 					if (packageRefs.length === lastChild.children.length) {
@@ -109,19 +99,14 @@ export function loadChangelog(path: string): Changelog {
 				}
 
 				const firstPara =
-					listItem.children[0]?.type === "paragraph"
-						? listItem.children[0]
-						: undefined;
+					listItem.children[0]?.type === "paragraph" ? listItem.children[0] : undefined;
 				if (firstPara) {
 					// Remove IDs like `bfed62a: ...` or `... [85dbab8]` from the first paragraph
 					visit(firstPara, "text", (textNode) => {
-						textNode.value = textNode.value.replace(
-							/(^[0-9a-f]{7,}: | \[[0-9a-f]{7,}\]$)/,
-							"",
-						);
+						textNode.value = textNode.value.replace(/(^[0-9a-f]{7,}: | \[[0-9a-f]{7,}\]$)/, "");
 					});
 					// Skip list items that only contain the text `Updated dependencies`
-					const firstParaText = toString(firstPara);
+					const firstParaText = mToString(firstPara);
 					if (firstParaText === "Updated dependencies") continue;
 					// If the list item is a package reference, add it to `includes` instead
 					const packageRef = parsePackageReference(firstParaText);
