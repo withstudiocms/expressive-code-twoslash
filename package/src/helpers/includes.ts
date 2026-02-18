@@ -23,11 +23,7 @@ export class TwoslashIncludesManager {
 		// Basically run a regex over the code replacing any // @include: thing with
 		// 'thing' from the map
 
-		const toReplace: [
-			index: number,
-			length: number,
-			replacementCode: string,
-		][] = [];
+		const toReplace: [index: number, length: number, replacementCode: string][] = [];
 
 		for (const match of code.matchAll(reMarker)) {
 			const key = match[1];
@@ -46,10 +42,7 @@ export class TwoslashIncludesManager {
 		// Go backwards through the found changes so that we can retain index position
 
 		for (const [index, length, replacementCode] of toReplace.reverse()) {
-			newCode =
-				newCode.slice(0, index) +
-				replacementCode +
-				newCode.slice(index + length);
+			newCode = newCode.slice(0, index) + replacementCode + newCode.slice(index + length);
 		}
 
 		return newCode;

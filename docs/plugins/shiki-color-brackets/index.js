@@ -4,12 +4,7 @@
 /* eslint-disable redundant-undefined/redundant-undefined */
 import builtInThemes from "./themes.js";
 
-const defaultBracketsTheme = [
-	"#FFD700",
-	"#DA70D6",
-	"#179FFF",
-	"rgba(255, 18, 18, 0.8)",
-];
+const defaultBracketsTheme = ["#FFD700", "#DA70D6", "#179FFF", "rgba(255, 18, 18, 0.8)"];
 
 const jinjaLikeBracketPairs = [
 	{ opener: "[", closer: "]" },
@@ -63,7 +58,7 @@ export default function shikiColorizedBrackets(options = {}) {
 	};
 	const transformer = {
 		name: "colorizedBrackets",
-		preprocess(code, options) {
+		preprocess(_code, options) {
 			// includeExplanation is a valid option for codeToTokens
 			// but is missing from the type definition here
 			options.includeExplanation ||= "scopeName";
@@ -73,9 +68,7 @@ export default function shikiColorizedBrackets(options = {}) {
 
 			for (let lineIndex = 0; lineIndex < tokens.length; lineIndex++) {
 				const line = tokens[lineIndex];
-				const newLine = line.flatMap((token) =>
-					splitBracketTokens(token, config, lang),
-				);
+				const newLine = line.flatMap((token) => splitBracketTokens(token, config, lang));
 				tokens[lineIndex] = newLine;
 			}
 
@@ -101,7 +94,7 @@ function splitBracketTokens(rawToken, config, lang) {
 			.join("|"),
 	);
 
-	let tokens = [rawToken];
+	const tokens = [rawToken];
 	// eslint-disable-next-line no-constant-condition
 	while (true) {
 		const token = tokens.pop();
@@ -140,31 +133,27 @@ function splitBracketTokens(rawToken, config, lang) {
 
 	const explanations = rawToken.explanation ?? [];
 	let currentExplanationStart = 0;
-	const explanationsWithStartEnd = (explanations ?? []).map(
-		(explanation, i) => {
-			const start = currentExplanationStart;
-			let length = explanation.content.length;
+	const explanationsWithStartEnd = (explanations ?? []).map((explanation, i) => {
+		const start = currentExplanationStart;
+		let length = explanation.content.length;
 
-			// with shiki option mergeWhitespaces (default true), the leading/trailing whitespaces of the token and explanations do not necessarily match
-			if (explanations.length === 1) {
-				length = rawToken.content.length;
-			} else if (i === 0) {
-				length =
-					(rawToken.content.match(/^\s*/)?.[0].length ?? 0) +
-					explanation.content.trimStart().length;
-			} else if (i === explanations.length - 1) {
-				length =
-					explanation.content.trimEnd().length +
-					(rawToken.content.match(/\s*$/)?.[0].length ?? 0);
-			}
-			currentExplanationStart += length;
-			return {
-				...explanation,
-				start,
-				end: start + length - 1,
-			};
-		},
-	);
+		// with shiki option mergeWhitespaces (default true), the leading/trailing whitespaces of the token and explanations do not necessarily match
+		if (explanations.length === 1) {
+			length = rawToken.content.length;
+		} else if (i === 0) {
+			length =
+				(rawToken.content.match(/^\s*/)?.[0].length ?? 0) + explanation.content.trimStart().length;
+		} else if (i === explanations.length - 1) {
+			length =
+				explanation.content.trimEnd().length + (rawToken.content.match(/\s*$/)?.[0].length ?? 0);
+		}
+		currentExplanationStart += length;
+		return {
+			...explanation,
+			start,
+			end: start + length - 1,
+		};
+	});
 	for (const token of tokens) {
 		const tokenStart = token.offset - rawToken.offset;
 		const tokenEnd = tokenStart + token.content.length - 1;
@@ -179,9 +168,7 @@ function splitBracketTokens(rawToken, config, lang) {
 				// explanation end in token range
 				(explanation.end >= tokenStart && explanation.end <= tokenEnd),
 		);
-		token.explanation = overlappingExplanations.map(
-			(exp, i) => explanations[i],
-		);
+		token.explanation = overlappingExplanations.map((_exp, i) => explanations[i]);
 	}
 	return tokens;
 }
@@ -192,28 +179,18 @@ function colorizeBracketTokens(tokens, config, shikiOptions, lang) {
 	for (const token of tokens) {
 		const embeddedLang = getEmbeddedLang(token);
 		const resolvedConfig = resolveConfig(config, embeddedLang ?? lang);
-		const openers = new Set(
-			resolvedConfig.bracketPairs.map((pair) => pair.opener),
-		);
-		const closers = new Set(
-			resolvedConfig.bracketPairs.map((pair) => pair.closer),
-		);
+		const openers = new Set(resolvedConfig.bracketPairs.map((pair) => pair.opener));
+		const closers = new Set(resolvedConfig.bracketPairs.map((pair) => pair.closer));
 		const closerToOpener = Object.fromEntries(
 			resolvedConfig.bracketPairs.map((pair) => [pair.closer, pair.opener]),
 		);
 
 		const pairDefinition = resolvedConfig.bracketPairs.find(
-			(pair) =>
-				pair.opener === token.content.trim() ||
-				pair.closer === token.content.trim(),
+			(pair) => pair.opener === token.content.trim() || pair.closer === token.content.trim(),
 		);
 		if (
 			!pairDefinition ||
-			shouldIgnoreToken(
-				token,
-				pairDefinition.scopesAllowList,
-				pairDefinition.scopesDenyList,
-			)
+			shouldIgnoreToken(token, pairDefinition.scopesAllowList, pairDefinition.scopesDenyList)
 		) {
 			continue;
 		}
@@ -228,27 +205,12 @@ function colorizeBracketTokens(tokens, config, shikiOptions, lang) {
 				while (openerStack.at(-1) !== opener) {
 					const unexpected = openerStack.pop();
 					if (unexpected) {
-						assignColorToToken(
-							unexpected,
-							resolvedConfig.themes,
-							shikiOptions,
-							-1,
-						);
+						assignColorToToken(unexpected, resolvedConfig.themes, shikiOptions, -1);
 					}
 				}
 				openerStack.pop();
-				assignColorToToken(
-					token,
-					resolvedConfig.themes,
-					shikiOptions,
-					openerStack.length,
-				);
-				assignColorToToken(
-					opener,
-					resolvedConfig.themes,
-					shikiOptions,
-					openerStack.length,
-				);
+				assignColorToToken(token, resolvedConfig.themes, shikiOptions, openerStack.length);
+				assignColorToToken(opener, resolvedConfig.themes, shikiOptions, openerStack.length);
 			} else {
 				assignColorToToken(token, resolvedConfig.themes, shikiOptions, -1);
 			}
@@ -256,12 +218,7 @@ function colorizeBracketTokens(tokens, config, shikiOptions, lang) {
 	}
 
 	for (const token of openerStack) {
-		assignColorToToken(
-			token,
-			resolveConfig(config, lang).themes,
-			shikiOptions,
-			-1,
-		);
+		assignColorToToken(token, resolveConfig(config, lang).themes, shikiOptions, -1);
 	}
 }
 
@@ -273,9 +230,8 @@ function shouldIgnoreToken(token, scopesAllowList, scopesDenyList) {
 			scope.scopeName.startsWith("comment."),
 		) ?? -1;
 	const stringLastIndex =
-		token.explanation?.[0].scopes.findLastIndex((scope) =>
-			scope.scopeName.startsWith("string."),
-		) ?? -1;
+		token.explanation?.[0].scopes.findLastIndex((scope) => scope.scopeName.startsWith("string.")) ??
+		-1;
 	const embeddedLastIndex =
 		token.explanation?.[0].scopes.findLastIndex(
 			(scope) =>
@@ -289,22 +245,16 @@ function shouldIgnoreToken(token, scopesAllowList, scopesDenyList) {
 				scope.scopeName === "meta.object.liquid",
 		) ?? -1;
 	// skip all comments and strings (but not if a deeper scope match is meta.embedded eg template expressions)
-	if (
-		commentLastIndex > embeddedLastIndex ||
-		stringLastIndex > embeddedLastIndex
-	) {
+	if (commentLastIndex > embeddedLastIndex || stringLastIndex > embeddedLastIndex) {
 		return true;
 	}
 
 	if (
-		scopesAllowList &&
-		scopesAllowList.length &&
+		scopesAllowList?.length &&
 		!token.explanation?.some((explanation) =>
 			explanation.scopes.some((scope) =>
 				scopesAllowList.some(
-					(allowed) =>
-						scope.scopeName === allowed ||
-						scope.scopeName.startsWith(`${allowed}.`),
+					(allowed) => scope.scopeName === allowed || scope.scopeName.startsWith(`${allowed}.`),
 				),
 			),
 		)
@@ -313,14 +263,11 @@ function shouldIgnoreToken(token, scopesAllowList, scopesDenyList) {
 	}
 
 	if (
-		scopesDenyList &&
-		scopesDenyList.length &&
+		scopesDenyList?.length &&
 		token.explanation?.some((explanation) =>
 			explanation.scopes.some((scope) =>
 				scopesDenyList.some(
-					(denied) =>
-						scope.scopeName === denied ||
-						scope.scopeName.startsWith(`${denied}.`),
+					(denied) => scope.scopeName === denied || scope.scopeName.startsWith(`${denied}.`),
 				),
 			),
 		)
@@ -334,21 +281,15 @@ function shouldIgnoreToken(token, scopesAllowList, scopesDenyList) {
 function assignColorToToken(token, themes, shikiOptions, level) {
 	if (isSingleTheme(shikiOptions)) {
 		const themeName =
-			typeof shikiOptions.theme === "string"
-				? shikiOptions.theme
-				: shikiOptions.theme.name;
+			typeof shikiOptions.theme === "string" ? shikiOptions.theme : shikiOptions.theme.name;
 		token.color = getColor(themes, themeName, level);
 	} else {
-		const { defaultColor = "light", cssVariablePrefix = "--shiki-" } =
-			shikiOptions;
+		const { defaultColor = "light", cssVariablePrefix = "--shiki-" } = shikiOptions;
 		const styles = [];
 
 		for (const [colorName, theme] of Object.entries(shikiOptions.themes)) {
 			const themeName = typeof theme === "string" ? theme : theme?.name;
-			const cssProperty =
-				colorName === defaultColor
-					? "color"
-					: `${cssVariablePrefix}${colorName}`;
+			const cssProperty = colorName === defaultColor ? "color" : `${cssVariablePrefix}${colorName}`;
 			styles.push(`${cssProperty}:${getColor(themes, themeName, level)}`);
 		}
 

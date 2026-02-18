@@ -14,15 +14,10 @@ process.on("warning", (warning) => {
 	const { name, message } = warning;
 	if (
 		name === "ExperimentalWarning" &&
-		(message.indexOf("--experimental-loader") > -1 ||
-			message.indexOf("Custom ESM Loaders") > -1)
+		(message.indexOf("--experimental-loader") > -1 || message.indexOf("Custom ESM Loaders") > -1)
 	)
 		return;
-	if (
-		name === "DeprecationWarning" &&
-		message.indexOf("Obsolete loader hook") > -1
-	)
-		return;
+	if (name === "DeprecationWarning" && message.indexOf("Obsolete loader hook") > -1) return;
 
 	console.warn(warning);
 });

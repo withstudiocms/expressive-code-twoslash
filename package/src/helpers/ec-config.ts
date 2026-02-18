@@ -7,17 +7,14 @@ import type { ExpressiveCodeConfig } from "expressive-code";
  * @param config - The resolved configuration object for the Expressive Code Engine.
  * @returns An ExpressiveCodeConfig object with properties derived from the input config.
  */
-export const ecConfig = (
-	config: ResolvedExpressiveCodeEngineConfig,
-): ExpressiveCodeConfig => {
+export const ecConfig = (config: ResolvedExpressiveCodeEngineConfig): ExpressiveCodeConfig => {
 	return {
 		cascadeLayer: config.cascadeLayer,
 		customizeTheme: config.customizeTheme,
 		defaultLocale: config.defaultLocale,
 		defaultProps: config.defaultProps,
 		logger: config.logger,
-		minSyntaxHighlightingColorContrast:
-			config.minSyntaxHighlightingColorContrast,
+		minSyntaxHighlightingColorContrast: config.minSyntaxHighlightingColorContrast,
 		styleOverrides: config.styleOverrides,
 		themeCssRoot: config.themeCssRoot,
 		themeCssSelector: config.themeCssSelector,

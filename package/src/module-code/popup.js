@@ -108,7 +108,6 @@ function setupTooltip(ToolTip, isMobileScreen) {
 const isMobileScreen = window.matchMedia("(max-width: 500px)").matches;
 
 function initTwoslashPopups(container) {
-	// biome-ignore lint/complexity/noForEach: <explanation>
 	container.querySelectorAll?.(".twoslash-hover").forEach((el) => {
 		setupTooltip(el, isMobileScreen);
 	});
@@ -117,9 +116,7 @@ function initTwoslashPopups(container) {
 initTwoslashPopups(document);
 
 const newTwoslashPopupObserver = new MutationObserver((mutations) =>
-	// biome-ignore lint/complexity/noForEach: <explanation>
 	mutations.forEach((mutation) =>
-		// biome-ignore lint/complexity/noForEach: <explanation>
 		mutation.addedNodes.forEach((node) => {
 			initTwoslashPopups(node);
 		}),
