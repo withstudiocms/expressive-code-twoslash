@@ -1,9 +1,16 @@
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 
+// Define the Site URL
+const site = process.env.DOKPLOY_DEPLOY_URL
+	? `https://${process.env.DOKPLOY_DEPLOY_URL}`
+	: "https://twoslash.studiocms.dev/";
+
+const ogImageUrl = new URL("/og.png", site).href;
+
 // https://astro.build/config
 export default defineConfig({
-	site: "https://twoslash.studiocms.dev",
+	site,
 	integrations: [
 		starlight({
 			title: "Expressive Code Twoslash",
@@ -121,7 +128,7 @@ export default defineConfig({
 					tag: "meta",
 					attrs: {
 						property: "og:image",
-						content: "https://twoslash.studiocms.dev/og-image.png",
+						content: ogImageUrl,
 					},
 				},
 
@@ -144,7 +151,7 @@ export default defineConfig({
 					tag: "meta",
 					attrs: {
 						name: "twitter:image",
-						content: "https://twoslash.studiocms.dev/og-image.png",
+						content: ogImageUrl,
 					},
 				},
 			],
