@@ -24,21 +24,21 @@
 		"access": "public"
 	},
 	"sideEffects": false,
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
+	"types": "./dist/index.d.mts",
+	"main": "./dist/index.mjs",
+	"module": "./dist/index.mjs",
 	"exports": {
-		"types": "./dist/index.d.ts",
-		"default": "./dist/index.js"
+		"types": "./dist/index.d.mts",
+		"default": "./dist/index.mjs"
 	},
-	"types": "./dist/index.d.ts",
 	"files": [
 		"dist"
 	],
 	"scripts": {
-		"build-js-module": "tsm --require=../scripts/filter-warnings.cjs ./scripts/minify.ts",
-		"compile": "tsup ./src/index.ts --format esm --dts --sourcemap --clean",
-		"build": "pnpm build-js-module && pnpm compile",
-		"watch": "pnpm build --watch src"
+		"build-module": "node ./scripts/minify.ts",
+		"compile": "tsdown --config ./tsdown.config.ts",
+		"build": "pnpm build-module && pnpm compile",
+		"dev": "pnpm build-module && tsdown --config ./tsdown.config.ts --watch --no-clean"
 	},
 	"type": "module",
 	"dependencies": {
@@ -47,10 +47,6 @@
 		"mdast-util-to-hast": "catalog:mdast",
 		"twoslash": "catalog:twoslash",
 		"twoslash-vue": "catalog:twoslash"
-	},
-	"devDependencies": {
-		"@types/uglify-js": "^3.17.5",
-		"uglify-js": "^3.19.3"
 	},
 	"peerDependencies": {
 		"@expressive-code/core": "catalog:min",
