@@ -1,0 +1,21 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["github>withstudiocms/renovate-config"],
+	"packageRules": [
+		{
+			"groupName": "Expressive Code Twoslash Dependencies",
+			"matchManagers": ["npm"],
+			"matchFileNames": ["package/**"]
+		},
+		{
+			"groupName": "Docs Dependencies",
+			"matchManagers": ["npm"],
+			"matchFileNames": ["docs/**"]
+		},
+		{
+			"groupName": "Playground Dependencies",
+			"matchManagers": ["npm"],
+			"matchFileNames": ["playground/**"]
+		}
+	]
+}

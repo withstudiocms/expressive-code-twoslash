@@ -1,0 +1,11 @@
+# See https://github.com/actions/labeler/tree/main for more information about the labeler action
+
+twoslash:
+    - changed-files:
+          - any-glob-to-any-file:
+                - package/*
+
+docs:
+    - changed-files:
+          - any-glob-to-any-file:
+                - docs/*

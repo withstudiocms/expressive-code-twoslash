@@ -19,7 +19,8 @@ function setupTooltip(ToolTip: Element, isMobileScreen: boolean) {
 	}
 
 	// @ts-expect-error - We know this import works, but TypeScript may not be able to infer the types correctly from the minified module
-	const floatingUiDom = FloatingUIDOM as any; // Type assertion to avoid TypeScript errors with the imported module
+	// biome-ignore lint/suspicious/noExplicitAny: Type assertion to avoid TypeScript errors with the imported module
+	const floatingUiDom = FloatingUIDOM as any;
 
 	// Helper function to update tooltip position
 	function updatePosition() {
@@ -68,19 +69,14 @@ function setupTooltip(ToolTip: Element, isMobileScreen: boolean) {
 		clearTimeout(hideTimeout);
 		updatePosition();
 		hoverAnnotation?.setAttribute("aria-hidden", "false");
-		ToolTip.querySelector(".twoslash-hover span")?.setAttribute(
-			"aria-describedby",
-			randomId,
-		);
+		ToolTip.querySelector(".twoslash-hover span")?.setAttribute("aria-describedby", randomId);
 		hoverAnnotation?.setAttribute("id", randomId);
 	}
 
 	// Hide tooltip
 	function hideTooltip() {
 		hoverAnnotation?.setAttribute("aria-hidden", "true");
-		ToolTip.querySelector(".twoslash-hover span")?.removeAttribute(
-			"aria-describedby",
-		);
+		ToolTip.querySelector(".twoslash-hover span")?.removeAttribute("aria-describedby");
 		hoverAnnotation?.removeAttribute("id");
 		if (hoverAnnotation) {
 			(hoverAnnotation as HTMLElement).style.display = "none"; // Hide instead of removing from DOM
@@ -125,11 +121,11 @@ function initTwoslashPopups(container: HTMLElement | Document) {
 initTwoslashPopups(document);
 
 const newTwoslashPopupObserver = new MutationObserver((mutations) =>
-	mutations.forEach((mutation) =>
+	mutations.forEach((mutation) => {
 		mutation.addedNodes.forEach((node) => {
 			initTwoslashPopups(node as HTMLElement);
-		}),
-	),
+		});
+	}),
 );
 
 newTwoslashPopupObserver.observe(document.body, {
