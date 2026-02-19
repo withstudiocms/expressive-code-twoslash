@@ -6,8 +6,13 @@
 		"node": ">=22.20.0"
 	},
 	"workspaces": [
-		"./package"
+		"./packages/*"
 	],
+	"pnpm": {
+		"patchedDependencies": {
+			"@changesets/assemble-release-plan": "patches/@changesets__assemble-release-plan.patch"
+		}
+	},
 	"scripts": {
 		"changeset": "changeset",
 		"changeset:status": "changeset status --since=origin/main",
@@ -17,10 +22,9 @@
 		"docs:build": "pnpm build && pnpm --filter docs-twoslash build",
 		"docs:dev": "pnpm build && pnpm --filter docs-twoslash dev",
 
-		"twoslash:build": "pnpm --filter expressive-code-twoslash build",
+		"build": "pnpm --filter './packages/*' build",
 
-		"dev": "pnpm --filter playground --filter expressive-code-twoslash -r --parallel dev",
-		"build": "pnpm twoslash:build",
+		"dev": "pnpm --filter playground --filter './packages/*' -r --parallel dev",
 
 		"ci:install": "pnpm install --frozen-lockfile",
 		"ci:version": "changeset version",

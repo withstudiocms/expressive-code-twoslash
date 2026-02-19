@@ -3,7 +3,7 @@ import { toMarkdown } from "mdast-util-to-markdown";
 import { loadChangelog, semverCategories } from "./lib/changelogs.ts";
 import { writeFileLines } from "./lib/utils.ts";
 
-const changelog = loadChangelog("../package/CHANGELOG.md");
+const changelog = loadChangelog("../packages/expressive-code-twoslash/CHANGELOG.md");
 
 // Generate markdown output
 const output: string[] = [];
@@ -19,7 +19,7 @@ output.push(
 	"---",
 	"",
 	"This document contains release notes for the `expressive-code-twoslash` package.",
-	"For more information, see the [CHANGELOG file](https://github.com/withstudiocms/expressive-code-twoslash/blob/main/package/CHANGELOG.md)",
+	"For more information, see the [CHANGELOG file](https://github.com/withstudiocms/expressive-code-twoslash/blob/main/packages/expressive-code-twoslash/CHANGELOG.md)",
 	"",
 );
 

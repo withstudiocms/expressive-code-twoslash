@@ -5,8 +5,8 @@ import {
 } from "@expressive-code/core";
 import { type Element, h } from "@expressive-code/core/hast";
 import type { NodeQuery } from "twoslash";
-import { getTextWidthInPixels } from "../helpers";
-import type { RenderJSDocs } from "../types";
+import { getTextWidthInPixels } from "../helpers/index.ts";
+import type { RenderJSDocs } from "../types.ts";
 
 /**
  * Represents a static annotation for Twoslash.

@@ -18,18 +18,18 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/withstudiocms/expressive-code-twoslash.git",
-		"directory": "package"
+		"directory": "packages/expressive-code-twoslash"
 	},
 	"publishConfig": {
 		"access": "public"
 	},
 	"sideEffects": false,
-	"types": "./dist/index.d.mts",
-	"main": "./dist/index.mjs",
-	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
 	"exports": {
-		"types": "./dist/index.d.mts",
-		"default": "./dist/index.mjs"
+		"types": "./dist/index.d.ts",
+		"default": "./dist/index.js"
 	},
 	"files": [
 		"dist"

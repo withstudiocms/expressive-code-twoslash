@@ -4,7 +4,7 @@ import { fromMarkdown } from "mdast-util-from-markdown";
 import { gfmFromMarkdown } from "mdast-util-gfm";
 import { toHast } from "mdast-util-to-hast";
 import type { NodeHover, NodeQuery } from "twoslash";
-import type { RenderJSDocs } from "../types";
+import type { RenderJSDocs } from "../types.ts";
 import {
 	jsdocTags,
 	reFunctionCleanup,
@@ -14,7 +14,7 @@ import {
 	reJsDocTagFilter,
 	reLeadingPropertyMethod,
 	reTypeCleanup,
-} from "./regex";
+} from "./regex.ts";
 
 /**
  * Renders markdown content with code blocks using ExpressiveCode.

@@ -1,6 +1,6 @@
 import type { ExpressiveCodeBlock } from "@expressive-code/core";
 import type { TwoslashOptions } from "twoslash";
-import { reTrigger, twoslashDefaultTags } from "./regex";
+import { reTrigger, twoslashDefaultTags } from "./regex.ts";
 
 /**
  * Calculates the width of a given text in pixels based on the character location, font size, and character width.

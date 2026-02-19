@@ -5,7 +5,7 @@ import {
 } from "@expressive-code/core";
 import { type Element, h } from "@expressive-code/core/hast";
 import type { NodeError } from "twoslash";
-import { getErrorLevelClass, getErrorLevelString } from "../helpers";
+import { getErrorLevelClass, getErrorLevelString } from "../helpers/index.ts";
 
 export class TwoslashErrorUnderlineAnnotation extends ExpressiveCodeAnnotation {
 	readonly name = "twoslash-error-underline";

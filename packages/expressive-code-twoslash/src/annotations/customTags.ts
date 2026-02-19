@@ -5,9 +5,9 @@ import {
 } from "@expressive-code/core";
 import { type Element, h } from "@expressive-code/core/hast";
 import type { NodeTag } from "twoslash";
-import { getCustomTagClass, getCustomTagString } from "../helpers";
-import { customTagsIcons } from "../icons/customTagsIcons";
-import type { CustomTagsIcon, TwoslashTag } from "../types";
+import { getCustomTagClass, getCustomTagString } from "../helpers/index.ts";
+import { customTagsIcons } from "../icons/customTagsIcons.ts";
+import type { CustomTagsIcon, TwoslashTag } from "../types.ts";
 
 /**
  * Represents a custom annotation for Twoslash tags.

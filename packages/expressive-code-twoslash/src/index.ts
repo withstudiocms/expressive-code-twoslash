@@ -11,7 +11,7 @@ import {
 	TwoslashHighlightAnnotation,
 	TwoslashHoverAnnotation,
 	TwoslashStaticAnnotation,
-} from "./annotations";
+} from "./annotations/index.ts";
 import {
 	buildMetaChecker,
 	checkForCustomTagsAndMerge,
@@ -23,12 +23,12 @@ import {
 	renderJSDocs,
 	renderType,
 	TwoslashIncludesManager,
-} from "./helpers";
-import floatingUiCore from "./module-code/floating-ui-core.min";
-import floatingUiDom from "./module-code/floating-ui-dom.min";
-import hoverDocsManager from "./module-code/popup.min";
-import { getTwoSlashBaseStyles, twoSlashStyleSettings } from "./styles";
-import type { PluginTwoslashOptions, TwoSlashStyleSettings } from "./types";
+} from "./helpers/index.ts";
+import floatingUiCore from "./module-code/floating-ui-core.min.ts";
+import floatingUiDom from "./module-code/floating-ui-dom.min.ts";
+import hoverDocsManager from "./module-code/popup.min.ts";
+import { getTwoSlashBaseStyles, twoSlashStyleSettings } from "./styles.ts";
+import type { PluginTwoslashOptions, TwoSlashStyleSettings } from "./types.ts";
 
 export type { PluginTwoslashOptions, TwoSlashStyleSettings };
 

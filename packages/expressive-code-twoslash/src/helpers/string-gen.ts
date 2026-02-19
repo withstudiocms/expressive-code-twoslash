@@ -1,5 +1,5 @@
 import type { NodeError } from "twoslash";
-import type { TwoslashTag } from "../types";
+import type { TwoslashTag } from "../types.ts";
 
 /**
  * Returns a string representation of a custom tag.
