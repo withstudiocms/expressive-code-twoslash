@@ -53,6 +53,7 @@ export default defineConfig({
 			editLink: {
 				baseUrl: "https://github.com/withstudiocms/express-code-twoslash/edit/main/docs/",
 			},
+			customCss: ["./src/styles/starlight.css"],
 			head: [
 				// Analytics Script - Only include in production
 				...(process.env.NODE_ENV === "production"
