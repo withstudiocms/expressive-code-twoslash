@@ -1,13 +1,7 @@
 import { defineConfig } from "tsdown";
+import { sharedConfig } from "../../tsdown.shared.ts";
 
 export default defineConfig({
+	...sharedConfig,
 	entry: ["./src/index.ts"],
-	format: ["esm"],
-	dts: {
-		build: true,
-	},
-	outExtensions: () => ({
-		js: ".js",
-		dts: ".d.ts",
-	}),
 });

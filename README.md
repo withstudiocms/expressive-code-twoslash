@@ -1,1 +1,1 @@
-./package/README.md
+./packages/expressive-code-twoslash/README.md

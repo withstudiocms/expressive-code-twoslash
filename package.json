@@ -23,8 +23,8 @@
 		"docs:dev": "pnpm build && pnpm --filter docs-twoslash dev",
 
 		"build": "pnpm --filter './packages/*' build",
-
-		"dev": "pnpm --filter playground --filter './packages/*' -r --parallel dev",
+		"dev": "pnpm --filter './packages/*' --filter playground -r --parallel dev",
+		"test": "pnpm --filter './packages/*' test",
 
 		"ci:install": "pnpm install --frozen-lockfile",
 		"ci:version": "changeset version",
@@ -37,8 +37,12 @@
 		"@changesets/cli": "^2.29.8",
 		"@changesets/config": "^3.1.2",
 		"@changesets/changelog-github": "^0.5.2",
-		"tsdown": "^0.20.3",
 		"@types/node": "catalog:",
-		"pkg-pr-new": "^0.0.63"
+		"@vitest/ui": "^4.0.18",
+		"tsdown": "^0.20.3",
+		"typescript": "^5.9.3",
+		"pkg-pr-new": "^0.0.63",
+		"publint": "^0.3.17",
+		"vitest": "^4.0.18"
 	}
 }

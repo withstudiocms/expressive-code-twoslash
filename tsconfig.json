@@ -3,6 +3,9 @@
 	"include": [],
 	"references": [
 		{
+			"path": "packages/css-js-gen"
+		},
+		{
 			"path": "packages/expressive-code-twoslash"
 		}
 	]
