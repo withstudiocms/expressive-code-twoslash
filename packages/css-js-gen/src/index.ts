@@ -310,14 +310,19 @@ export function stylesheet(styles: Record<string, CSSObject>): StylesheetReturn;
 export function stylesheet(...args: any[]): StylesheetReturn {
 	let cssObject: CSSObject = {};
 
-	if (args.length === 1 && Array.isArray(args[0])) {
-		// If a single array argument is provided
-		args[0].forEach((style: CSSObject) => {
-			cssObject = { ...cssObject, ...style };
-		});
-	} else if (args.length === 1 && typeof args[0] === "object") {
-		// If a single object argument is provided
-		cssObject = args[0];
+	if (args.length === 1) {
+		// If a single argument is provided, it can be either an array of styles or a single style object
+		const firstArg = args[0];
+
+		if (Array.isArray(firstArg)) {
+			// If a single array argument is provided
+			firstArg.forEach((style: CSSObject) => {
+				cssObject = { ...cssObject, ...style };
+			});
+		} else if (typeof firstArg === "object") {
+			// If a single object argument is provided
+			cssObject = firstArg;
+		}
 	} else {
 		// If multiple arguments are provided
 		args.forEach((style: CSSObject) => {
