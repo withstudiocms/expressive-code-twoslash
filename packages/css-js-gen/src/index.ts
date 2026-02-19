@@ -238,6 +238,39 @@ export function css(styles: CSSObject): CSSObject {
 	return styles;
 }
 
+/**
+ * Create a CSS string from a CSS object with TypeScript autocomplete support
+ *
+ * This function is designed to be flexible in its input types, allowing for various ways to define styles. It can accept multiple CSS objects as separate arguments, a single array of CSS objects, or a single object containing multiple CSS rules. The function will merge all provided styles into a single CSS string.
+ *
+ * @param styles - One or more CSS objects, which can be provided as separate arguments, a single array, or a single object containing multiple rules.
+ * @returns A CSS string generated from the provided CSS objects.
+ */
+export function stylesheet(...styles: CSSObject[]): string;
+export function stylesheet(styles: CSSObject[]): string;
+export function stylesheet(styles: Record<string, CSSObject>): string;
+// biome-ignore lint/suspicious/noExplicitAny: This function is designed to be flexible in its input types, allowing for various ways to define styles. The use of 'any' here is intentional to accommodate the different input formats.
+export function stylesheet(...args: any[]): string {
+	let cssObject: CSSObject = {};
+
+	if (args.length === 1 && Array.isArray(args[0])) {
+		// If a single array argument is provided
+		args[0].forEach((style: CSSObject) => {
+			cssObject = { ...cssObject, ...style };
+		});
+	} else if (args.length === 1 && typeof args[0] === "object") {
+		// If a single object argument is provided
+		cssObject = args[0];
+	} else {
+		// If multiple arguments are provided
+		args.forEach((style: CSSObject) => {
+			cssObject = { ...cssObject, ...style };
+		});
+	}
+
+	return toCSS(cssObject);
+}
+
 // Re-export types
 export type {
 	CSSGeneratorOptions,

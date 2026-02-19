@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { css, toCSS } from "../src/index.ts";
+import { css, stylesheet, toCSS } from "../src/index.ts";
 
 describe("toCSS", () => {
 	describe("basic functionality", () => {
@@ -419,5 +419,93 @@ describe("css helper function", () => {
 		});
 
 		expect(result).toHaveProperty(".test");
+	});
+
+	describe("stylesheet function", () => {
+		it("should handle multiple CSS objects as separate arguments", () => {
+			const result = stylesheet(
+				{
+					".header": {
+						background: "white",
+					},
+				},
+				{
+					".footer": {
+						background: "black",
+					},
+				},
+			);
+
+			expect(result).toContain(".header {");
+			expect(result).toContain("background: white;");
+			expect(result).toContain(".footer {");
+			expect(result).toContain("background: black;");
+		});
+
+		it("should handle array of CSS objects", () => {
+			const result = stylesheet([
+				{
+					".container": {
+						padding: "10px",
+					},
+				},
+				{
+					".box": {
+						margin: "5px",
+					},
+				},
+			]);
+
+			expect(result).toContain(".container {");
+			expect(result).toContain("padding: 10px;");
+			expect(result).toContain(".box {");
+			expect(result).toContain("margin: 5px;");
+		});
+
+		it("should handle single record object", () => {
+			const result = stylesheet({
+				".button": {
+					background: "blue",
+					color: "white",
+				},
+				".link": {
+					color: "purple",
+				},
+			});
+
+			expect(result).toContain(".button {");
+			expect(result).toContain(".link {");
+		});
+
+		it("should merge multiple style objects correctly", () => {
+			const result = stylesheet(
+				{ ".a": { color: "red" } },
+				{ ".b": { color: "blue" } },
+				{ ".c": { color: "green" } },
+			);
+
+			expect(result).toContain(".a {");
+			expect(result).toContain(".b {");
+			expect(result).toContain(".c {");
+		});
+
+		it("should handle empty array", () => {
+			const result = stylesheet([]);
+			expect(result).toBe("");
+		});
+
+		it("should handle empty record object", () => {
+			const result = stylesheet({});
+			expect(result).toBe("");
+		});
+
+		it("should override properties when merging objects", () => {
+			const result = stylesheet(
+				{ ".element": { color: "red" } },
+				{ ".element": { color: "blue" } },
+			);
+
+			expect(result).toContain("color: blue;");
+		});
 	});
 });

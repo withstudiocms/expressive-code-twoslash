@@ -1,4 +1,4 @@
-import { css, toCSS } from "../dist/index.js";
+import { css, toCSS, stylesheet } from "../dist/index.js";
 
 /**
  * Base CSS styles
@@ -553,3 +553,5 @@ export const styles = {
 	customTag: toCSS(customTagCSS),
 	all: allStyles,
 };
+
+export const stylesheetString = stylesheet(styleObjects);
