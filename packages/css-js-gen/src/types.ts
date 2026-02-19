@@ -25,14 +25,6 @@ export interface CSSObject {
 }
 
 /**
- * Generate CSS properties string from a CSSProperties object
- */
-export interface StylesheetReturn {
-	styles: CSSObject;
-	toString: () => string;
-}
-
-/**
  * Options for CSS generation
  */
 export interface CSSGeneratorOptions {
@@ -50,4 +42,20 @@ export interface CSSGeneratorOptions {
 	 * Whether to add newlines between rules (default: true)
 	 */
 	addNewlines?: boolean;
+}
+
+/**
+ * Generate CSS properties string from a CSSProperties object
+ */
+export interface StylesheetReturn {
+	/**
+	 * The merged CSS object containing all styles provided to the stylesheet function, ready for conversion to a CSS string
+	 */
+	styles: CSSObject;
+	/**
+	 * Convert the CSS object to a CSS string with optional formatting options
+	 * @param options - CSS generation options
+	 * @returns A string representation of the CSS
+	 */
+	toString: (options?: CSSGeneratorOptions) => string;
 }

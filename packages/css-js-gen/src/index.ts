@@ -332,7 +332,7 @@ export function stylesheet(...args: any[]): StylesheetReturn {
 
 	return {
 		styles: cssObject,
-		toString: () => toCSS(cssObject),
+		toString: (options?: CSSGeneratorOptions) => toCSS(cssObject, options),
 	};
 }
 
