@@ -434,7 +434,7 @@ describe("css helper function", () => {
 						background: "black",
 					},
 				},
-			);
+			).toString();
 
 			expect(result).toContain(".header {");
 			expect(result).toContain("background: white;");
@@ -454,7 +454,7 @@ describe("css helper function", () => {
 						margin: "5px",
 					},
 				},
-			]);
+			]).toString();
 
 			expect(result).toContain(".container {");
 			expect(result).toContain("padding: 10px;");
@@ -471,7 +471,7 @@ describe("css helper function", () => {
 				".link": {
 					color: "purple",
 				},
-			});
+			}).toString();
 
 			expect(result).toContain(".button {");
 			expect(result).toContain(".link {");
@@ -482,7 +482,7 @@ describe("css helper function", () => {
 				{ ".a": { color: "red" } },
 				{ ".b": { color: "blue" } },
 				{ ".c": { color: "green" } },
-			);
+			).toString();
 
 			expect(result).toContain(".a {");
 			expect(result).toContain(".b {");
@@ -490,12 +490,12 @@ describe("css helper function", () => {
 		});
 
 		it("should handle empty array", () => {
-			const result = stylesheet([]);
+			const result = stylesheet([]).toString();
 			expect(result).toBe("");
 		});
 
 		it("should handle empty record object", () => {
-			const result = stylesheet({});
+			const result = stylesheet({}).toString();
 			expect(result).toBe("");
 		});
 
@@ -503,7 +503,7 @@ describe("css helper function", () => {
 			const result = stylesheet(
 				{ ".element": { color: "red" } },
 				{ ".element": { color: "blue" } },
-			);
+			).toString();
 
 			expect(result).toContain("color: blue;");
 		});

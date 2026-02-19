@@ -25,6 +25,14 @@ export interface CSSObject {
 }
 
 /**
+ * Generate CSS properties string from a CSSProperties object
+ */
+export interface StylesheetReturn {
+	styles: CSSObject;
+	toString: () => string;
+}
+
+/**
  * Options for CSS generation
  */
 export interface CSSGeneratorOptions {

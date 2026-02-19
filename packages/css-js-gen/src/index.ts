@@ -1,4 +1,11 @@
-import type { CSSGeneratorOptions, CSSObject, CSSProperties, CSSRule, CSSValue } from "./types.ts";
+import type {
+	CSSGeneratorOptions,
+	CSSObject,
+	CSSProperties,
+	CSSRule,
+	CSSValue,
+	StylesheetReturn,
+} from "./types.ts";
 
 /**
  * Check if a value is a plain CSS property value
@@ -244,13 +251,63 @@ export function css(styles: CSSObject): CSSObject {
  * This function is designed to be flexible in its input types, allowing for various ways to define styles. It can accept multiple CSS objects as separate arguments, a single array of CSS objects, or a single object containing multiple CSS rules. The function will merge all provided styles into a single CSS string.
  *
  * @param styles - One or more CSS objects, which can be provided as separate arguments, a single array, or a single object containing multiple rules.
- * @returns A CSS string generated from the provided CSS objects.
+ * @returns An object containing the merged CSS styles and a `toString` method to get the CSS string representation.
+ *
+ * @example Get the merged CSS string from multiple style objects:
+ * ```typescript
+ * const cssString = stylesheet(
+ *   { '.header': { background: 'white' } },
+ *   { '.container': { padding: '10px' } },
+ * ).toString();
+ * ```
+ *
+ * @example Get the CSS string from an array of style objects:
+ * ```typescript
+ * const cssObject = stylesheet([
+ *   { '.header': { background: 'white' } },
+ *   { '.container': { padding: '10px' } },
+ * ]).toString();
+ * ```
+ *
+ * @example Get the CSS string from a single object containing multiple rules:
+ * ```typescript
+ * const cssObject = stylesheet({
+ *   '.header': { background: 'white' },
+ *   '.container': { padding: '10px' },
+ * }).toString();
+ * ```
+ *
+ * @example Merge multiple style objects with overlapping selectors:
+ * ```typescript
+ * const cssString = stylesheet(
+ *   { '.button': { color: 'red' } },
+ *   { '.button': { color: 'blue' }, '.link': { color: 'purple' } },
+ * ).toString();
+ * ```
+ *
+ * @example Merge multiple style objects with nested selectors:
+ * ```typescript
+ * const cssString = stylesheet(
+ *   { '.container': { padding: '10px', '.item': { margin: '5px' } } },
+ *   { '.container': { background: 'gray' }, '.item': { color: 'white' } },
+ * ).toString();
+ * ```
+ *
+ * @example Merge multiple styles and get the CSSObject:
+ * ```typescript
+ * const cssObject = stylesheet(
+ *   { '.a': { color: 'red' } },
+ *   { '.b': { color: 'blue' } },
+ *   { '.c': { color: 'green' } },
+ * );
+ * console.log(cssObject.styles);
+ * ```
  */
-export function stylesheet(...styles: CSSObject[]): string;
-export function stylesheet(styles: CSSObject[]): string;
-export function stylesheet(styles: Record<string, CSSObject>): string;
+export function stylesheet(...styles: CSSObject[]): StylesheetReturn;
+export function stylesheet(styles: CSSObject[]): StylesheetReturn;
+export function stylesheet(styles: Record<string, CSSObject>): StylesheetReturn;
 // biome-ignore lint/suspicious/noExplicitAny: This function is designed to be flexible in its input types, allowing for various ways to define styles. The use of 'any' here is intentional to accommodate the different input formats.
-export function stylesheet(...args: any[]): string {
+export function stylesheet(...args: any[]): StylesheetReturn {
 	let cssObject: CSSObject = {};
 
 	if (args.length === 1 && Array.isArray(args[0])) {
@@ -268,7 +325,10 @@ export function stylesheet(...args: any[]): string {
 		});
 	}
 
-	return toCSS(cssObject);
+	return {
+		styles: cssObject,
+		toString: () => toCSS(cssObject),
+	};
 }
 
 // Re-export types
