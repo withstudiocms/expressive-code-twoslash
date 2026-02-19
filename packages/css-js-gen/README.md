@@ -146,6 +146,69 @@ Converts a CSS object to a CSS string.
 
 Helper function that provides TypeScript autocomplete support for CSS objects.
 
+### `stylesheet(...styles: CSSObject[]): StylesheetReturn`
+
+Creates a merged CSS object with a `toString()` method for flexible style composition.
+
+This function is designed to be flexible in its input types, allowing for various ways to define styles. It can accept multiple CSS objects as separate arguments, a single array of CSS objects, or a single object containing multiple CSS rules. The function will merge all provided styles and return an object with both the merged `styles` property and a `toString()` method.
+
+**Parameters:**
+- `styles`: One or more CSS objects (as separate arguments, array, or single object)
+
+**Returns:** Object with:
+- `styles`: The merged CSSObject
+- `toString()`: Method that returns the CSS string
+
+**Examples:**
+
+Multiple style objects as arguments:
+```typescript
+const sheet = stylesheet(
+  { '.header': { background: 'white', padding: '10px' } },
+  { '.container': { padding: '20px', margin: '0 auto' } }
+);
+
+console.log(sheet.toString());
+// or access the merged styles object
+console.log(sheet.styles);
+```
+
+Array of style objects:
+```typescript
+const styles = [
+  { '.header': { background: 'white' } },
+  { '.footer': { background: 'black' } }
+];
+
+const sheet = stylesheet(styles);
+const cssString = sheet.toString();
+```
+
+Single object with multiple rules:
+```typescript
+const sheet = stylesheet({
+  '.header': { 
+    background: 'white',
+    padding: '10px',
+    '.title': {
+      'font-size': '24px'
+    }
+  },
+  '.footer': { 
+    background: 'black' 
+  }
+});
+```
+
+Merging overlapping selectors:
+```typescript
+const sheet = stylesheet(
+  { '.button': { color: 'red', padding: '10px' } },
+  { '.button': { color: 'blue' } } // color will be overridden
+);
+// Result: .button will have color: blue and padding: 10px
+```
+
 ## License
 
 MIT
