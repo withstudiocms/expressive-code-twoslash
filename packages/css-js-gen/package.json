@@ -1,0 +1,48 @@
+{
+	"name": "css-js-gen",
+	"version": "1.0.2",
+	"description": "Convert CSS object notation to CSS strings",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/withstudiocms/expressive-code-twoslash.git",
+		"directory": "packages/css-js-gen"
+	},
+	"author": {
+		"email": "adam@matthiesen.xyz",
+		"name": "Adam Matthiesen",
+		"url": "https://matthiesen.dev"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"license": "MIT",
+	"types": "./dist/index.d.ts",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsdown --config tsdown.config.ts",
+		"dev": "tsdown --config tsdown.config.ts --watch --no-clean",
+		"test": "vitest",
+		"test:ui": "vitest --ui",
+		"test:run": "vitest run",
+		"test:coverage": "vitest run --coverage",
+		"scratchpad:test-styles": "node ./scratchpad/test-styles.mjs",
+		"changeset": "changeset"
+	},
+	"keywords": [
+		"css",
+		"css-in-js",
+		"styles",
+		"typescript"
+	]
+}

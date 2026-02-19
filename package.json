@@ -6,8 +6,13 @@
 		"node": ">=22.20.0"
 	},
 	"workspaces": [
-		"./package"
+		"./packages/*"
 	],
+	"pnpm": {
+		"patchedDependencies": {
+			"@changesets/assemble-release-plan": "patches/@changesets__assemble-release-plan.patch"
+		}
+	},
 	"scripts": {
 		"changeset": "changeset",
 		"changeset:status": "changeset status --since=origin/main",
@@ -17,10 +22,9 @@
 		"docs:build": "pnpm build && pnpm --filter docs-twoslash build",
 		"docs:dev": "pnpm build && pnpm --filter docs-twoslash dev",
 
-		"twoslash:build": "pnpm --filter expressive-code-twoslash build",
-
-		"dev": "pnpm --filter playground --filter expressive-code-twoslash -r --parallel dev",
-		"build": "pnpm twoslash:build",
+		"build": "pnpm --filter './packages/*' build",
+		"dev": "pnpm --filter './packages/*' --filter playground -r --parallel dev",
+		"test": "pnpm --filter './packages/*' test",
 
 		"ci:install": "pnpm install --frozen-lockfile",
 		"ci:version": "changeset version",
@@ -33,8 +37,12 @@
 		"@changesets/cli": "^2.29.8",
 		"@changesets/config": "^3.1.2",
 		"@changesets/changelog-github": "^0.5.2",
-		"tsdown": "^0.20.3",
 		"@types/node": "catalog:",
-		"pkg-pr-new": "^0.0.63"
+		"@vitest/ui": "^4.0.18",
+		"tsdown": "^0.20.3",
+		"typescript": "^5.9.3",
+		"pkg-pr-new": "^0.0.63",
+		"publint": "^0.3.17",
+		"vitest": "^4.0.18"
 	}
 }

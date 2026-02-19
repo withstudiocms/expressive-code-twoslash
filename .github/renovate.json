@@ -5,7 +5,12 @@
 		{
 			"groupName": "Expressive Code Twoslash Dependencies",
 			"matchManagers": ["npm"],
-			"matchFileNames": ["package/**"]
+			"matchFileNames": ["packages/expressive-code-twoslash/**"]
+		},
+		{
+			"groupName": "CSS JS Gen Dependencies",
+			"matchManagers": ["npm"],
+			"matchFileNames": ["packages/css-js-gen/**"]
 		},
 		{
 			"groupName": "Docs Dependencies",

@@ -1,0 +1,18 @@
+import type { UserConfig } from "tsdown";
+
+/**
+ * Shared configuration for tsdown across packages.
+ */
+export const sharedConfig: UserConfig = {
+	format: "esm",
+	dts: {
+		build: true,
+	},
+	publint: {
+		level: "error",
+	},
+	outExtensions: () => ({
+		js: `.js`,
+		dts: `.d.ts`,
+	}),
+};
