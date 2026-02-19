@@ -343,4 +343,5 @@ export type {
 	CSSProperties,
 	CSSRule,
 	CSSValue,
+	StylesheetReturn,
 } from "./types.ts";
