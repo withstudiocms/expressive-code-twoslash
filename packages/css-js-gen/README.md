@@ -16,8 +16,7 @@ A TypeScript package that converts CSS object notation to CSS strings, providing
 ## Installation
 
 ```bash
-pnpm install
-pnpm build
+pnpm install css-js-gen
 ```
 
 ## Usage
