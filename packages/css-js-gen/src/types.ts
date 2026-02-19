@@ -52,6 +52,7 @@ export interface StylesheetReturn {
 	 * The merged CSS object containing all styles provided to the stylesheet function, ready for conversion to a CSS string
 	 */
 	styles: CSSObject;
+
 	/**
 	 * Convert the CSS object to a CSS string with optional formatting options
 	 * @param options - CSS generation options
