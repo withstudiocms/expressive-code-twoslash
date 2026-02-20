@@ -1,29 +1,29 @@
 import type * as CSS from "csstype";
 
 /**
- * CSS property values can be strings, numbers, or CSS variable references
+ * CSS properties with camelCase and kebab-case notations
  */
-export type CSSValue = string | number;
+export interface CSSPropertiesOptions extends CSS.Properties, CSS.PropertiesHyphen {}
 
 /**
  * Standard CSS properties with kebab-case notation
  */
 export type CSSProperties = {
-	[property: string]: CSSValue;
+	[property: string]: string | number | CSSProperties | CSSPropertiesOptions;
 };
 
 /**
  * A CSS rule can contain properties and nested selectors
  */
 export interface CSSRule {
-	[key: string]: CSSValue | CSSRule | CSSProperties | CSS.Properties | CSS.PropertiesHyphen;
+	[key: string]: string | number | CSSRule | CSSProperties | CSSPropertiesOptions;
 }
 
 /**
  * CSS object structure supporting nested selectors and media queries
  */
 export interface CSSObject {
-	[selector: string]: CSSRule | CSSProperties;
+	[selector: string]: CSSRule | CSSProperties | CSSPropertiesOptions;
 }
 
 /**
