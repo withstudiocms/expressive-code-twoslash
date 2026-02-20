@@ -1,3 +1,5 @@
+import type * as CSS from "csstype";
+
 /**
  * CSS property values can be strings, numbers, or CSS variable references
  */
@@ -14,7 +16,7 @@ export type CSSProperties = {
  * A CSS rule can contain properties and nested selectors
  */
 export interface CSSRule {
-	[key: string]: CSSValue | CSSRule | CSSProperties;
+	[key: string]: CSSValue | CSSRule | CSSProperties | CSS.Properties | CSS.PropertiesHyphen;
 }
 
 /**

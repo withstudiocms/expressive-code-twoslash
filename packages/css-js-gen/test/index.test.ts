@@ -508,4 +508,99 @@ describe("css helper function", () => {
 			expect(result).toContain("color: blue;");
 		});
 	});
+
+	describe("camelCase to kebab-case conversion", () => {
+		it("should convert camelCase property names to kebab-case", () => {
+			const result = toCSS({
+				".element": {
+					backgroundColor: "red",
+					fontSize: "16px",
+					marginTop: 10,
+				},
+			});
+
+			expect(result).toContain("background-color: red;");
+			expect(result).toContain("font-size: 16px;");
+			expect(result).toContain("margin-top: 10px;");
+		});
+
+		it("should handle vendor prefixed properties", () => {
+			const result = toCSS({
+				".element": {
+					WebkitTransform: "scale(1.1)",
+					MozAppearance: "none",
+					msFlexDirection: "column",
+				},
+			});
+
+			expect(result).toContain("-webkit-transform: scale(1.1);");
+			expect(result).toContain("-moz-appearance: none;");
+			expect(result).toContain("-ms-flex-direction: column;");
+		});
+
+		it("should preserve kebab-case properties as-is", () => {
+			const result = toCSS({
+				".element": {
+					"background-color": "blue",
+					"font-size": "20px",
+				},
+			});
+
+			expect(result).toContain("background-color: blue;");
+			expect(result).toContain("font-size: 20px;");
+		});
+
+		it("should handle mixed camelCase and kebab-case properties", () => {
+			const result = toCSS({
+				".element": {
+					backgroundColor: "red",
+					"font-size": "16px",
+					marginTop: 10,
+					"padding-bottom": 20,
+				},
+			});
+
+			expect(result).toContain("background-color: red;");
+			expect(result).toContain("font-size: 16px;");
+			expect(result).toContain("margin-top: 10px;");
+			expect(result).toContain("padding-bottom: 20px;");
+		});
+
+		it("should handle CSS.Properties-like objects with camelCase", () => {
+			const result = toCSS({
+				".element": {
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "center",
+					justifyContent: "space-between",
+				},
+			});
+
+			expect(result).toContain("display: flex;");
+			expect(result).toContain("flex-direction: column;");
+			expect(result).toContain("align-items: center;");
+			expect(result).toContain("justify-content: space-between;");
+		});
+
+		it("should handle nested selectors with camelCase properties", () => {
+			const result = toCSS({
+				".container": {
+					maxWidth: "1200px",
+					".item": {
+						backgroundColor: "gray",
+						"&:hover": {
+							backgroundColor: "darkgray",
+						},
+					},
+				},
+			});
+
+			expect(result).toContain(".container {");
+			expect(result).toContain("max-width: 1200px;");
+			expect(result).toContain(".container .item {");
+			expect(result).toContain("background-color: gray;");
+			expect(result).toContain(".container .item:hover {");
+			expect(result).toContain("background-color: darkgray;");
+		});
+	});
 });
