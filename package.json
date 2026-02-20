@@ -31,7 +31,8 @@
 		"ci:version": "changeset version",
 		"ci:publish": "changeset publish",
 		"ci:build": "pnpm build",
-		"ci:lint": "pnpm lint"
+		"ci:lint": "pnpm lint",
+		"ci:test:css-js-gen": "pnpm --filter css-js-gen test"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.14",

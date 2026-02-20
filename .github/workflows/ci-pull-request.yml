@@ -71,4 +71,4 @@ jobs:
     secrets: inherit
     with:
       commands: > 
-        ["pnpm --filter css-js-gen test"]
+        ["ci:test:css-js-gen"]
