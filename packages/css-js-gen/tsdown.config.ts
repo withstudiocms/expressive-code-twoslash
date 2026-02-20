@@ -4,4 +4,5 @@ import { sharedConfig } from "../../tsdown.shared.ts";
 export default defineConfig({
 	...sharedConfig,
 	entry: ["./src/index.ts"],
+	inlineOnly: ["csstype"],
 });

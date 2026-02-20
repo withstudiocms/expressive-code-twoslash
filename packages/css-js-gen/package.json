@@ -39,6 +39,9 @@
 		"scratchpad:test-styles": "node ./scratchpad/test-styles.mjs",
 		"changeset": "changeset"
 	},
+	"devDependencies": {
+		"csstype": "^3.2.3"
+	},
 	"keywords": [
 		"css",
 		"css-in-js",
