@@ -42,6 +42,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"css-js-gen": "workspace:^",
 		"mdast-util-from-markdown": "catalog:mdast",
 		"mdast-util-gfm": "catalog:mdast",
 		"mdast-util-to-hast": "catalog:mdast",

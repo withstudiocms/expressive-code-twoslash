@@ -138,13 +138,11 @@ For more information on how to add to your Next.js config, see the [Expressive C
 
 </Tabs>
 
-
-
 ### Config Options
 
 Default config options shown.
 
-```ts twoslash
+```ts twoslash wrap
 import { defineEcConfig } from 'astro-expressive-code'
 import ecTwoSlash from "expressive-code-twoslash";
 import ts from "typescript";
@@ -157,7 +155,7 @@ ecTwoSlash({
   languages: ["ts", "tsx", "vue"],
   includeJsDoc: true,
 // @annotate: allowNonStandardJsDocTags is required for like this to work
-	allowNonStandardJsDocTags: true,
+  allowNonStandardJsDocTags: true,
   twoslashOptions: {
     compilerOptions: {
       moduleResolution: 100 satisfies ts.ModuleResolutionKind.Bundler,
