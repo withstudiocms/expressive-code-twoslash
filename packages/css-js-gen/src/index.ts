@@ -4,14 +4,13 @@ import type {
 	CSSObject,
 	CSSProperties,
 	CSSRule,
-	CSSValue,
 	StylesheetReturn,
 } from "./types.ts";
 
 /**
  * Check if a value is a plain CSS property value
  */
-function isCSSValue(value: unknown): value is CSSValue {
+function isCSSValue(value: unknown): value is string | number {
 	return typeof value === "string" || typeof value === "number";
 }
 
@@ -108,7 +107,7 @@ const UNITLESS_PROPERTIES = new Set([
 /**
  * Format a CSS property name and value
  */
-function formatProperty(property: string, value: CSSValue): string {
+function formatProperty(property: string, value: string | number): string {
 	let formattedValue: string | number = value;
 
 	if (typeof value === "number" && value !== 0) {
@@ -133,7 +132,7 @@ function generateProperties(
 
 	const props = Object.entries(properties)
 		.filter(([, value]) => isCSSValue(value))
-		.map(([prop, value]) => `${indentation}${formatProperty(prop, value as CSSValue)}`)
+		.map(([prop, value]) => `${indentation}${formatProperty(prop, value as string | number)}`)
 		.join(newline);
 
 	return props;
@@ -144,7 +143,7 @@ function generateProperties(
  */
 function generateRule(
 	selector: string,
-	rule: CSSRule | CSSProperties,
+	rule: CSSRule | CSSProperties | CSS.Properties | CSS.PropertiesHyphen,
 	indent: string,
 	level: number,
 	options: Required<CSSGeneratorOptions>,
@@ -430,6 +429,5 @@ export type {
 	CSSObject,
 	CSSProperties,
 	CSSRule,
-	CSSValue,
 	StylesheetReturn,
 } from "./types.ts";
