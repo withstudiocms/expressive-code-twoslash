@@ -4,19 +4,44 @@
 // It also listens for the astro:page-load event to update the popups when the page is loaded
 
 function setupTooltip(ToolTip: Element, isMobileScreen: boolean) {
-	const hoverAnnotation = ToolTip.querySelector(".twoslash-popup-container");
-	const expressiveCodeBlock = hoverAnnotation?.closest(".expressive-code");
+	let hoverAnnotation = ToolTip.nextElementSibling;
+
+	// If not immediately after, search within the parent code block
+	if (!hoverAnnotation || !hoverAnnotation.classList.contains("twoslash-popup-container")) {
+		const codeBlock = ToolTip.closest(".expressive-code");
+		if (codeBlock) {
+			// Find all popup containers in this code block
+			const allPopups = codeBlock.querySelectorAll(".twoslash-popup-container");
+			const allHovers = codeBlock.querySelectorAll(".twoslash-hover");
+			const hoverIndex = Array.from(allHovers).indexOf(ToolTip);
+			hoverAnnotation = allPopups[hoverIndex];
+		}
+	}
+
+	if (!hoverAnnotation) {
+		console.warn("No popup container found for:", ToolTip);
+		return;
+	}
+
+	const expressiveCodeBlock = ToolTip.closest(".expressive-code");
+
+	if (!expressiveCodeBlock) {
+		console.warn("No expressive-code container found for:", ToolTip);
+		return;
+	}
 
 	// Ensure each tooltip has a unique ID for `aria-describedby`
-	const randomId = `twoslash_popup_${[Math.random(), Date.now()].map((n) => n.toString(36).substring(2, 10)).join("_")}`;
+	const randomId = `twoslash_popup_${[Math.random(), Date.now()]
+		.map((n) => n.toString(36).substring(2, 10))
+		.join("_")}`;
 
 	// Set role and tabindex for accessibility
 	hoverAnnotation?.setAttribute("role", "tooltip");
 	hoverAnnotation?.setAttribute("tabindex", "-1");
 
-	if (hoverAnnotation?.parentNode) {
-		hoverAnnotation.parentNode.removeChild(hoverAnnotation);
-	}
+	// Don't remove from parent - it needs to stay in the DOM structure
+	// Just hide it initially
+	(hoverAnnotation as HTMLElement).style.display = "none";
 
 	// @ts-expect-error - We know this import works, but TypeScript may not be able to infer the types correctly from the minified module
 	// biome-ignore lint/suspicious/noExplicitAny: Type assertion to avoid TypeScript errors with the imported module
@@ -28,23 +53,25 @@ function setupTooltip(ToolTip: Element, isMobileScreen: boolean) {
 			console.warn("Twoslash popup container not found for tooltip:", ToolTip);
 			return;
 		}
-		// Ensure `hoverAnnotation` remains attached to the expressiveCodeBlock for each tooltip
+		// restore original positioning context
 		expressiveCodeBlock?.appendChild(hoverAnnotation);
 
-		new Promise((resolve) =>
-			requestAnimationFrame(() => {
-				requestAnimationFrame(resolve);
-			}),
-		)
+		new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
 			.then(() =>
 				floatingUiDom.computePosition(ToolTip, hoverAnnotation, {
 					placement: isMobileScreen ? "bottom" : "bottom-start",
 					middleware: [
 						floatingUiDom.size({
-							apply({ availableWidth }: { availableWidth: number }) {
+							apply({
+								availableWidth,
+								availableHeight,
+							}: {
+								availableWidth: number;
+								availableHeight: number;
+							}) {
 								Object.assign((hoverAnnotation as HTMLElement).style, {
 									maxWidth: `${Math.max(300, availableWidth)}px`,
-									maxHeight: "100%",
+									maxHeight: `${availableHeight}px`,
 								});
 							},
 						}),
@@ -76,10 +103,12 @@ function setupTooltip(ToolTip: Element, isMobileScreen: boolean) {
 	// Hide tooltip
 	function hideTooltip() {
 		hoverAnnotation?.setAttribute("aria-hidden", "true");
-		ToolTip.querySelector(".twoslash-hover span")?.removeAttribute("aria-describedby");
 		hoverAnnotation?.removeAttribute("id");
 		if (hoverAnnotation) {
-			(hoverAnnotation as HTMLElement).style.display = "none"; // Hide instead of removing from DOM
+			(hoverAnnotation as HTMLElement).style.display = "none";
+			if (hoverAnnotation.parentNode === expressiveCodeBlock) {
+				expressiveCodeBlock?.removeChild(hoverAnnotation);
+			}
 		}
 	}
 
@@ -113,9 +142,16 @@ function setupTooltip(ToolTip: Element, isMobileScreen: boolean) {
 const isMobileScreen = window.matchMedia("(max-width: 500px)").matches;
 
 function initTwoslashPopups(container: HTMLElement | Document) {
-	container.querySelectorAll?.(".twoslash-hover").forEach((el) => {
+	// First, hide all existing tooltips to prevent duplicates
+	for (const popup of container.querySelectorAll?.(".twoslash-popup-container") ?? []) {
+		(popup as HTMLElement).style.display = "none";
+		popup.setAttribute("aria-hidden", "true");
+	}
+
+	// Then, set up tooltips for all hover elements
+	for (const el of container.querySelectorAll?.(".twoslash-hover") ?? []) {
 		setupTooltip(el, isMobileScreen);
-	});
+	}
 }
 
 initTwoslashPopups(document);
@@ -133,6 +169,15 @@ newTwoslashPopupObserver.observe(document.body, {
 	subtree: true,
 });
 
+// Handle Astro view transitions
+document.addEventListener("astro:after-swap", () => {
+	// Small delay to let the DOM settle after transition
+	setTimeout(() => {
+		initTwoslashPopups(document.body);
+	}, 100);
+});
+
+// Handle initial page load
 document.addEventListener("astro:page-load", () => {
 	initTwoslashPopups(document.body);
 });
