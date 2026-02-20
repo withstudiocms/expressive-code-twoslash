@@ -18,9 +18,9 @@ export const twoSlashStyleSettings = new PluginStyleSettings({
 				theme.colors["titleBar.border"] ||
 				lighten(theme.colors["editor.background"], theme.type === "dark" ? 0.5 : -0.15) ||
 				"transparent",
-			background: ({ theme }) => theme.colors["editor.background"] || theme.bg,
+			background: ({ theme }) => theme.colors["editor.background"] || theme.bg || "transparent",
 			hoverUnderlineColor: ({ theme }) => theme.fg || "#888",
-			textColor: ({ theme }) => theme.colors["editor.foreground"] || theme.fg,
+			textColor: ({ theme }) => theme.colors["editor.foreground"] || theme.fg || "#ffffff",
 			popupDocsMaxHeight: "200px",
 			tagColor: ({ theme }) =>
 				theme.colors["terminal.ansiBrightBlue"] ||
