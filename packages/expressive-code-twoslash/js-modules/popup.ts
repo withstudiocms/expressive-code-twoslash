@@ -105,8 +105,7 @@ function setupTooltip(ToolTip: Element, isMobileScreen: boolean) {
 		hoverAnnotation?.setAttribute("aria-hidden", "true");
 		hoverAnnotation?.removeAttribute("id");
 		if (hoverAnnotation) {
-			(hoverAnnotation as HTMLElement).style.display = "none"; // Hide instead of removing from DOM
-			// optional but clean (matches original behavior)
+			(hoverAnnotation as HTMLElement).style.display = "none";
 			if (hoverAnnotation.parentNode === expressiveCodeBlock) {
 				expressiveCodeBlock?.removeChild(hoverAnnotation);
 			}
