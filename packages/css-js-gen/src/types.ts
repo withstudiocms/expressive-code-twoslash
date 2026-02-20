@@ -16,7 +16,7 @@ export type CSSProperties = {
  * A CSS rule can contain properties and nested selectors
  */
 export interface CSSRule {
-	[key: string]: CSSRule | CSSProperties | CSSPropertiesOptions;
+	[key: string]: string | number | CSSRule | CSSProperties | CSSPropertiesOptions;
 }
 
 /**
