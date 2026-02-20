@@ -1,3 +1,4 @@
+import type * as CSS from "csstype";
 import type {
 	CSSGeneratorOptions,
 	CSSObject,
@@ -12,6 +13,78 @@ import type {
  */
 function isCSSValue(value: unknown): value is CSSValue {
 	return typeof value === "string" || typeof value === "number";
+}
+
+/**
+ * Check if a key looks like a CSS selector rather than a property
+ */
+function isSelectorKey(key: string): boolean {
+	return (
+		key.startsWith(".") ||
+		key.startsWith("#") ||
+		key.startsWith("&") ||
+		key.startsWith(":") ||
+		key.startsWith("@") ||
+		key.startsWith("[") ||
+		key.startsWith(">") ||
+		key.startsWith("+") ||
+		key.startsWith("~") ||
+		key.startsWith("*") ||
+		// Handle keyframe selectors (percentages and from/to keywords)
+		/^\d+%$/.test(key) ||
+		key === "from" ||
+		key === "to"
+	);
+}
+
+/**
+ * Check if a value is a CSS properties object (not a nested rule)
+ */
+function isCSSPropertiesObject(
+	value: unknown,
+): value is CSSProperties | CSS.Properties | CSS.PropertiesHyphen {
+	if (typeof value !== "object" || value === null || Array.isArray(value)) {
+		return false;
+	}
+
+	// Check if all keys look like CSS properties (not selectors)
+	// and all values are CSS values (no nested rules)
+	for (const [k, v] of Object.entries(value)) {
+		if (isSelectorKey(k) || !isCSSValue(v)) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
+ * Convert camelCase to kebab-case
+ * Handles vendor prefixes like WebkitTransform -> -webkit-transform
+ */
+function camelToKebab(str: string): string {
+	// Handle vendor prefixes (Webkit, Moz, Ms, O)
+	const vendorMatch = str.match(/^(Webkit|Moz|O)/);
+	if (vendorMatch) {
+		const prefix = vendorMatch[0].toLowerCase();
+		const rest = str.slice(prefix.length);
+		return `-${prefix}-${rest
+			.replace(/([A-Z])/g, "-$1")
+			.toLowerCase()
+			.replace(/^-/, "")}`;
+	}
+
+	// Special case for Ms (Microsoft) - should become -ms- not -microsoft-
+	if (str.startsWith("ms") && str.length > 2 && str[2] === str[2].toUpperCase()) {
+		const rest = str.slice(2);
+		return `-ms-${rest
+			.replace(/([A-Z])/g, "-$1")
+			.toLowerCase()
+			.replace(/^-/, "")}`;
+	}
+
+	// Regular camelCase conversion
+	return str.replace(/([A-Z])/g, "-$1").toLowerCase();
 }
 
 /**
@@ -103,8 +176,23 @@ function generateRule(
 	const nestedRules: Record<string, CSSRule | CSSProperties> = {};
 
 	for (const [key, value] of Object.entries(rule)) {
-		if (isCSSValue(value)) {
-			properties[key] = value;
+		// Check if the key looks like a selector first
+		if (isSelectorKey(key)) {
+			// Keys that look like selectors are always nested rules
+			nestedRules[key] = value as CSSRule | CSSProperties;
+		} else if (isCSSValue(value)) {
+			// Convert camelCase properties to kebab-case
+			const propertyName = key.includes("-") ? key : camelToKebab(key);
+			properties[propertyName] = value;
+		} else if (isCSSPropertiesObject(value)) {
+			// Handle CSS.Properties and CSS.PropertiesHyphen objects
+			for (const [propKey, propValue] of Object.entries(value)) {
+				if (isCSSValue(propValue)) {
+					// Convert camelCase properties to kebab-case
+					const propertyName = propKey.includes("-") ? propKey : camelToKebab(propKey);
+					properties[propertyName] = propValue;
+				}
+			}
 		} else {
 			// Non-CSS values are treated as nested rules
 			nestedRules[key] = value as CSSRule | CSSProperties;
