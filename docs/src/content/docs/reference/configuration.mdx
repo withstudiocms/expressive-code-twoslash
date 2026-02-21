@@ -1,0 +1,156 @@
+---
+title: Configuring EC-Twoslash
+description: Learn how to configure Twoslash with Expressive Code.
+sidebar:
+  order: 1
+  label: Configuration
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import PropertySignature from '../../../components/PropertySignature.astro';
+
+Expressive Code Twoslash (EC-Twoslash) is highly configurable, allowing you to tailor its behavior to fit your specific needs. This section provides an overview of the various configuration options available, including how to customize the appearance of code blocks, enable or disable specific features, and integrate with other tools.
+
+**Example Configuration:**
+
+```ts twoslash title="ec.config.mjs"
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [ecTwoSlash()],
+});
+```
+
+<Aside>
+For all examples in this section, we will be using the `ec.config.mjs` file to demonstrate how to configure EC-Twoslash. For more information about this configuration file, see the [Expressive Code documentation](https://expressive-code.com/reference/configuration/).
+</Aside>
+
+## Configuration Options
+
+### explicitTrigger
+
+<PropertySignature>
+- Type: boolean | RegExp
+- Default: `true`
+</PropertySignature>
+
+The `explicitTrigger` option determines whether EC-Twoslash should only process code blocks that explicitly indicate they want to use Twoslash features. When set to `true`, EC-Twoslash will only apply its transformations to code blocks that include the `twoslash` directive in their metadata. If set to a `RegExp`, EC-Twoslash will apply its transformations to code blocks that match the provided regular expression in their metadata. If set to `false`, EC-Twoslash will apply its transformations to all code blocks that match the specified languages, regardless of their metadata. It is generally recommended to keep this option set to `true` to avoid unnecessary processing of code blocks that do not require Twoslash features.
+
+`````md /twoslash/
+```ts twoslash
+// This code block will only be processed if `explicitTrigger` 
+// is `true` or matches the provided RegExp.
+```
+`````
+
+#### Example
+
+```ts twoslash title="ec.config.mjs" {7}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      explicitTrigger: /\btwoslash\b/, // Default trigger value
+    }),
+  ],
+});
+```
+
+### includeJsDoc
+
+<PropertySignature>
+- Type: boolean
+- Default: `true`
+</PropertySignature>
+
+The `includeJsDoc` option determines whether JSDoc comments should be included in the hover information provided by EC-Twoslash. When set to `true`, EC-Twoslash will include JSDoc comments in the hover popup, providing additional context and documentation for the code being hovered over. If set to `false`, JSDoc comments will be excluded from the hover information, resulting in a more concise hover popup that only includes type information and other relevant details.
+
+#### Example
+
+```ts twoslash title="ec.config.mjs" {7}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      includeJsDoc: false, // Exclude JSDoc comments from hover information
+    }),
+  ],
+});
+```
+
+### allowNonStandardJsDocTags
+
+<PropertySignature>
+- Type: boolean
+- Default: `true`
+</PropertySignature>
+
+The `allowNonStandardJsDocTags` option determines whether non-standard JSDoc tags should be included in the hover information provided by EC-Twoslash. When set to `true`, EC-Twoslash will include non-standard JSDoc tags in the hover popup, allowing you to see custom documentation that may not be part of the standard JSDoc specification. If set to `false`, only standard JSDoc tags will be included in the hover information, resulting in a more streamlined hover popup that focuses on commonly used documentation tags.
+
+#### Example
+
+```ts twoslash title="ec.config.mjs" {7}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      allowNonStandardJsDocTags: false, // Exclude non-standard JSDoc tags from hover information
+    }),
+  ],
+});
+```
+
+### languages
+
+<PropertySignature>
+- Type: `ReadonlyArray<string>`
+- Default: `["ts", "tsx", "vue"]`
+</PropertySignature>
+
+The `languages` option specifies the programming languages that EC-Twoslash should process. By default, EC-Twoslash is configured to process TypeScript (`ts`), TSX (`tsx`), and Vue (`vue`) code blocks. You can customize this list to include any languages that are supported by Twoslash, such as JavaScript (`js`), JavaScript React (`jsx`), or even custom languages that you have set up with Twoslash.
+
+#### Example
+
+```ts twoslash title="ec.config.mjs" {7}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      languages: ["ts", "vue"], // Process TypeScript and Vue code blocks
+    }),
+  ],
+});
+```
+
+### twoslashOptions
+
+<PropertySignature>
+- Type: TwoslashOptions
+- Default: `{}`
+</PropertySignature>
+
+The `twoslashOptions` option allows you to forward additional options directly to the `twoslash` preprocessor. This is useful for customizing the behavior of Twoslash itself, such as enabling specific features, configuring how code is processed, or adjusting the output of Twoslash transformations. For a full list of available options that can be forwarded to Twoslash, see the [Twoslash documentation](https://twoslash.netlify.app/refs/options).
+
+```ts twoslash title="ec.config.mjs" {7-9}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      twoslashOptions: {
+        // Twoslash options go here
+      },
+    }),
+  ],
+});
+```

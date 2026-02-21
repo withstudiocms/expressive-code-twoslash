@@ -1,0 +1,15 @@
+---
+import { Badge } from "@astrojs/starlight/components";
+import Default from "@astrojs/starlight/components/PageTitle.astro";
+
+const {
+	entry: { data },
+} = Astro.locals.starlightRoute;
+---
+{
+    (data.template === 'splash' && data.title === "404") 
+		? <slot/> 
+		: data.addedIn 
+            ? <Default><slot/></Default><Badge text={`Added in ${data.addedIn}`} variant="success" />
+            : <Default><slot/></Default>
+}

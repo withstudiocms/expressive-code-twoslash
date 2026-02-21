@@ -1,0 +1,371 @@
+---
+title: Style Overrides
+sidebar:
+  order: 2
+---
+
+import PropertySignature from '../../../components/PropertySignature.astro';
+
+EC-Twoslash provides several options for customizing the appearance of code blocks, including the ability to override default styles. This section covers the various style override options available in EC-Twoslash, allowing you to tailor the look and feel of your code examples to better fit your project's design.
+
+**Example Configuration:**
+
+```ts twoslash title="ec.config.mjs" {7-9}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [ecTwoSlash()],
+  styleOverrides: {
+    twoSlash: {
+      // Style override options go here
+    },
+  },
+})
+```
+
+## Main Style Overrides
+
+### borderColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["titleBar.border"] || lighten(theme.colors["editor.background"], theme.type === "dark" ? 0.5 : -0.15) || "transparent"`
+</PropertySignature>
+
+Style (Border Color) for the Twoslash Popups
+
+### background
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["editor.background"] || theme.bg || "transparent"`
+</PropertySignature>
+
+Style (Background) for the Twoslash Popups
+
+### hoverUnderlineColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.fg || "#888"`
+</PropertySignature>
+
+Style (Hover Underline color) for the Twoslash Popups
+
+### textColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["editor.foreground"] || theme.fg || "#ffffff", popupDocsMaxHeight: "200px"`
+</PropertySignature>
+
+Style (Text Color) for the Twoslash Popups
+
+### popupDocMaxHeight
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"200px"`
+</PropertySignature>
+
+Style (Docs Max Element Height) for the Twoslash Popups
+
+### tagColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["terminal.ansiBrightBlue"] || theme.colors["terminal.ansiBlue"] || theme.colors.blue || "#75beff"`
+</PropertySignature>
+
+Style (Tag Color) for the Twoslash JSDoc Tags
+
+## Link Style Overrides
+
+### linkColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["terminal.ansiBrightBlue"] || theme.colors["terminal.ansiBlue"] || theme.colors.blue || "#75beff"`
+</PropertySignature>
+
+Style (Link Color) for the Twoslash Popups
+
+### linkColorHover
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["terminal.ansiBrightCyan"] || theme.colors["terminal.ansiCyan"] || theme.colors.cyan || "#75ffff"`
+</PropertySignature>
+
+Style (Link Hover Color) for the Twoslash Popups
+
+### linkColorVisited
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["terminal.ansiBrightMagenta"] || theme.colors["terminal.ansiMagenta"] || theme.colors.magenta || "#ff75be"`
+</PropertySignature>
+
+Style (Link Visited Color) for the Twoslash Popups
+
+### linkColorActive
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["terminal.ansiBrightGreen"] || theme.colors["terminal.ansiGreen"] || theme.colors.green || "#75ff75"`
+</PropertySignature>
+
+Style (Link Active Color) for the Twoslash Popups
+
+## Highlight Style Overrides
+
+### highlightHue
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"284"`
+</PropertySignature>
+
+Style (Hue) for the Twoslash Highlights
+
+Used to calculate the `highlightBackground` and `highlightBorderColor` styles
+
+### highlightDefaultLuminance
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `["32%", "75%"]`
+</PropertySignature>
+
+Style (Luminance) for the Twoslash Highlights
+
+Used to calculate the `highlightBackground` and `highlightBorderColor` styles
+
+### highlightDefaultChroma
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"40"`
+</PropertySignature>
+
+Style (Chroma) for the Twoslash Highlights
+
+Used to calculate the `highlightBackground` and `highlightBorderColor` styles
+
+### highlightBackgroundOpacity
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"50%"`
+</PropertySignature>
+
+Style (Background Opacity) for the Twoslash Highlights
+
+Used to calculate the `highlightBackground` and `highlightBorderColor` styles
+
+### highlightBorderLuminance
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"48%"`
+</PropertySignature>
+
+Style (Border Luminance) for the Twoslash Highlights
+
+Used to calculate the `highlightBackground` and `highlightBorderColor` styles
+
+### highlightBorderOpacity
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"81.6%"`
+</PropertySignature>
+
+Style (Border Opacity) for the Twoslash Highlights
+
+Used to calculate the `highlightBackground` and `highlightBorderColor` styles
+
+### highlightBackground
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `(context) => resolveHighlight(context).background`
+</PropertySignature>
+
+Style (Background) for the Twoslash Highlights
+
+### highlightBorderColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `(context) => resolveHighlight(context).border`
+</PropertySignature>
+
+Style (Border) for the Twoslash Highlights
+
+## Annotation Style Overrides
+
+### errorColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["terminal.ansiRed"] || theme.colors.red || "#ff5555"`
+</PropertySignature>
+
+Style (Error Color) for the Twoslash Error/Custom Annotations
+
+### warnColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["terminal.ansiYellow"] || theme.colors.yellow || "#ffff55"`
+</PropertySignature>
+
+Style (Warning Color) for the Twoslash Custom Annotations
+
+### suggestionColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["terminal.ansiGreen"] || theme.colors.green || "#55ff55"`
+</PropertySignature>
+
+Style (Suggestion Color) for the Twoslash Custom Annotations
+
+### messageColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["terminal.ansiBlue"] || theme.colors.blue || "#5555ff"`
+</PropertySignature>
+
+Style (Message Color) for the Twoslash Custom Annotations
+
+## Completion Style Overrides
+
+### cursorColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["editorCursor.foreground"] || theme.colors["editor.foreground"] || theme.fg`
+</PropertySignature>
+
+Style (Cursor Color) for the Twoslash Completion Box
+
+### completionBoxBackground
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["editorSuggestWidget.background"] || theme.colors["editor.background"] || theme.bg || lighten(theme.colors["editor.background"], theme.type === "dark" ? 0.5 : -0.15) || "transparent"`
+</PropertySignature>
+
+Style (Background) for the Twoslash Completion Box
+
+### completionBoxBorder
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["editorSuggestWidget.border"] || theme.colors["titleBar.border"] || lighten(theme.colors["editor.background"], theme.type === "dark" ? 0.5 : -0.15) || "transparent"`
+</PropertySignature>
+
+Style (Border) for the Twoslash Completion Box
+
+### completionBoxColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["editorSuggestWidget.foreground"] || theme.colors["editor.foreground"] || theme.fg || "#ffffff"`
+</PropertySignature>
+
+Style (Color) for the Twoslash Completion Box
+
+### completionBoxMatchedColor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["editorSuggestWidget.highlightForeground"] || theme.colors["editor.findMatchBackground"] || theme.colors["terminal.ansiBrightCyan"] || theme.colors["terminal.ansiCyan"] || theme.colors.cyan || "#75ffff"`
+</PropertySignature>
+
+Style (Matched Color) for the Twoslash Completion Box
+
+### completionBoxHoverBackground
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `({ theme }) => theme.colors["editorSuggestWidget.selectedBackground"] || theme.colors["editor.findMatchHighlightBackground"] || "#888"`
+</PropertySignature>
+
+Style (Hover Background) for the Twoslash Completion Box
+
+### completionIconString
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"#cccccc"`
+</PropertySignature>
+
+Style (String Icon) for the Twoslash Completion Icons
+
+### completionIconFunction
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"#b180d7"`
+</PropertySignature>
+
+Style (Function Icon) for the Twoslash Completion Icons
+
+### completionIconClass
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"#EE9D28"`
+</PropertySignature>
+
+Style (Class Icon) for the Twoslash Completion Icons
+
+### completionIconProperty
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"#cccccc"`
+</PropertySignature>
+
+Style (Property Icon) for the Twoslash Completion Icons
+
+### completionIconModule
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"#b180d7"`
+</PropertySignature>
+
+Style (Module Icon) for the Twoslash Completion Icons
+
+### completionIconMethod
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"#b180d7"`
+</PropertySignature>
+
+Style (Method Icon) for the Twoslash Completion Icons
+
+### completionIconConstructor
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"#b180d7"`
+</PropertySignature>
+
+Style (Constructor Icon) for the Twoslash Completion Icons
+
+### completionIconInterface
+
+<PropertySignature>
+- Type: [UnresolvedStyleValue](https://expressive-code.com/reference/plugin-api/#unresolvedstylevalue)
+- Default: `"#75beff"`
+</PropertySignature>
+
+Style (Interface Icon) for the Twoslash Completion Icons
