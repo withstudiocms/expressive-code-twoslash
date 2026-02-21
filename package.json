@@ -37,6 +37,7 @@
 		"allure:view": "allure open allure-report"
 	},
 	"devDependencies": {
+		"@allurereport/plugin-awesome": "^3.1.0",
 		"@biomejs/biome": "^2.3.14",
 		"@changesets/cli": "^2.29.8",
 		"@changesets/config": "^3.1.2",

@@ -65,6 +65,9 @@ importers:
 
   .:
     devDependencies:
+      '@allurereport/plugin-awesome':
+        specifier: ^3.1.0
+        version: 3.1.0(preact@10.28.3)(typescript@5.9.3)
       '@biomejs/biome':
         specifier: ^2.3.14
         version: 2.3.14

@@ -42,6 +42,7 @@ describe(parentSuiteName, () => {
 			await allure.parentSuite(parentSuiteName);
 			await allure.suite("css helper function");
 			await allure.parameter("testCase", name);
+			await allure.label("package", "css-js-gen");
 
 			let result: Record<string, any> = {};
 
@@ -137,6 +138,7 @@ describe(parentSuiteName, () => {
 			await allure.suite("toCSS");
 			await allure.subSuite("basic functionality");
 			await allure.parameter("testCase", name);
+			await allure.label("package", "css-js-gen");
 
 			let result: string = "";
 
@@ -221,6 +223,7 @@ describe(parentSuiteName, () => {
 			await allure.suite("toCSS");
 			await allure.subSuite("nested selectors");
 			await allure.parameter("testCase", name);
+			await allure.label("package", "css-js-gen");
 
 			let result: string = "";
 
@@ -303,6 +306,7 @@ describe(parentSuiteName, () => {
 			await allure.suite("toCSS");
 			await allure.subSuite("media queries and at-rules");
 			await allure.parameter("testCase", name);
+			await allure.label("package", "css-js-gen");
 
 			let result: string = "";
 
@@ -382,6 +386,7 @@ describe(parentSuiteName, () => {
 			await allure.suite("toCSS");
 			await allure.subSuite("formatting options");
 			await allure.parameter("testCase", name);
+			await allure.label("package", "css-js-gen");
 
 			let result: string = "";
 
@@ -502,6 +507,7 @@ describe(parentSuiteName, () => {
 			await allure.suite("toCSS");
 			await allure.subSuite("complex scenarios");
 			await allure.parameter("testCase", name);
+			await allure.label("package", "css-js-gen");
 
 			let result: string = "";
 
@@ -569,6 +575,7 @@ describe(parentSuiteName, () => {
 			await allure.suite("toCSS");
 			await allure.subSuite("edge cases");
 			await allure.parameter("testCase", name);
+			await allure.label("package", "css-js-gen");
 
 			let result: string = "";
 
@@ -678,6 +685,7 @@ describe(parentSuiteName, () => {
 			await allure.suite("toCSS");
 			await allure.subSuite("camelCase conversion");
 			await allure.parameter("testCase", name);
+			await allure.label("package", "css-js-gen");
 
 			let result: string = "";
 
@@ -795,6 +803,7 @@ describe(parentSuiteName, () => {
 			await allure.parentSuite(parentSuiteName);
 			await allure.suite("stylesheet function");
 			await allure.parameter("testCase", name);
+			await allure.label("package", "css-js-gen");
 
 			let result: string = "";
 
