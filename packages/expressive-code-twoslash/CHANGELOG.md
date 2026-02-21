@@ -1,5 +1,55 @@
 # expressive-code-twoslash
 
+## 0.6.0
+
+### Minor Changes
+
+- [#52](https://github.com/withstudiocms/expressive-code-twoslash/pull/52) [`c2baab2`](https://github.com/withstudiocms/expressive-code-twoslash/commit/c2baab2a9955ff7efc5746800bb9c272b30b9976) Thanks [@ackzell](https://github.com/ackzell)! - # Adding support for Twoslash Vue
+
+  A new `"vue"` entry to the `languages` option was added.
+  The plugin will now determine which instance of `createTwoSlasher` to use: the TS one or the Vue one.
+
+- [#67](https://github.com/withstudiocms/expressive-code-twoslash/pull/67) [`4d62166`](https://github.com/withstudiocms/expressive-code-twoslash/commit/4d6216693fb3bba29b75673277098db9f0e0220a) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Refactor tsconfig and module imports
+
+- [#70](https://github.com/withstudiocms/expressive-code-twoslash/pull/70) [`42cefd7`](https://github.com/withstudiocms/expressive-code-twoslash/commit/42cefd78353769a5198c167a89f16ab96b6eb702) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Introduces new css-js-gen package for stylesheet creation, and improves CSS styles
+
+- [#80](https://github.com/withstudiocms/expressive-code-twoslash/pull/80) [`00f9cad`](https://github.com/withstudiocms/expressive-code-twoslash/commit/00f9cadb93fc92ac8462ed824d6174747a7a9efb) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Adds support for Twoslash Eslint
+
+  Adds a new Eslint option for defining types of codeblocks.
+
+  Example usage:
+
+  ````md
+  ```ts eslint
+  const unused = 1;
+
+  type Foo = {
+    bar: string;
+  };
+  ```
+  ````
+
+  This will cause two eslint errors as annotations in the code
+
+- [#61](https://github.com/withstudiocms/expressive-code-twoslash/pull/61) [`405cc6d`](https://github.com/withstudiocms/expressive-code-twoslash/commit/405cc6d0aaa8f3b39b7b50409cb66534201f1ac0) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Moves to TSDown compiler
+
+- [#58](https://github.com/withstudiocms/expressive-code-twoslash/pull/58) [`03e0848`](https://github.com/withstudiocms/expressive-code-twoslash/commit/03e08484a874104f0be87c5128081db3677d9b6b) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Cleans up defaults, and modernizes Twoslash config
+
+### Patch Changes
+
+- [#79](https://github.com/withstudiocms/expressive-code-twoslash/pull/79) [`b323683`](https://github.com/withstudiocms/expressive-code-twoslash/commit/b32368388de45d8af98d69410f0d5d9298ca24b1) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Extends support for Twoslash vue to allow passing custom options to the Vue Twoslasher function
+
+- [#63](https://github.com/withstudiocms/expressive-code-twoslash/pull/63) [`3b579ff`](https://github.com/withstudiocms/expressive-code-twoslash/commit/3b579ff57db8a51ef2ea572991d5a7f44039cfab) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Reworks popup script generation
+
+- [#69](https://github.com/withstudiocms/expressive-code-twoslash/pull/69) [`0c4c1d0`](https://github.com/withstudiocms/expressive-code-twoslash/commit/0c4c1d0245deef2f46f67d4b5989e6dbdf67fcfc) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Improves popup script for loading and handling popup event handlers
+
+- [#59](https://github.com/withstudiocms/expressive-code-twoslash/pull/59) [`d2b34b4`](https://github.com/withstudiocms/expressive-code-twoslash/commit/d2b34b449679ce3433dd73c4ae2c8b1482580a65) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Updates dependency configuration to rely on pnpm catalogs
+
+- [#60](https://github.com/withstudiocms/expressive-code-twoslash/pull/60) [`5e33470`](https://github.com/withstudiocms/expressive-code-twoslash/commit/5e3347073a88b9f94188139b3e90933b9a2ba5d9) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - lint
+
+- Updated dependencies [[`21c4812`](https://github.com/withstudiocms/expressive-code-twoslash/commit/21c481202bf64bf2d8818db9a0ea9c862b8996fd), [`640d7dd`](https://github.com/withstudiocms/expressive-code-twoslash/commit/640d7dd84737dedebe5d98214e1ee1c21601ab46), [`8159e57`](https://github.com/withstudiocms/expressive-code-twoslash/commit/8159e574ed968a4210a04a5b9458452842a964f0), [`4d62166`](https://github.com/withstudiocms/expressive-code-twoslash/commit/4d6216693fb3bba29b75673277098db9f0e0220a), [`42cefd7`](https://github.com/withstudiocms/expressive-code-twoslash/commit/42cefd78353769a5198c167a89f16ab96b6eb702)]:
+  - css-js-gen@1.1.0
+
 ## 0.5.3
 
 ### Patch Changes
@@ -93,7 +143,6 @@
 ### Minor Changes
 
 - [#12](https://github.com/MatthiesenXYZ/EC-Plugins/pull/12) [`7e4711d`](https://github.com/MatthiesenXYZ/EC-Plugins/commit/7e4711daebf5cc34d1e1aae9efd375203e8bcc96) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Refactor code to be simpiler and small CSS tweaks
-
   - Add Twoslash includes map
   - Pass user defined Twoslash options to `createTwoslasher()`
   - Remove excess functions and move code back to main EC function
