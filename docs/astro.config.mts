@@ -12,6 +12,7 @@ const ogImageUrl = new URL("/og.png", site).href;
 export default defineConfig({
 	site,
 	markdown: {
+		// Disable Astro's built-in syntax highlighting since Expressive Code will handle it for us, and to avoid conflicts between the two.
 		syntaxHighlight: false,
 	},
 	integrations: [
