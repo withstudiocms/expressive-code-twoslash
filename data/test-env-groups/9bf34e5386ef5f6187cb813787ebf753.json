@@ -1,1 +1,0 @@
-{"id":"9bf34e5386ef5f6187cb813787ebf753","fullName":"packages/css-js-gen/test/index.test.ts#css-js-gen Tests toCSS - camelCase conversion - should handle CSS.Properties-like objects with camelCase","name":"toCSS - camelCase conversion - should handle CSS.Properties-like objects with camelCase","status":"passed","testResultsByEnv":{"default":"bc8533d8fc751699d51349e3583d5a67"}}

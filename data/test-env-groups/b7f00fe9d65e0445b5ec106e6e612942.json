@@ -1,1 +1,0 @@
-{"id":"b7f00fe9d65e0445b5ec106e6e612942","fullName":"packages/css-js-gen/test/index.test.ts#css-js-gen Tests toCSS - camelCase conversion - should handle mixed camelCase and kebab-case properties","name":"toCSS - camelCase conversion - should handle mixed camelCase and kebab-case properties","status":"passed","testResultsByEnv":{"default":"44da73e20e9cc7b8c9a6ec72bfd06827"}}

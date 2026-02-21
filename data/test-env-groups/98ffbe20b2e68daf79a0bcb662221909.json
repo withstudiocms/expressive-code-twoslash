@@ -1,1 +1,0 @@
-{"id":"98ffbe20b2e68daf79a0bcb662221909","fullName":"packages/css-js-gen/test/index.test.ts#css-js-gen Tests toCSS - camelCase conversion - should handle nested selectors with camelCase properties","name":"toCSS - camelCase conversion - should handle nested selectors with camelCase properties","status":"passed","testResultsByEnv":{"default":"a9fdb281a08181d9cdf2ce08b861da0b"}}

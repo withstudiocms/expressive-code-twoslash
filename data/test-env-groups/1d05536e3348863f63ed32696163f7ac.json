@@ -1,1 +1,0 @@
-{"id":"1d05536e3348863f63ed32696163f7ac","fullName":"packages/css-js-gen/test/index.test.ts#css-js-gen Tests toCSS - camelCase conversion - should handle vendor prefixed properties in camelCase","name":"toCSS - camelCase conversion - should handle vendor prefixed properties in camelCase","status":"passed","testResultsByEnv":{"default":"7ab05415985b97d40969ce6b09ba1319"}}
