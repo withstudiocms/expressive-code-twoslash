@@ -58,15 +58,15 @@ export default defineConfig({
 				// Analytics Script - Only include in production
 				...(process.env.NODE_ENV === "production"
 					? [
-						{
-							tag: "script" as const,
-							attrs: {
-								src: "https://analytics.studiocms.cloud/script.js",
-								"data-website-id": "c6b56a8f-f4d1-4a52-b318-93c9cb442c9c",
-								defer: true,
+							{
+								tag: "script" as const,
+								attrs: {
+									src: "https://analytics.studiocms.cloud/script.js",
+									"data-website-id": "c6b56a8f-f4d1-4a52-b318-93c9cb442c9c",
+									defer: true,
+								},
 							},
-						},
-					]
+						]
 					: []),
 
 				// Favicon Meta Tags
@@ -193,7 +193,7 @@ export default defineConfig({
 				{
 					label: "Reference",
 					autogenerate: { directory: "reference" },
-				}
+				},
 			],
 		}),
 	],
