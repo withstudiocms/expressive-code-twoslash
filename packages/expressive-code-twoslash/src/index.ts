@@ -76,11 +76,15 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 		// This setting is important to allow users to use customTag annotations in their codeblocks
 		allowNonStandardJsDocTags = true,
 		twoslashOptions = checkForCustomTagsAndMerge(options.twoslashOptions),
+		twoslashVueOptions = options.twoslashVueOptions ?? {},
 	} = options;
 
 	const availableTwoSlashers: Record<string, TwoslashInstance> = {
 		default: createTwoslasher(twoslashOptions),
-		vue: createTwoslasherVue(twoslashOptions),
+		vue: createTwoslasherVue({
+			...twoslashOptions,
+			...twoslashVueOptions,
+		}),
 	};
 
 	const shouldTransform = buildMetaChecker(languages, explicitTrigger);

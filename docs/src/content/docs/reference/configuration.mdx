@@ -154,3 +154,27 @@ export default defineEcConfig({
   ],
 });
 ```
+
+### twoslashVueOptions
+
+<PropertySignature>
+- Type: [VueSpecificTwoslashOptions](#vuespecifictwoslashoptions)
+- Default: `{}`
+</PropertySignature>
+
+Options to forward to `twoslash-vue`.
+
+This option is only used if the `vue` language is included in the `languages` option and will be ignored otherwise. It allows you to customize the behavior of the `twoslash-vue` preprocessor, which is responsible for handling Vue-specific features in EC-Twoslash. For a full list of available options that can be forwarded to `twoslash-vue`, see the [Twoslash Vue documentation](https://twoslash.netlify.app/refs/vue-options).
+
+## Type References
+
+### VueSpecificTwoslashOptions
+
+The `VueSpecificTwoslashOptions` type represents the options that can be forwarded to `twoslash-vue`, excluding the standard Twoslash options. This type is derived by omitting the keys of `TwoslashOptions` from `CreateTwoslashVueOptions`, ensuring that only Vue-specific options are included.
+
+```ts
+type VueSpecificTwoslashOptions = {
+    debugShowGeneratedCode?: boolean;
+    vueCompilerOptions?: Partial<RawVueCompilerOptions>;
+}
+```
