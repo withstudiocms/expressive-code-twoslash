@@ -11,6 +11,9 @@ import type { customTagsIcons } from "./icons/customTagsIcons.ts";
  */
 export type VueSpecificTwoslashOptions = Omit<CreateTwoslashVueOptions, keyof TwoslashOptions>;
 
+/**
+ * Plugin options for configuring the behavior of the Expressive Code Twoslash plugin, including instance configurations, JSDoc settings, and options for Twoslash and its integrations.
+ */
 export interface PluginTwoslashOptions {
 	/**
 	 * Allows for configuring the included twoslasher instances and their triggers.
