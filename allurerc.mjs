@@ -16,7 +16,7 @@ export default defineConfig({
 	plugins: {
 		awesome: {
 			options: {
-				reportName: "Awesome Report",
+				reportName: "Repository Tests",
 				singleFile: false,
 				reportLanguage: "en",
 				open: false,
