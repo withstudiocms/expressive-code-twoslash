@@ -5,6 +5,14 @@ export default defineConfig({
 	output: "./allure-report",
 	historyPath: "./history.jsonl",
 	appendHistory: true,
+	qualityGate: {
+		rules: [
+			{
+				maxFailures: 0,
+				fastFail: true,
+			},
+		],
+	},
 	plugins: {
 		awesome: {
 			options: {
