@@ -29,7 +29,6 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "catalog:",
-		"@types/eslint": "^9.6.1",
 		"@types/node": "catalog:",
 		"typescript": "catalog:"
 	}

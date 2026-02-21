@@ -165,9 +165,6 @@ importers:
       '@astrojs/check':
         specifier: 'catalog:'
         version: 0.9.6(prettier@3.8.1)(typescript@5.9.3)
-      '@types/eslint':
-        specifier: ^9.6.1
-        version: 9.6.1
       '@types/node':
         specifier: 'catalog:'
         version: 20.17.1
@@ -1754,9 +1751,6 @@ packages:
 
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
-
-  '@types/eslint@9.6.1':
-    resolution: {integrity: sha512-FXx2pKgId/WyYo2jXw63kk7/+TY7u7AziEJxJAnSFzHlqTAS3Ync6SvgYAN/k4/PQpnnVuzoMuVnByKK2qp0ag==}
 
   '@types/esrecurse@4.3.1':
     resolution: {integrity: sha512-xJBAbDifo5hpffDBuHl0Y8ywswbiAp/Wi7Y/GtAgSlZyIABppyurxVueOPE8LUQOxdlgi6Zqce7uoEpqNTeiUw==}
@@ -6668,11 +6662,6 @@ snapshots:
       '@types/ms': 0.7.34
 
   '@types/deep-eql@4.0.2': {}
-
-  '@types/eslint@9.6.1':
-    dependencies:
-      '@types/estree': 1.0.8
-      '@types/json-schema': 7.0.15
 
   '@types/esrecurse@4.3.1': {}
 
