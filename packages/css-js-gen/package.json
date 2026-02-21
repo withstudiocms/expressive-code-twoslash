@@ -1,6 +1,6 @@
 {
 	"name": "css-js-gen",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"description": "Convert CSS object notation to CSS strings",
 	"type": "module",
 	"repository": {
