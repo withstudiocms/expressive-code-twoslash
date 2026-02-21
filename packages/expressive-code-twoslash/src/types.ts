@@ -44,6 +44,11 @@ export interface PluginTwoslashOptions {
 			languages?: ReadonlyArray<string>;
 		};
 
+		/**
+		 * ESLint Twoslash instance configuration.
+		 *
+		 * Unlike the standard Twoslash instance, the ESLint Twoslash instance uses `eslint` as its meta trigger for code blocks, and it is designed to work with JavaScript and TypeScript code blocks that contain ESLint errors. When a code block is annotated with `eslint`, the ESLint Twoslash instance will parse the code and display any ESLint errors as annotations in the code block.
+		 */
 		eslint?: {
 			/**
 			 * If `true`, requires `eslint` to be present in the code block meta for
