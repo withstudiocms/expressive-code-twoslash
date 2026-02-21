@@ -23,6 +23,9 @@ export default defineConfig({
 				alt: "EC Twoslash Logo",
 			},
 			credits: true,
+			components: {
+				PageTitle: "./src/components/starlight/PageTitle.astro",
+			},
 			social: [
 				{
 					label: "GitHub",
@@ -160,6 +163,10 @@ export default defineConfig({
 				{
 					label: "Getting Started",
 					autogenerate: { directory: "getting-started" },
+				},
+				{
+					label: "Available Twoslashers",
+					autogenerate: { directory: "twoslashers" },
 				},
 				{
 					label: "Usage",
