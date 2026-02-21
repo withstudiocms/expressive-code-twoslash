@@ -1,21 +1,12 @@
-import { defineConfig } from "vitest/config";
+import { defineProject, mergeConfig } from "vitest/config";
+import { configShared } from "../../vitest.shared.js";
 
-export default defineConfig({
-	test: {
-		globals: true,
-		environment: "node",
-		include: ["test/**/*.test.ts"],
-		coverage: {
-			provider: "v8",
-			reporter: ["text", "json", "html"],
-			exclude: [
-				"node_modules/**",
-				"build/**",
-				"dist/**",
-				"scratchpad/**",
-				"**/*.config.ts",
-				"**/*.d.ts",
-			],
+export default mergeConfig(
+	configShared,
+	defineProject({
+		test: {
+			name: "css-js-gen",
+			include: ["**/*.test.ts"],
 		},
-	},
-});
+	}),
+);

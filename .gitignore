@@ -3,3 +3,9 @@ node_modules
 .tsbuildinfo
 build
 dist
+
+# allure testing
+allure-results
+allure-report
+history.jsonl
+junit-report.xml

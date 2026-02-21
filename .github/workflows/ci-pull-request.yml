@@ -60,15 +60,3 @@ jobs:
     uses: withstudiocms/automations/.github/workflows/preview-pr.yml@f286863f2f7a414794b9a10ee6f1cadbb07f722f # main
     with:
       build-cmd: "pnpm ci:build"
-
-  css-js-gen-tests:
-    name: Run css-js-gen Tests
-    if: github.event_name == 'pull_request'
-    permissions:
-      contents: read
-      pull-requests: write
-    uses: withstudiocms/automations/.github/workflows/run-pnpm.yml@f286863f2f7a414794b9a10ee6f1cadbb07f722f # main
-    secrets: inherit
-    with:
-      commands: > 
-        ["ci:test:css-js-gen"]

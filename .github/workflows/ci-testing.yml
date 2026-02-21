@@ -1,0 +1,38 @@
+name: Tests with Allure Report
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  pull-requests: write
+  checks: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Apollo Git Bot
+        id: bot-token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        with:
+          app-id: ${{ secrets.STUDIOCMS_GIT_BOT_APP_ID }}
+          private-key: ${{ secrets.STUDIOCMS_GIT_BOT_PRIVATE_KEY }}
+
+      - name: Checkout Repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          token: ${{ steps.bot-token.outputs.token }}
+
+      - name: Install Tools & Dependencies
+        uses: withstudiocms/automations/.github/actions/install@f286863f2f7a414794b9a10ee6f1cadbb07f722f # main
+
+      - name: Run tests and generate report
+        run: pnpm ci:test
+
+      - name: Run Allure Action
+        uses: allure-framework/allure-action@c24234151c027cfee99e00eb6ec2dac1eb350414 # v0.6.6
+        with:
+          report-directory: "./allure-report"
+          github-token: ${{ steps.bot-token.outputs.token }}
