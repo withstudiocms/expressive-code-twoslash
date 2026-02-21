@@ -3,7 +3,7 @@ catalog:
   "@astrojs/starlight": ^0.37.6
   "@types/node": ^20.17.1
   astro: ^5.17.2
-  typescript: ^5.7.3
+  typescript: ^5.9.3
 
 catalogs:
   ec:
