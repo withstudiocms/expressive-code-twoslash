@@ -1,0 +1,1 @@
+{"id":"410297659a942b28896c5659b49bfefd","fullName":"packages/css-js-gen/test/index.test.ts#css-js-gen Tests toCSS - nested selectors - should handle ampersand (&) parent selector","name":"toCSS - nested selectors - should handle ampersand (&) parent selector","status":"passed","testResultsByEnv":{"default":"029afbdc2ab38a148fb1718747dc63c5"}}
