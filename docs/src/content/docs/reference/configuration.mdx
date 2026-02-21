@@ -4,6 +4,9 @@ description: Learn how to configure Twoslash with Expressive Code.
 sidebar:
   order: 1
   label: Configuration
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 5
 ---
 
 import { Aside } from '@astrojs/starlight/components';
@@ -28,32 +31,85 @@ For all examples in this section, we will be using the `ec.config.mjs` file to d
 
 ## Configuration Options
 
-### explicitTrigger
+### instanceConfigs
+
+<PropertySignature>
+- Type: {}
+</PropertySignature>
+
+The `instanceConfigs` option allows for configuring the included twoslasher instances. This is useful for customizing the behavior of specific Twoslash instances based on the trigger and language. For example, you can configure one instance to handle TypeScript code blocks and another instance to handle Vue code blocks, each with its own set of options and transformations.
+
+#### twoslash
+
+##### explicitTrigger
 
 <PropertySignature>
 - Type: boolean | RegExp
 - Default: `true`
 </PropertySignature>
 
-The `explicitTrigger` option determines whether EC-Twoslash should only process code blocks that explicitly indicate they want to use Twoslash features. When set to `true`, EC-Twoslash will only apply its transformations to code blocks that include the `twoslash` directive in their metadata. If set to a `RegExp`, EC-Twoslash will apply its transformations to code blocks that match the provided regular expression in their metadata. If set to `false`, EC-Twoslash will apply its transformations to all code blocks that match the specified languages, regardless of their metadata. It is generally recommended to keep this option set to `true` to avoid unnecessary processing of code blocks that do not require Twoslash features.
+The `explicitTrigger` option determines how EC-Twoslash identifies which code blocks should be processed with Twoslash transformations. When set to `true`, EC-Twoslash will only process code blocks that contain an explicit trigger annotation (e.g., `// @twoslash` for JavaScript/TypeScript). When set to a regular expression, EC-Twoslash will use the provided regex to match against the content of the code blocks to determine if they should be processed. If set to `false`, EC-Twoslash will process all code blocks of the specified languages without requiring any trigger annotations.
 
-`````md /twoslash/
-```ts twoslash
-// This code block will only be processed if `explicitTrigger` 
-// is `true` or matches the provided RegExp.
-```
-`````
+##### languages
 
-#### Example
+<PropertySignature>
+- Type: `ReadonlyArray<string>`
+- Default: `["ts", "tsx", "vue"]`
+</PropertySignature>
 
-```ts twoslash title="ec.config.mjs" {7}
-import { defineEcConfig } from 'astro-expressive-code';
+##### Example
+
+```ts twoslash title="ec.config.mjs" {8-11}
+import { defineEcConfig } from "@astrojs/starlight/expressive-code";
 import ecTwoSlash from "expressive-code-twoslash";
 
 export default defineEcConfig({
   plugins: [
     ecTwoSlash({
-      explicitTrigger: /\btwoslash\b/, // Default trigger value
+      instanceConfigs: {
+        twoslash: {
+          explicitTrigger: true,
+          languages: ["ts", "tsx", "vue"],
+        },
+      },
+    }),
+  ],
+});
+```
+
+#### eslint
+
+For configuring the `eslint` Twoslasher instance, the options are the same as for the `twoslash` instance, but they will only apply to code blocks that match the trigger and language specified for the `eslint` instance. For example, you can configure the `eslint` instance to only process TypeScript code blocks that contain an `eslint` trigger annotation.
+
+##### explicitTrigger
+
+<PropertySignature>
+- Type: boolean | RegExp
+- Default: `true`
+</PropertySignature>
+
+##### languages
+
+<PropertySignature>
+- Type: `ReadonlyArray<string>`
+- Default: `["ts", "tsx"]`
+</PropertySignature>
+
+##### Example
+
+```ts twoslash title="ec.config.mjs" {8-11}
+import { defineEcConfig } from "@astrojs/starlight/expressive-code";
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      instanceConfigs: {
+        eslint: {
+          explicitTrigger: true,
+          languages: ["ts", "tsx"],
+        },
+      },
     }),
   ],
 });
@@ -107,30 +163,6 @@ export default defineEcConfig({
 });
 ```
 
-### languages
-
-<PropertySignature>
-- Type: `ReadonlyArray<string>`
-- Default: `["ts", "tsx", "vue"]`
-</PropertySignature>
-
-The `languages` option specifies the programming languages that EC-Twoslash should process. By default, EC-Twoslash is configured to process TypeScript (`ts`), TSX (`tsx`), and Vue (`vue`) code blocks. You can customize this list to include any languages that are supported by Twoslash, such as JavaScript (`js`), JavaScript React (`jsx`), or even custom languages that you have set up with Twoslash.
-
-#### Example
-
-```ts twoslash title="ec.config.mjs" {7}
-import { defineEcConfig } from 'astro-expressive-code';
-import ecTwoSlash from "expressive-code-twoslash";
-
-export default defineEcConfig({
-  plugins: [
-    ecTwoSlash({
-      languages: ["ts", "vue"], // Process TypeScript and Vue code blocks
-    }),
-  ],
-});
-```
-
 ### twoslashOptions
 
 <PropertySignature>
@@ -166,6 +198,17 @@ Options to forward to `twoslash-vue`.
 
 This option is only used if the `vue` language is included in the `languages` option and will be ignored otherwise. It allows you to customize the behavior of the `twoslash-vue` preprocessor, which is responsible for handling Vue-specific features in EC-Twoslash. For a full list of available options that can be forwarded to `twoslash-vue`, see the [Twoslash Vue documentation](https://twoslash.netlify.app/refs/vue-options).
 
+### twoslashEslintOptions
+
+<PropertySignature>
+- Type: [CreateTwoslashESLintOptions](#createtwoslashelsintoptions)
+- Default: `{}`
+</PropertySignature>
+
+Options to forward to `twoslash-eslint`.
+
+This option is only used if the `eslint` instance is configured in the `instanceConfigs` option and will be ignored otherwise. It allows you to customize the behavior of the `twoslash-eslint` preprocessor, which is responsible for handling ESLint-specific features in EC-Twoslash. For a full list of available options that can be forwarded to `twoslash-eslint`, see the [Twoslash ESLint documentation](https://twoslash.netlify.app/packages/eslint#usage-with-shiki).
+
 ## Type References
 
 ### VueSpecificTwoslashOptions
@@ -176,5 +219,39 @@ The `VueSpecificTwoslashOptions` type represents the options that can be forward
 type VueSpecificTwoslashOptions = {
     debugShowGeneratedCode?: boolean;
     vueCompilerOptions?: Partial<RawVueCompilerOptions>;
+}
+```
+
+### CreateTwoslashESLintOptions
+
+The `CreateTwoslashESLintOptions` type represents the options that can be forwarded to `twoslash-eslint`, excluding the standard Twoslash options. This type is derived by omitting the keys of `TwoslashOptions` from `CreateTwoslashESLintOptions`, ensuring that only ESLint-specific options are included.
+
+```ts
+type CreateTwoslashESLintOptions = {
+    /**
+     * Flat configs for ESLint
+     */
+    eslintConfig: Linter.FlatConfig[];
+    /**
+     * Custom code transform before sending to ESLint for verification
+     *
+     * This does not affect the code rendering
+     */
+    eslintCodePreprocess?: (code: string) => string;
+    /**
+     * The current working directory for ESLint
+     */
+    cwd?: string;
+    /**
+     * Include the parsed docs in the result
+     *
+     * @default true
+     */
+    includeDocs?: boolean;
+    /**
+     * Merge error messages that has same range
+     * @default true
+     */
+    mergeMessages?: boolean;
 }
 ```

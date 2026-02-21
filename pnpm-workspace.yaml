@@ -19,6 +19,7 @@ catalogs:
     typescript: ^5.7.3
   twoslash:
     twoslash: ^0.3.6
+    twoslash-eslint: ^0.3.6
     twoslash-vue: ^0.3.6
 
 packages:

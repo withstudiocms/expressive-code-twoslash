@@ -1,7 +1,13 @@
 import { definePlugin, type ExpressiveCodePlugin } from "@expressive-code/core";
 import { ExpressiveCode } from "expressive-code";
-import { createTwoslasher, type TwoslashInstance } from "twoslash";
-import { createTwoslasher as createTwoslasherVue } from "twoslash-vue";
+import type {
+	NodeCompletion,
+	NodeError,
+	NodeHighlight,
+	NodeHover,
+	NodeQuery,
+	NodeTag,
+} from "twoslash";
 import type { CompilerOptions, ModuleResolutionKind } from "typescript";
 import {
 	TwoslashCompletionAnnotation,
@@ -12,11 +18,12 @@ import {
 	TwoslashHoverAnnotation,
 	TwoslashStaticAnnotation,
 } from "./annotations/index.ts";
+import { instanceConfigsDefaults, twoslashEslintDefaults } from "./consts.ts";
 import {
-	buildMetaChecker,
 	checkForCustomTagsAndMerge,
 	compareNodes,
 	ecConfig,
+	getTwoslasher,
 	parseIncludeMeta,
 	processCompletion,
 	processTwoslashCodeBlock,
@@ -70,25 +77,29 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 	 * Destructure the options object to extract configuration settings.
 	 */
 	const {
-		explicitTrigger = true,
-		languages = ["ts", "tsx", "vue"],
+		instanceConfigs = {
+			...instanceConfigsDefaults,
+			...options.instanceConfigs,
+		},
 		includeJsDoc = true,
 		// This setting is important to allow users to use customTag annotations in their codeblocks
 		allowNonStandardJsDocTags = true,
 		twoslashOptions = checkForCustomTagsAndMerge(options.twoslashOptions),
-		twoslashVueOptions = options.twoslashVueOptions ?? {},
+		twoslashVueOptions = options.twoslashVueOptions,
+		twoslashEslintOptions = {
+			...twoslashEslintDefaults,
+			...options.twoslashEslintOptions,
+		},
 	} = options;
 
-	const availableTwoSlashers: Record<string, TwoslashInstance> = {
-		default: createTwoslasher(twoslashOptions),
-		vue: createTwoslasherVue({
-			...twoslashOptions,
-			...twoslashVueOptions,
-		}),
-	};
+	// Get the Twoslash transformation function based on the provided instance configurations and options
+	const shouldTransform = getTwoslasher(instanceConfigs, {
+		...twoslashOptions,
+		...twoslashVueOptions,
+		...twoslashEslintOptions,
+	});
 
-	const shouldTransform = buildMetaChecker(languages, explicitTrigger);
-
+	// Map to hold the includes for Twoslash code blocks, keyed by the include name
 	const includesMap = new Map();
 
 	return definePlugin({
@@ -98,7 +109,8 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 		baseStyles: (context) => getTwoSlashBaseStyles(context),
 		hooks: {
 			async preprocessCode({ codeBlock, config }) {
-				if (shouldTransform(codeBlock)) {
+				// Check if the code block should be transformed with Twoslash based on the trigger and language
+				await shouldTransform(codeBlock, async (twoslasher, trigger) => {
 					// Create a new instance of the TwoslashIncludesManager
 					const includes = new TwoslashIncludesManager(includesMap);
 
@@ -114,12 +126,11 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 					// Add the include to the includes map if it exists
 					if (include) includes.add(include, codeWithIncludes);
 
-					// Select the appropriate twoslasher based on language
-					const selectedTwoslasher =
-						availableTwoSlashers[codeBlock.language] ?? availableTwoSlashers.default;
+					const extension =
+						trigger === "twoslash" ? codeBlock.language : `index.${codeBlock.language}`;
 
 					// Twoslash the code block
-					const twoslash = selectedTwoslasher(codeWithIncludes, codeBlock.language, {
+					const twoslash = twoslasher(codeWithIncludes, extension, {
 						...twoslashOptions,
 						compilerOptions: {
 							...defaultCompilerOptions,
@@ -135,8 +146,46 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 					// Process the Twoslash code block and replace the EC code block with the Twoslash code block
 					processTwoslashCodeBlock(codeBlock, codeWithIncludes, twoslash.code);
 
+					// Create arrays to hold the different types of nodes for post-processing
+					const nodeErrors: NodeError[] = [];
+					const nodeQueries: NodeQuery[] = [];
+					const nodeHighlights: NodeHighlight[] = [];
+					const nodeHovers: NodeHover[] = [];
+					const nodeCompletions: NodeCompletion[] = [];
+					const nodeTags: NodeTag[] = [];
+
+					// Process Generic nodes to extract errors and other annotations that require post-processing
+					for (const node of twoslash.nodes) {
+						switch (node.type) {
+							case "error": {
+								nodeErrors.push(node);
+								break;
+							}
+							case "query": {
+								nodeQueries.push(node);
+								break;
+							}
+							case "highlight": {
+								nodeHighlights.push(node);
+								break;
+							}
+							case "hover": {
+								nodeHovers.push(node);
+								break;
+							}
+							case "completion": {
+								nodeCompletions.push(node);
+								break;
+							}
+							case "tag": {
+								nodeTags.push(node);
+								break;
+							}
+						}
+					}
+
 					// Process the Twoslash Error Annotations
-					for (const node of twoslash.errors) {
+					for (const node of nodeErrors) {
 						const line = codeBlock.getLine(node.line);
 
 						if (line) {
@@ -146,7 +195,7 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 					}
 
 					// Process the Twoslash Static (Query) Annotations
-					for (const node of twoslash.queries) {
+					for (const node of nodeQueries) {
 						const line = codeBlock.getLine(node.line);
 
 						if (line) {
@@ -162,7 +211,7 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 					}
 
 					// Process the Twoslash Highlight Annotations
-					for (const node of twoslash.highlights) {
+					for (const node of nodeHighlights) {
 						const line = codeBlock.getLine(node.line);
 						if (line) {
 							line.addAnnotation(new TwoslashHighlightAnnotation(node));
@@ -170,14 +219,14 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 					}
 
 					// Process the Twoslash Hover Annotations
-					for (const node of twoslash.hovers) {
+					for (const node of nodeHovers) {
 						// Check if the node is already added as a static
-						const query = twoslash.queries.find((q) =>
+						const query = nodeQueries.find((q) =>
 							compareNodes(q, node, { line: true, text: true }),
 						);
 
 						// Check if the node is already added as an error
-						const error = twoslash.errors.find((e) =>
+						const error = nodeErrors.find((e) =>
 							compareNodes(e, node, {
 								line: true,
 								start: true,
@@ -205,7 +254,7 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 					}
 
 					// Process the Twoslash Completion Annotations
-					for (const node of twoslash.completions) {
+					for (const node of nodeCompletions) {
 						// Process the completion item
 						const processed = processCompletion(node);
 						const line = codeBlock.getLine(node.line);
@@ -241,14 +290,14 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 					}
 
 					// Process the Twoslash Custom Tags Annotations
-					for (const node of twoslash.tags) {
+					for (const node of nodeTags) {
 						const line = codeBlock.getLine(node.line);
 
 						if (line) {
 							line.addAnnotation(new TwoslashCustomTagsAnnotation(node, line));
 						}
 					}
-				}
+				});
 			},
 		},
 	});

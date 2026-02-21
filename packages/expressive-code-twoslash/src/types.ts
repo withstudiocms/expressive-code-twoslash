@@ -1,5 +1,6 @@
 import type { Element } from "@expressive-code/core/hast";
 import type { TwoslashOptions } from "twoslash";
+import type { CreateTwoslashESLintOptions } from "twoslash-eslint";
 import type { CreateTwoslashVueOptions } from "twoslash-vue";
 import type { completionIcons } from "./icons/completionIcons.ts";
 import type { customTagsIcons } from "./icons/customTagsIcons.ts";
@@ -10,25 +11,62 @@ import type { customTagsIcons } from "./icons/customTagsIcons.ts";
  */
 export type VueSpecificTwoslashOptions = Omit<CreateTwoslashVueOptions, keyof TwoslashOptions>;
 
-/**
- * Interface representing the options for the PluginTwoslash.
- */
 export interface PluginTwoslashOptions {
 	/**
-	 * If `true`, requires `twoslash` to be present in the code block meta for
-	 * this transformer to be applied.
-	 *
-	 * If a `RegExp`, requires the `RegExp` to match a directive in the code
-	 * block meta for this transformer to be applied.
-	 *
-	 * If `false`, this transformer will be applied to all code blocks that match
-	 * the specified languages.
-	 *
-	 * It is recommended to keep this as `true` to avoid unnecessary processing.
-	 *
-	 * @default true
+	 * Allows for configuring the included twoslasher instances and their triggers.
 	 */
-	readonly explicitTrigger?: boolean | RegExp;
+	readonly instanceConfigs?: {
+		/**
+		 * Standard Twoslash instance configuration.
+		 */
+		twoslash?: {
+			/**
+			 * If `true`, requires `twoslash` to be present in the code block meta for
+			 * this transformer to be applied.
+			 *
+			 * If a `RegExp`, requires the `RegExp` to match a directive in the code
+			 * block meta for this transformer to be applied.
+			 *
+			 * If `false`, this transformer will be applied to all code blocks that match
+			 * the specified languages.
+			 *
+			 * It is recommended to keep this as `true` to avoid unnecessary processing.
+			 *
+			 * @default true
+			 */
+			explicitTrigger?: boolean | RegExp;
+
+			/**
+			 * The languages to apply this transformer to.
+			 *
+			 * @default ["ts", "tsx", "vue"]
+			 */
+			languages?: ReadonlyArray<string>;
+		};
+
+		eslint?: {
+			/**
+			 * If `true`, requires `eslint` to be present in the code block meta for
+			 * this transformer to be applied.
+			 *
+			 * If a `RegExp`, requires the `RegExp` to match a directive in the code
+			 * block meta for this transformer to be applied.
+			 *
+			 * If `false`, this transformer will be applied to all code blocks that match
+			 * the specified languages.
+			 *
+			 * It is recommended to keep this as `true` to avoid unnecessary processing.
+			 */
+			explicitTrigger?: boolean | RegExp;
+
+			/**
+			 * The languages to apply this transformer to.
+			 *
+			 * @default ["ts", "tsx"]
+			 */
+			languages?: ReadonlyArray<string>;
+		};
+	};
 
 	/**
 	 * If `true`, includes JSDoc comments in the hover popup.
@@ -48,13 +86,6 @@ export interface PluginTwoslashOptions {
 	readonly allowNonStandardJsDocTags?: boolean;
 
 	/**
-	 * The languages to apply this transformer to.
-	 *
-	 * @default ["ts", "tsx"]
-	 */
-	readonly languages?: ReadonlyArray<string>;
-
-	/**
 	 * Options to forward to `twoslash`.
 	 *
 	 * @default {}
@@ -69,6 +100,15 @@ export interface PluginTwoslashOptions {
 	 * @remarks This is only used if the `vue` language is included in the `languages` option and will be ignored otherwise.
 	 */
 	readonly twoslashVueOptions?: VueSpecificTwoslashOptions;
+
+	/**
+	 * Options to forward to `twoslash-eslint`.
+	 *
+	 * @default {}
+	 *
+	 * @remarks This is only used if the `eslint` language is included in the `languages` option and will be ignored otherwise.
+	 */
+	readonly twoslashEslintOptions?: CreateTwoslashESLintOptions;
 }
 
 /**

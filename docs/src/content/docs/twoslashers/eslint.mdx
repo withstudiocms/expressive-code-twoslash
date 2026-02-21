@@ -1,0 +1,47 @@
+---
+title: Twoslash ESLint Integration
+description: Learn how to use Twoslash with ESLint code blocks.
+sidebar:
+  order: 3
+  label: ESLint
+  badge:
+    text: v0.6.0
+    variant: success
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Included in Expressive code twoslash, [Twoslash ESLint](https://twoslash.netlify.app/packages/eslint) is a Twoslash integration that added support for Twoslash to handle ESLint code blocks.
+
+This is an example taken from the Twoslash documentation website.
+
+<Tabs>
+
+<TabItem label="Output">
+
+```ts eslint
+const unused = 1
+
+type Foo = {
+  bar: string
+}
+```
+</TabItem>
+
+<TabItem label='Markdown'>
+
+``````md
+
+```ts eslint
+const unused = 1
+
+type Foo = {
+  bar: string
+}
+```
+
+``````
+
+</TabItem>
+
+</Tabs>
