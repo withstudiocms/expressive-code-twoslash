@@ -9,3 +9,4 @@ allure-results
 allure-report
 history.jsonl
 junit-report.xml
+test-history
