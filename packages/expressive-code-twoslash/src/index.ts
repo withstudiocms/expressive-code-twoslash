@@ -110,7 +110,7 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 		hooks: {
 			async preprocessCode({ codeBlock, config }) {
 				// Check if the code block should be transformed with Twoslash based on the trigger and language
-				await shouldTransform(codeBlock, async (twoslasher, trigger) => {
+				shouldTransform(codeBlock, async (twoslasher, trigger) => {
 					// Create a new instance of the TwoslashIncludesManager
 					const includes = new TwoslashIncludesManager(includesMap);
 
