@@ -5,11 +5,11 @@
 
 [1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/home/runner/work/expressive-code-twoslash/expressive-code-twoslash[39m
 
- [32m✓[39m [30m[45m css-js-gen [49m[39m test/index.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m [30m[45m css-js-gen [49m[39m test/index.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 19[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[32m37 passed[39m[22m[90m (37)[39m
-[2m   Start at [22m 03:31:18
-[2m   Duration [22m 272ms[2m (transform 95ms, setup 49ms, import 84ms, tests 20ms, environment 0ms)[22m
+[2m   Start at [22m 07:42:37
+[2m   Duration [22m 279ms[2m (transform 99ms, setup 50ms, import 87ms, tests 19ms, environment 0ms)[22m
 
 JUNIT report written to /home/runner/work/expressive-code-twoslash/expressive-code-twoslash/junit-report.xml
