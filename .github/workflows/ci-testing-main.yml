@@ -26,6 +26,14 @@ jobs:
           persist-credentials: false
           token: ${{ steps.bot-token.outputs.token }}
 
+      - name: Checkout History branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: test-history
+          path: test-history
+          persist-credentials: false
+          token: ${{ steps.bot-token.outputs.token }}
+
       - name: Install Tools & Dependencies
         uses: withstudiocms/automations/.github/actions/install@f286863f2f7a414794b9a10ee6f1cadbb07f722f # main
 
@@ -35,9 +43,16 @@ jobs:
       - name: Run tests and generate report
         run: pnpm ci:test
 
-      - name: Deploy
+      - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
         with:
           github_token: ${{ steps.bot-token.outputs.token }}
           publish_branch: test-report
           publish_dir: ./allure-report
+
+      - name: Upload History file
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
+        with:
+          github_token: ${{ steps.bot-token.outputs.token }}
+          publish_branch: test-history
+          publish_dir: ./test-history

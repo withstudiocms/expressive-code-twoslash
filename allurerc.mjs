@@ -3,8 +3,9 @@ import { defineConfig } from "allure";
 export default defineConfig({
 	name: "Allure Report",
 	output: "./allure-report",
-	historyPath: "./history.jsonl",
+	historyPath: "./test-history/history.jsonl",
 	appendHistory: true,
+	historyLimit: 20,
 	qualityGate: {
 		rules: [
 			{
