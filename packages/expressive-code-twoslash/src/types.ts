@@ -1,7 +1,14 @@
 import type { Element } from "@expressive-code/core/hast";
 import type { TwoslashOptions } from "twoslash";
+import type { CreateTwoslashVueOptions } from "twoslash-vue";
 import type { completionIcons } from "./icons/completionIcons.ts";
 import type { customTagsIcons } from "./icons/customTagsIcons.ts";
+
+/**
+ * Type representing the options for creating a Twoslash instance with Vue support, excluding the standard Twoslash options.
+ * This type is derived by omitting the keys of `TwoslashOptions` from `CreateTwoslashVueOptions`.
+ */
+export type VueSpecificTwoslashOptions = Omit<CreateTwoslashVueOptions, keyof TwoslashOptions>;
 
 /**
  * Interface representing the options for the PluginTwoslash.
@@ -53,6 +60,15 @@ export interface PluginTwoslashOptions {
 	 * @default {}
 	 */
 	readonly twoslashOptions?: TwoslashOptions;
+
+	/**
+	 * Options to forward to `twoslash-vue`.
+	 *
+	 * @default {}
+	 *
+	 * @remarks This is only used if the `vue` language is included in the `languages` option and will be ignored otherwise.
+	 */
+	readonly twoslashVueOptions?: VueSpecificTwoslashOptions;
 }
 
 /**
