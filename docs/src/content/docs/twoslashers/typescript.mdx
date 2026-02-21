@@ -1,0 +1,66 @@
+---
+title: Twoslash TypeScript Integration
+description: Learn how to use Twoslash with TypeScript code blocks.
+sidebar:
+  order: 1
+  label: TypeScript
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+The primary Twoslasher integration included in Expressive Code Twoslash is the TypeScript Twoslasher, which adds support for Twoslash to handle TypeScript code blocks.
+
+This is an example taken from the Twoslash documentation website.
+
+<Tabs>
+
+<TabItem label="Output">
+
+```ts twoslash
+// @errors: 2540
+
+console.log((1 + 2 + 3 + 4).toFixed(2));
+//                            ^|
+
+/** A Basic Todo interface*/
+interface Todo {
+  title: string;
+}
+
+const todo: Readonly<Todo> = {
+  title: 'Delete inactive users',
+//  ^?
+}
+
+todo.title = 'Hello';
+```
+</TabItem>
+
+<TabItem label='Markdown'>
+
+``````md
+
+```ts twoslash
+// @errors: 2540
+
+console.log((1 + 2 + 3 + 4).toFixed(2));
+//                            ^|
+
+/** A Basic Todo interface*/
+interface Todo {
+  title: string;
+}
+
+const todo: Readonly<Todo> = {
+  title: 'Delete inactive users',
+//  ^?
+}
+
+todo.title = 'Hello';
+```
+
+``````
+
+</TabItem>
+
+</Tabs>
