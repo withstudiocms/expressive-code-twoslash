@@ -11,6 +11,9 @@ const ogImageUrl = new URL("/og.png", site).href;
 // https://astro.build/config
 export default defineConfig({
 	site,
+	markdown: {
+		syntaxHighlight: false,
+	},
 	integrations: [
 		starlight({
 			title: "Expressive Code Twoslash",
