@@ -175,5 +175,6 @@ export const getTwoslasher = (
 				return fn(transformer, key);
 			}
 		}
+		return null;
 	};
 };
