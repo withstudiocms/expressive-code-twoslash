@@ -42,11 +42,13 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@typescript-eslint/parser": "^8.56.0",
 		"css-js-gen": "workspace:^",
 		"mdast-util-from-markdown": "catalog:mdast",
 		"mdast-util-gfm": "catalog:mdast",
 		"mdast-util-to-hast": "catalog:mdast",
 		"twoslash": "catalog:twoslash",
+		"twoslash-eslint": "catalog:twoslash",
 		"twoslash-vue": "catalog:twoslash"
 	},
 	"peerDependencies": {

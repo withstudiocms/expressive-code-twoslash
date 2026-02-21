@@ -22,5 +22,6 @@
 			"matchManagers": ["npm"],
 			"matchFileNames": ["playground/**"]
 		}
-	]
+	],
+	"ignoreDeps": ["eslint"]
 }

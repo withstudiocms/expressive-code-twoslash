@@ -11,6 +11,10 @@ const ogImageUrl = new URL("/og.png", site).href;
 // https://astro.build/config
 export default defineConfig({
 	site,
+	markdown: {
+		// Disable Astro's built-in syntax highlighting since Expressive Code will handle it for us, and to avoid conflicts between the two.
+		syntaxHighlight: false,
+	},
 	integrations: [
 		starlight({
 			title: "Expressive Code Twoslash",

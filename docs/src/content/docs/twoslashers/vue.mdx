@@ -3,16 +3,24 @@ title: Twoslash Vue Integration
 description: Learn how to use Twoslash with Vue code blocks.
 addedIn: "0.6.0"
 sidebar:
-  order: 2
+  order: 3
   label: Vue
   badge:
     text: v0.6.0
     variant: success
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 
 Included in Expressive code twoslash, [Twoslash Vue](https://twoslash.netlify.app/packages/vue) is a Twoslash integration that added support for Twoslash to handle Vue Single File Component files.
+
+<Aside>
+Usage of this integration requires installing the `vue` package as a dependency in your project, as it's a peer dependency of Twoslash-Vue. You can install it using npm, pnpm, or yarn:
+
+```bash
+npm install vue
+```
+</Aside>
 
 This is an example taken from the Twoslash Vue documentation website.
 

@@ -151,8 +151,16 @@ export default defineEcConfig({
   plugins: [
 // ---cut-before---            
 ecTwoSlash({
-  explicitTrigger: true,
-  languages: ["ts", "tsx", "vue"],
+  instanceConfigs: {
+    twoslash: {
+      explicitTrigger: true,
+      languages: ["ts", "tsx", "vue"],
+    },
+    eslint: {
+      explicitTrigger: true,
+      languages: ["ts", "tsx"],
+    }
+  },
   includeJsDoc: true,
 // @annotate: allowNonStandardJsDocTags is required for like this to work
   allowNonStandardJsDocTags: true,
