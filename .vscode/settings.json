@@ -25,34 +25,6 @@
 		"editor.defaultFormatter": "redhat.vscode-yaml"
 	},
 	"cSpell.words": [
-		"Adammatthiesen",
-		"allurereport",
-		"astrojs",
-		"automations",
-		"codepaths",
-		"describedby",
-		"DOKPLOY",
-		"ectwoslash",
-		"esbuild",
-		"Hippotastic",
-		"kevinzunigacuellar",
-		"Matthiesen",
-		"MDAST",
-		"mergebot",
-		"mondeja",
-		"noline",
-		"omglookatthis",
-		"peaceiris",
-		"recompiles",
-		"rehype",
-		"rgba",
-		"shiki",
-		"studiocms",
-		"twocustom",
-		"twoerror",
-		"twoslash",
-		"Twoslasher",
-		"UIDOM",
-		"withstudiocms"
+		"Twoslash"
 	]
 }

@@ -1,0 +1,31 @@
+---
+const body = (await Astro.slots.render("default")).trim();
+const signature = body.match(/^<ul>\s*<li>\s*([\s\S]*?)\s*<\/li>\s*<\/ul>/)?.[1] ?? "";
+const signatureParts = signature.split(/<\/li>\s*<li>/);
+const extractSignaturePart = (name: string) => {
+	name = `${name}: `;
+	const idx = signatureParts.findIndex((part) => part.startsWith(name));
+	if (idx === -1) return;
+	const part = (signatureParts[idx] ?? "").replace(name, "").trim();
+	signatureParts.splice(idx, 1);
+	return part;
+};
+const propertyType = extractSignaturePart("Type");
+const defaultValue = extractSignaturePart("Default");
+const availability = extractSignaturePart("Availability");
+---
+
+<div class="property-signature not-content">
+	{propertyType && (
+		<span class="name">Type:</span>
+		<span class="value" set:html={propertyType} />
+	)}
+	{defaultValue && (
+		<span class="name">Default:</span>
+		<span class="value" set:html={defaultValue} />
+	)}
+	{availability && (
+		<span class="name">Availability:</span>
+		<span set:html={availability} />
+	)}
+</div>
