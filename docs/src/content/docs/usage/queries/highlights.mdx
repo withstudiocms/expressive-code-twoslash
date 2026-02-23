@@ -4,9 +4,31 @@ sidebar:
   order: 3
 ---
 
-import TwoslashExample from '../../../../components/TwoslashExample.astro';
-import snippet from '../../../snippets/usage/queries/highlights.ts?raw';
+import { TabItem, Tabs } from "@astrojs/starlight/components";
 
 Use `// ^^^` to highlight a particular range of the line above it.
 
-<TwoslashExample lang='ts' code={snippet} />
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash
+function add(a: number, b: number) {
+	//     ^^^
+	return a + b;
+}
+```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash
+function add(a: number, b: number) {
+	//     ^^^
+	return a + b;
+}
+```
+``````
+
+</TabItem>
+</Tabs>

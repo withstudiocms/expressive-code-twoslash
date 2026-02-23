@@ -4,9 +4,40 @@ sidebar:
   order: 2
 ---
 
-import TwoslashExample from '../../../../components/TwoslashExample.astro';
-import snippet from '../../../snippets/usage/banners/callouts.ts?raw';
+import { TabItem, Tabs } from "@astrojs/starlight/components";
 
 Callout annotations are a way to add a message to a specific line of code. They are useful for adding context to a line of code or for providing additional information about a line of code.
 
-<TwoslashExample lang='ts' code={snippet} />
+
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash
+// @log: Custom log message
+const a = 1;
+// @error: Custom error message
+const b = 1;
+// @warn: Custom warning message
+const c = 1;
+// @annotate: Custom annotation message
+const d = 1;
+```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash
+// @log: Custom log message
+const a = 1;
+// @error: Custom error message
+const b = 1;
+// @warn: Custom warning message
+const c = 1;
+// @annotate: Custom annotation message
+const d = 1;
+```
+``````
+
+</TabItem>
+</Tabs>

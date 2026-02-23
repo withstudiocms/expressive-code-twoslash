@@ -2,8 +2,7 @@
 title: External Types
 ---
 
-import TwoslashExample from '../../../components/TwoslashExample.astro';
-import snippet from '../../snippets/usage/external-types.ts?raw';
+import { TabItem, Tabs } from "@astrojs/starlight/components";
 
 Unless you're teaching TypeScript/JavaScript, you're probably going to want to import libraries into your code samples.
 
@@ -13,4 +12,27 @@ Twoslash works by faking a virtual file system over your existing file system. T
 
 Setting up globals is a little bit more complex, but not drastically. You need to use the [triple slash reference](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-types-) which adds a particular library to the global scope.
 
-<TwoslashExample lang='ts' code={snippet} />
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash
+/// <reference types="node" />
+// ---cut---
+import { writeFileSync } from "node:fs";
+writeFileSync("myfile.txt", "// TODO");
+```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash
+/// <reference types="node" />
+// ---cut---
+import { writeFileSync } from "node:fs";
+writeFileSync("myfile.txt", "// TODO");
+```
+``````
+
+</TabItem>
+</Tabs>

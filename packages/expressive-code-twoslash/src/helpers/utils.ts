@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { ExpressiveCodeBlock } from "@expressive-code/core";
 import type {
 	TwoslashExecuteOptions,
@@ -11,6 +13,7 @@ import {
 	createTwoslasher as createTwoslasherEslint,
 } from "twoslash-eslint";
 import { createTwoslasher as createTwoslasherVue } from "twoslash-vue";
+import ts from "typescript";
 import type { PluginTwoslashOptions } from "../types.ts";
 import { reTrigger, twoslashDefaultTags } from "./regex.ts";
 
@@ -177,4 +180,39 @@ export const getTwoslasher = (
 		}
 		return null;
 	};
+};
+
+export const resolveTsconfigPath = (paths: string, overridePath?: string): string => {
+	if (overridePath === undefined) {
+		return path.join(paths, "tsconfig.json");
+	}
+	if (path.isAbsolute(overridePath) === true) {
+		return overridePath;
+	}
+	return path.resolve(paths, overridePath);
+};
+
+export const parseSnippetTsconfig = (
+	tsconfigPath: string,
+): { source: string; options: ts.CompilerOptions } => {
+	if (fs.existsSync(tsconfigPath) === false) {
+		throw new Error(`tsconfig not found at ${tsconfigPath}`);
+	}
+
+	const source = fs.readFileSync(tsconfigPath, "utf8");
+	const configFile = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
+	if (configFile.error !== undefined) {
+		const message = ts.flattenDiagnosticMessageText(configFile.error.messageText, "\n");
+		throw new Error(`Unable to read ${tsconfigPath}: ${message}`);
+	}
+
+	const parsed = ts.parseJsonConfigFileContent(
+		configFile.config,
+		ts.sys,
+		path.dirname(tsconfigPath),
+		undefined,
+		tsconfigPath,
+	);
+
+	return { source, options: parsed.options };
 };

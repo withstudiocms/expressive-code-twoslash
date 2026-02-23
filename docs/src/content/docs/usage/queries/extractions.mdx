@@ -4,9 +4,29 @@ sidebar:
   order: 1
 ---
 
-import TwoslashExample from '../../../../components/TwoslashExample.astro';
-import snippet from '../../../snippets/usage/queries/extractions.ts?raw';
+import { TabItem, Tabs } from "@astrojs/starlight/components";
 
 Using `// ^?` you can pull out type information about a particular identifier in the line of code above it.
 
-<TwoslashExample lang='ts' code={snippet} />
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash
+const hi = "Hello";
+const msg = `${hi}, world`;
+//    ^?
+```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash
+const hi = "Hello";
+const msg = `${hi}, world`;
+//    ^?
+```
+``````
+
+</TabItem>
+</Tabs>

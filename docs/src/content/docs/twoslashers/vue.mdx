@@ -10,9 +10,7 @@ sidebar:
     variant: success
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import TwoslashExample from '../../../components/TwoslashExample.astro';
-import snippet from '../../snippets/twoslashers/vue.vue?raw';
+import { Aside, TabItem, Tabs } from '@astrojs/starlight/components';
 
 Included in Expressive code twoslash, [Twoslash Vue](https://twoslash.netlify.app/packages/vue) is a Twoslash integration that added support for Twoslash to handle Vue Single File Component files.
 
@@ -26,4 +24,65 @@ npm install vue
 
 This is an example taken from the Twoslash Vue documentation website.
 
-<TwoslashExample lang='vue' code={snippet} />
+<Tabs>
+<TabItem label="Rendered Output">
+
+```vue twoslash
+<script setup>
+import { onMounted, ref } from 'vue'
+//                   ^?
+
+// Reactive state.
+const count = ref(0)
+
+// Functions that mutate state and trigger updates.
+function increment() {
+  count.value++
+}
+
+// Lifecycle hooks.
+onMounted(() => {
+  console.log(`The initial count is ${count.value}.`)
+})
+</script>
+
+<template>
+  <button @click="increment">
+    Count is: {{ count }}
+  </button>
+</template>
+```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```vue twoslash
+<script setup>
+import { onMounted, ref } from 'vue'
+//                   ^?
+
+// Reactive state.
+const count = ref(0)
+
+// Functions that mutate state and trigger updates.
+function increment() {
+  count.value++
+}
+
+// Lifecycle hooks.
+onMounted(() => {
+  console.log(`The initial count is ${count.value}.`)
+})
+</script>
+
+<template>
+  <button @click="increment">
+    Count is: {{ count }}
+  </button>
+</template>
+```
+``````
+
+</TabItem>
+</Tabs>
