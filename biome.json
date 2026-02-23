@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!**/module-code/*", "!**/scratchpad/*", "!**/content/snippets/**/*"]
+		"includes": ["**", "!**/module-code/*", "!**/scratchpad/*"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -17,7 +17,7 @@
 	},
 	"linter": {
 		"enabled": true,
-		"includes": ["**", "!**/module-code/*", "!**/scratchpad/*", "!**/content/snippets/**/*"],
+		"includes": ["**", "!**/module-code/*", "!**/scratchpad/*"],
 		"rules": {
 			"recommended": true
 		}
