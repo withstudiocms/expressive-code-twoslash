@@ -1,14 +1,9 @@
 ---
 title: Show Emitted Files
+addedIn: "0.6.0"
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-
-<Aside type='danger' title='Not Currently Supported'>
-While `twoslash`, and `shiki-twoslash` supports showing emitted files, it is not currently supported in the Expressive Code plugin. Attempting to use this feature will cause an error.
-
-This page is a placeholder for when the feature is implemented.
-</Aside>
+import { Aside, TabItem, Tabs } from "@astrojs/starlight/components";
 
 Running a Twoslash code sample is a full TypeScript compiler run, and that run will create files inside the virtual file system. You can replace the contents of your code sample with the results of running TypeScript over the project.
 
@@ -16,9 +11,26 @@ Running a Twoslash code sample is a full TypeScript compiler run, and that run w
 
 `// @showEmit` is the main command to tell Twoslash that you want to replace the output of your code sample with the equivalent `.js` file.
 
-```md
-**No example available**
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash
+// @showEmit
+const level: string = 'Danger'
 ```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash
+// @showEmit
+const level: string = 'Danger'
+```
+``````
+
+</TabItem>
+</Tabs>
 
 Would show the `.js` file which this `.ts` file represents. You can see TypeScript add 'use strict' and `: string` is removed from the output.
 
@@ -28,18 +40,120 @@ While the `.js` file is probably the most useful file out of the box, TypeScript
 
 ### `.d.ts` files
 
-```md
-**No example available**
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash title="index.d.ts"
+// @declaration
+// @showEmit
+// @showEmittedFile: index.d.ts
+export const hello = 'world'
 ```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash title="index.d.ts"
+// @declaration
+// @showEmit
+// @showEmittedFile: index.d.ts
+export const hello = 'world'
+```
+``````
+
+</TabItem>
+</Tabs>
+
+### `.map` for `.js` files
+
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash title="index.js.map"
+// @sourceMap
+// @showEmit
+// @showEmittedFile: index.js.map
+export const hello = 'world'
+```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash title="index.js.map"
+// @sourceMap
+// @showEmit
+// @showEmittedFile: index.js.map
+export const hello = 'world'
+```
+``````
+
+</TabItem>
+</Tabs>
 
 ### `.map` for `.d.ts` files
 
-```md
-**No example available**
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash title="index.d.ts.map"
+// @declaration
+// @declarationMap
+// @showEmit
+// @showEmittedFile: index.d.ts.map
+export const hello: string = 'world'
 ```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash title="index.d.ts.map"
+// @declaration
+// @declarationMap
+// @showEmit
+// @showEmittedFile: index.d.ts.map
+export const hello: string = 'world'
+```
+``````
+
+</TabItem>
+</Tabs>
 
 ### Multi-file code samples
 
-```md
-**No example available**
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash title="b.js"
+// @showEmit
+// @showEmittedFile: b.js
+// @filename: a.ts
+export const helloWorld: string = 'Hi';
+
+// @filename: b.ts
+import { helloWorld } from './a';
+
+console.log(helloWorld);
 ```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash title="b.js"
+// @showEmit
+// @showEmittedFile: b.js
+// @filename: a.ts
+export const helloWorld: string = 'Hi';
+
+// @filename: b.ts
+import { helloWorld } from './a';
+
+console.log(helloWorld);
+```
+``````
+
+</TabItem>
+</Tabs>

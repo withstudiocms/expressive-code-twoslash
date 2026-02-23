@@ -77,6 +77,20 @@ export interface PluginTwoslashOptions {
 	};
 
 	/**
+	 * Current working directory to resolve files from for includes and the virtual file system.
+	 *
+	 * @default process.cwd()
+	 */
+	cwd?: string;
+
+	/**
+	 * An optional path to a `tsconfig.json` file to use as the basis for the compiler options when running Twoslash.
+	 *
+	 * If not provided, Twoslash will look for a `tsconfig.json` file in the `cwd` and use it if found. If no `tsconfig.json` file is found, Twoslash will use a default set of compiler options.
+	 */
+	tsConfigPath?: string;
+
+	/**
 	 * If `true`, includes JSDoc comments in the hover popup.
 	 *
 	 * @default true

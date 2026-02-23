@@ -23,20 +23,19 @@ A Expressive Code plugin that adds Twoslash support to your Expressive Code Type
 
 | Feature                                                   | Supported Status |
 |-----------------------------------------------------------|------------------|
-| [JSDocs and Type Hover boxes](/getting-started/basic)     | ✅               |
-| [Error Handling/Messages](/usage/banners/errors)          | ✅               |
-| [Type Extraction](/usage/queries/extractions)             | ✅               |
-| [Code Completions](/usage/queries/completions)            | ✅               |
-| [Code Highlighting](/usage/queries/highlights)            | ✅               |
-| [Code Cutting](/usage/code-cutting)                       | ✅               |
-| [Callouts](/usage/banners/callouts)                       | ✅               |
-| [TS Compiler Overrides](/usage/ts-compiler-flags)         | ✅               |
-| [Show Emitted Files](/usage/show-emitted-files)           | ⛔️               |
+| [JSDocs and Type Hover boxes](https://twoslash.studiocms.dev/getting-started/basic)     | ✅ |
+| [Error Handling/Messages](https://twoslash.studiocms.dev/usage/banners/errors)          | ✅ |
+| [Type Extraction](https://twoslash.studiocms.dev/usage/queries/extractions)             | ✅ |
+| [Code Completions](https://twoslash.studiocms.dev/usage/queries/completions)            | ✅ |
+| [Code Highlighting](https://twoslash.studiocms.dev/usage/queries/highlights)            | ✅ |
+| [Code Cutting](https://twoslash.studiocms.dev/usage/code-cutting)                       | ✅ |
+| [Callouts](https://twoslash.studiocms.dev/usage/banners/callouts)                       | ✅ |
+| [TS Compiler Overrides](https://twoslash.studiocms.dev/usage/ts-compiler-flags)         | ✅ |
+| [Show Emitted Files](https://twoslash.studiocms.dev/usage/show-emitted-files)           | ✅ |
 
 ### TODO
 - [ ] Make Annotations accessible
 - [ ] Use EC's Markdown processing system once released. (Requires support from EC (Planned))
-- [ ] Figure out how to work with TwoslashVFS and setup support for "Showing Emitted Files"
 
 ## Licensing
 

@@ -10,7 +10,7 @@ sidebar:
     variant: success
 ---
 
-import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { Aside, TabItem, Tabs } from '@astrojs/starlight/components';
 
 Included in Expressive code twoslash, [Twoslash Vue](https://twoslash.netlify.app/packages/vue) is a Twoslash integration that added support for Twoslash to handle Vue Single File Component files.
 
@@ -25,8 +25,7 @@ npm install vue
 This is an example taken from the Twoslash Vue documentation website.
 
 <Tabs>
-
-<TabItem label="Output">
+<TabItem label="Rendered Output">
 
 ```vue twoslash
 <script setup>
@@ -53,12 +52,11 @@ onMounted(() => {
   </button>
 </template>
 ```
-</TabItem>
 
-<TabItem label='Markdown'>
+</TabItem>
+<TabItem label="Markdown">
 
 ``````md
-
 ```vue twoslash
 <script setup>
 import { onMounted, ref } from 'vue'
@@ -84,9 +82,7 @@ onMounted(() => {
   </button>
 </template>
 ```
-
 ``````
 
 </TabItem>
-
 </Tabs>

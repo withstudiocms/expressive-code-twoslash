@@ -4,7 +4,7 @@ sidebar:
   order: 1
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { TabItem, Tabs } from "@astrojs/starlight/components";
 
 Most of the time, you want to avoid errors in your code samples. Strictly speaking, this usually means setting the right compiler flags and environment in each code sample.
 
@@ -17,61 +17,51 @@ All TypeScript compiler errors have a number, this number is relatively arbitrar
 Taking this example:
 
 <Tabs>
-
-<TabItem label="Output">
+<TabItem label="Rendered Output">
 
 ```ts twoslash
 // @errors: 2588
-const a: string = "123";
-a = 132;
+const e: string = "123";
+e = 132;
 ```
 
 </TabItem>
-
-<TabItem label='Markdown'>
+<TabItem label="Markdown">
 
 ``````md
-
 ```ts twoslash
 // @errors: 2588
-const a: string = "123";
-a = 132;
+const e: string = "123";
+e = 132;
 ```
-
 ``````
 
 </TabItem>
-
 </Tabs>
 
 ## `@noErrors`
 
-Sometimes you have needs in which a broken TypeScript build is OK, a good example of this is using a [completion query `// ^|`](/usage/queries/completions) which requires a broken TypeScript project to work. You can use `// @noErrors` to supress all errors in a code sample, and not have them show inline.
+Sometimes you have needs in which a broken TypeScript build is OK, a good example of this is using a [completion query `// ^|`](/usage/queries/completions) which requires a broken TypeScript project to work. You can use `// @noErrors` to suppress all errors in a code sample, and not have them show inline.
 
 <Tabs>
-
-<TabItem label="Output">
+<TabItem label="Rendered Output">
 
 ```ts twoslash
 // @noErrors
-const a = "123"
-a = 132
+const f = "123";
+f = 132;
 ```
 
 </TabItem>
-
-<TabItem label='Markdown'>
+<TabItem label="Markdown">
 
 ``````md
-
 ```ts twoslash
 // @noErrors
-const a = "123"
-a = 132
+const f = "123";
+f = 132;
 ```
-
 ``````
 
 </TabItem>
-
 </Tabs>

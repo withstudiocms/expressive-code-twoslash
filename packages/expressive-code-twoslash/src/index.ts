@@ -1,3 +1,4 @@
+import path from "node:path";
 import { definePlugin, type ExpressiveCodePlugin } from "@expressive-code/core";
 import { ExpressiveCode } from "expressive-code";
 import type {
@@ -9,6 +10,7 @@ import type {
 	NodeTag,
 } from "twoslash";
 import type { CompilerOptions, ModuleResolutionKind } from "typescript";
+import ts from "typescript";
 import {
 	TwoslashCompletionAnnotation,
 	TwoslashCustomTagsAnnotation,
@@ -25,10 +27,12 @@ import {
 	ecConfig,
 	getTwoslasher,
 	parseIncludeMeta,
+	parseSnippetTsconfig,
 	processCompletion,
 	processTwoslashCodeBlock,
 	renderJSDocs,
 	renderType,
+	resolveTsconfigPath,
 	TwoslashIncludesManager,
 } from "./helpers/index.ts";
 import floatingUiCore from "./module-code/floating-ui-core.min.ts";
@@ -81,6 +85,8 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 			...instanceConfigsDefaults,
 			...options.instanceConfigs,
 		},
+		cwd = process.cwd(),
+		tsConfigPath,
 		includeJsDoc = true,
 		// This setting is important to allow users to use customTag annotations in their codeblocks
 		allowNonStandardJsDocTags = true,
@@ -99,8 +105,10 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 		...twoslashEslintOptions,
 	});
 
-	// Map to hold the includes for Twoslash code blocks, keyed by the include name
-	const includesMap = new Map();
+	const snippetTsconfigPath = resolveTsconfigPath(cwd, tsConfigPath);
+	const { options: baseCompilerOptions } = parseSnippetTsconfig(snippetTsconfigPath);
+
+	const tsLibDirectory = path.dirname(ts.getDefaultLibFilePath(baseCompilerOptions));
 
 	return definePlugin({
 		name: "expressive-code-twoslash",
@@ -111,9 +119,13 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 			async preprocessCode({ codeBlock, config }) {
 				// Check if the code block should be transformed with Twoslash based on the trigger and language
 				await shouldTransform(codeBlock, async (twoslasher, trigger) => {
+					// Map to hold the includes for Twoslash code blocks, keyed by the include name
+					const includesMap = new Map();
+					const twoslashCache = new Map();
+					const fsMap = new Map();
+
 					// Create a new instance of the TwoslashIncludesManager
 					const includes = new TwoslashIncludesManager(includesMap);
-
 					// Create a new instance of the Expressive Code Engine for use in the plugin
 					const ecEngine = new ExpressiveCode(ecConfig(config));
 
@@ -131,6 +143,9 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 
 					// Twoslash the code block
 					const twoslash = twoslasher(codeWithIncludes, extension, {
+						cache: twoslashCache,
+						tsLibDirectory,
+						fsMap,
 						...twoslashOptions,
 						compilerOptions: {
 							...defaultCompilerOptions,

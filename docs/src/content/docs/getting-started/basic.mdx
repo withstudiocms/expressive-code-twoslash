@@ -13,55 +13,48 @@ It leverages the compiler APIs used by text editors to offer type-driven hover i
 Using the homepage as an example, here is a simple code sample:
 
 <Tabs>
-
-<TabItem label='Before'>
-
-``````md
+<TabItem label="Rendered Output">
 
 ```ts twoslash
 // @errors: 2540
-
 console.log((1 + 2 + 3 + 4).toFixed(2));
 //                            ^|
 
 /** A Basic Todo interface*/
 interface Todo {
-  title: string;
+	title: string;
 }
 
 const todo: Readonly<Todo> = {
-  title: 'Delete inactive users',
-//  ^?
-}
+	title: "Delete inactive users",
+	//  ^?
+};
 
-todo.title = 'Hello';
+todo.title = "Hello";
 ```
 
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash
+// @errors: 2540
+console.log((1 + 2 + 3 + 4).toFixed(2));
+//                            ^|
+
+/** A Basic Todo interface*/
+interface Todo {
+	title: string;
+}
+
+const todo: Readonly<Todo> = {
+	title: "Delete inactive users",
+	//  ^?
+};
+
+todo.title = "Hello";
+```
 ``````
 
 </TabItem>
-
-<TabItem label="After">
-
-```ts twoslash
-// @errors: 2540
-
-console.log((1 + 2 + 3 + 4).toFixed(2));
-//                            ^|
-
-/** A Basic Todo interface*/
-interface Todo {
-  title: string;
-}
-
-const todo: Readonly<Todo> = {
-  title: 'Delete inactive users',
-//  ^?
-}
-
-todo.title = 'Hello';
-```
-
-</TabItem>
-
 </Tabs>

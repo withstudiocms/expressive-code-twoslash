@@ -115,6 +115,54 @@ export default defineEcConfig({
 });
 ```
 
+### cwd
+
+<PropertySignature>
+- Type: string
+- Default: `process.cwd()`
+</PropertySignature>
+
+Optionally specify the current working directory for the Twoslash instances. This can be useful if you want to change the base directory from which Twoslash resolves modules and files. By default, Twoslash uses the current working directory of the process, but you can set this option to any valid directory path to customize where Twoslash looks for files and modules.
+
+#### Example
+
+```ts twoslash title="ec.config.mjs" {7}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      cwd: "/path/to/your/directory", // Set the current working directory for Twoslash
+    }),
+  ],
+});
+```
+
+### tsConfigPath
+
+<PropertySignature>
+- Type: string
+- Default: `undefined`
+</PropertySignature>
+
+The `tsConfigPath` option allows you to specify the path to a custom `tsconfig.json` file that Twoslash should use when processing TypeScript code blocks. This is useful if you want to provide specific TypeScript compiler options or include/exclude certain files from the Twoslash transformations. By default, Twoslash will look for a `tsconfig.json` file in the current working directory, but you can set this option to point to any valid `tsconfig.json` file in your project.
+
+#### Example
+
+```ts twoslash title="ec.config.mjs" {7}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      tsConfigPath: "tsconfig-twoslash.json", // Specify a custom tsconfig.json file for Twoslash
+    }),
+  ],
+});
+```
+
 ### includeJsDoc
 
 <PropertySignature>

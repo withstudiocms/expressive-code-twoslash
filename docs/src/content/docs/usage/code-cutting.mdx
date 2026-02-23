@@ -2,7 +2,7 @@
 title: Code Cutting
 ---
 
-import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { Aside, TabItem, Tabs } from "@astrojs/starlight/components";
 
 Every Twoslash code sample needs to be a complete TypeScript program realistically, basically it needs to compile. Quite often to make it compile, there is a bunch of code which isn't relevant to the user. This can be extracted out of the code sample via the following flags to remove code from the output.
 
@@ -10,104 +10,92 @@ Every Twoslash code sample needs to be a complete TypeScript program realistical
 
 Cut works after TypeScript has generated the project and pulled out all the editor information (like identifiers, queries, highlights etc) and then amends all of their offsets and lines to re-fit the smaller output. What your user sees is everything below the `// ---cut-before---`. A shorthand `// ---cut---` is also available.
 
-<Tabs>
 
-<TabItem label="Output">
+<Tabs>
+<TabItem label="Rendered Output">
 
 ```ts twoslash
-const level: string = 'Danger'
+const level1: string = "Danger";
 // ---cut---
-console.log(level)
+console.log(level1);
 ```
 
 </TabItem>
-
-<TabItem label='Markdown'>
+<TabItem label="Markdown">
 
 ``````md
-
 ```ts twoslash
-const level: string = 'Danger'
+const level1: string = "Danger";
 // ---cut---
-console.log(level)
+console.log(level1);
 ```
-
 ``````
 
 </TabItem>
-
 </Tabs>
 
 ## `cut-after`
 
 The sibling to `// ---cut-before---` which trims anything after the flag.
 
-<Tabs>
 
-<TabItem label="Output">
+<Tabs>
+<TabItem label="Rendered Output">
 
 ```ts twoslash
-const level: string = 'Danger'
+const level2: string = "Danger";
 // ---cut-before---
-console.log(level)
+console.log(level2);
 // ---cut-after---
-console.log('This is not shown')
+console.log("This is not shown");
 ```
 
 </TabItem>
-
-<TabItem label='Markdown'>
+<TabItem label="Markdown">
 
 ``````md
-
 ```ts twoslash
-const level: string = 'Danger'
+const level2: string = "Danger";
 // ---cut-before---
-console.log(level)
+console.log(level2);
 // ---cut-after---
-console.log('This is not shown')
+console.log("This is not shown");
 ```
-
 ``````
 
 </TabItem>
-
 </Tabs>
 
 ## `cut-start` and `cut-end`
 
 You can also use `// ---cut-start---` and `// ---cut-end---` pairs to cut out sections of code in between the two flags.
 
-<Tabs>
 
-<TabItem label="Output">
+<Tabs>
+<TabItem label="Rendered Output">
 
 ```ts twoslash
-const level: string = 'Danger'
+const level3: string = "Danger";
 // ---cut-start---
-console.log(level) // This is not shown.
+console.log(level3); // This is not shown.
 // ---cut-end---
-console.log('This is shown')
+console.log("This is shown");
 ```
 
 </TabItem>
-
-<TabItem label='Markdown'>
+<TabItem label="Markdown">
 
 ``````md
-
 ```ts twoslash
-const level: string = 'Danger'
+const level3: string = "Danger";
 // ---cut-start---
-console.log(level) // This is not shown.
+console.log(level3); // This is not shown.
 // ---cut-end---
-console.log('This is shown')
+console.log("This is shown");
 ```
-
 ``````
 
 </TabItem>
-
 </Tabs>
 
 <Aside type='tip'>

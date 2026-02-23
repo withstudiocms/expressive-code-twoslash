@@ -198,6 +198,10 @@ export default defineConfig({
 						{
 							label: "Show Emitted Files",
 							link: "usage/show-emitted-files",
+							badge: {
+								text: "v0.6.0",
+								variant: "success",
+							},
 						},
 					],
 				},
