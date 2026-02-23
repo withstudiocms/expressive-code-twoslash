@@ -2,43 +2,12 @@
 title: Overriding TSCompiler Flags
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import TwoslashExample from '../../../components/TwoslashExample.astro';
+import snippet from '../../snippets/usage/ts-compiler-flags.ts?raw';
 
 Using the `// @name` and `// @name: value` notations to override the [compiler options](https://twoslash.netlify.app/refs/options#compiler-options) for TypeScript language features and [handbook options](https://twoslash.netlify.app/refs/options#handbook-options) for TwoSlash. The notations will be removed from the output.
 
-<Tabs>
-
-<TabItem label="Output">
-
-```ts twoslash
-// @noImplicitAny: false
-// @target: esnext
-// @lib: esnext
-// This suppose to throw an error,
-// but it won't because we disabled noImplicitAny.
-const fn = a => a + 1;
-```
-
-</TabItem>
-
-<TabItem label='Markdown'>
-
-``````md
-
-```ts twoslash
-// @noImplicitAny: false
-// @target: esnext
-// @lib: esnext
-// This suppose to throw an error,
-// but it won't because we disabled noImplicitAny.
-const fn = a => a + 1;
-```
-
-``````
-
-</TabItem>
-
-</Tabs>
+<TwoslashExample lang='ts' code={snippet} />
 
 ## Available Compiler Flags
 
