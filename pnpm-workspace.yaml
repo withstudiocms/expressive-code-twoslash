@@ -23,6 +23,7 @@ catalogs:
     twoslash-vue: ^0.3.6
 
 packages:
+  - packages/@ec-ts/*
   - packages/*
   - docs
   - playground

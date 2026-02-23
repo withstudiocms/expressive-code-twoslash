@@ -28,6 +28,19 @@ export default defineConfig({
 					labels.find(({ name, value }) => name === "parentSuite" && value === "css-js-gen Tests"),
 			},
 		},
+		"@ec-ts/vfs": {
+			import: "@allurereport/plugin-awesome",
+			options: {
+				reportName: "@ec-ts/vfs Tests",
+				singleFile: false,
+				reportLanguage: "en",
+				open: false,
+				publish: true,
+				groupBy: ["parentSuite", "suite", "subSuite"],
+				filter: ({ labels }) =>
+					labels.find(({ name, value }) => name === "parentSuite" && value === "@ec-ts/vfs Tests"),
+			},
+		},
 		log: {
 			options: {
 				groupBy: "none",

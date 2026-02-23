@@ -1,0 +1,37 @@
+{
+	"name": "@ec-ts/vfs",
+	"version": "0.0.0",
+	"license": "MIT",
+	"author": "TypeScript team",
+	"homepage": "https://github.com/withstudiocms/expressive-code-twoslash",
+	"repository": {
+		"url": "https://github.com/withstudiocms/expressive-code-twoslash.git",
+		"directory": "packages/@ec-ts/vfs",
+		"type": "git"
+	},
+	"bugs": {
+		"url": "https://github.com/withstudiocms/expressive-code-twoslash/issues"
+	},
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"build": "tsdown --config ./tsdown.config.ts",
+		"dev": "tsdown --config ./tsdown.config.ts --watch --no-clean",
+		"test": "vitest"
+	},
+	"devDependencies": {
+		"@types/jest": "^30.0.0",
+		"typescript": "*"
+	},
+	"peerDependencies": {
+		"typescript": "*"
+	}
+}

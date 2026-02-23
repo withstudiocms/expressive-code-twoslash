@@ -31,6 +31,10 @@ const projectsWithTests: { scope?: string; names: string[] }[] = [
 	{
 		names: ["css-js-gen"],
 	},
+	{
+		scope: "ec-ts",
+		names: ["vfs"],
+	},
 ];
 
 export default defineConfig({
