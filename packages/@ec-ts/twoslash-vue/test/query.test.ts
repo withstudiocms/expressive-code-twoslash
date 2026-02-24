@@ -44,10 +44,10 @@ describe(parentSuiteName, () => {
 
 		expect(result.meta.positionQueries).toMatchInlineSnapshot(`
         [
-          292,
-          360,
-          1214,
-          1396,
+          278,
+          346,
+          1200,
+          1382,
         ]
       `);
 
