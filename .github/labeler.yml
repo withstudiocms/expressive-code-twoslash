@@ -1,21 +1,26 @@
 # See https://github.com/actions/labeler/tree/main for more information about the labeler action
 
-twoslash:
-        - changed-files:
-                  - any-glob-to-any-file:
-                            - packages/expressive-code-twoslash/*
-
 css-js-gen:
-        - changed-files:
-                  - any-glob-to-any-file:
-                            - packages/css-js-gen/*
-
-ec-ts:vfs:
-        - changed-files:
-                  - any-glob-to-any-file:
-                            - packages/@ec-ts/vfs/*
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/css-js-gen/*
 
 docs:
-        - changed-files:
-                  - any-glob-to-any-file:
-                            - docs/*
+  - changed-files:
+      - any-glob-to-any-file:
+          - docs/*
+
+ec-ts:twoslash:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/@ec-ts/twoslash/*
+
+ec-ts:vfs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/@ec-ts/vfs/*
+
+twoslash:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/expressive-code-twoslash/*
