@@ -11,6 +11,9 @@ export const sharedConfig: UserConfig = {
 	publint: {
 		level: "error",
 	},
+	checks: {
+		pluginTimings: false,
+	},
 	outExtensions: () => ({
 		js: `.js`,
 		dts: `.d.ts`,
