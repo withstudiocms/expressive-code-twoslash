@@ -24,8 +24,8 @@
 		"docs:build": "pnpm build && pnpm --filter docs-twoslash build",
 		"docs:dev": "pnpm build && pnpm --filter docs-twoslash dev",
 
-		"build": "pnpm --filter './packages/*' build",
-		"dev": "pnpm --filter './packages/*' --filter playground -r --parallel dev",
+		"build": "pnpm --filter './packages/**' build",
+		"dev": "pnpm --filter './packages/**' --filter playground -r --parallel dev",
 		"test": "vitest",
 
 		"ci:install": "pnpm install --frozen-lockfile",
