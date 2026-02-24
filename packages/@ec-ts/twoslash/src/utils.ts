@@ -276,6 +276,7 @@ export function findFlagNotations(
 			parseFlag(name, value, index, index + match[0].length + 1, customTags, tsOptionDeclarations),
 		);
 	});
+
 	return flagNotations;
 }
 

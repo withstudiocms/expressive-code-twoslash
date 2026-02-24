@@ -1,7 +1,7 @@
+import type { TwoslashOptions } from "@ec-ts/twoslash";
+import type { CreateTwoslashVueOptions } from "@ec-ts/twoslash-vue";
 import type { Element } from "@expressive-code/core/hast";
-import type { TwoslashOptions } from "twoslash";
 import type { CreateTwoslashESLintOptions } from "twoslash-eslint";
-import type { CreateTwoslashVueOptions } from "twoslash-vue";
 import type { completionIcons } from "./icons/completionIcons.ts";
 import type { customTagsIcons } from "./icons/customTagsIcons.ts";
 

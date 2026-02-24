@@ -1,10 +1,10 @@
+import type { NodeQuery } from "@ec-ts/twoslash";
 import {
 	type AnnotationRenderOptions,
 	ExpressiveCodeAnnotation,
 	type ExpressiveCodeLine,
 } from "@expressive-code/core";
 import { type Element, h } from "@expressive-code/core/hast";
-import type { NodeQuery } from "twoslash";
 import { getTextWidthInPixels } from "../helpers/index.ts";
 import type { RenderJSDocs } from "../types.ts";
 

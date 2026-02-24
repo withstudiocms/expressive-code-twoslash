@@ -1,9 +1,9 @@
+import type { NodeHover, NodeQuery } from "@ec-ts/twoslash";
 import { type Element, h } from "@expressive-code/core/hast";
 import type { ExpressiveCode } from "expressive-code";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gfmFromMarkdown } from "mdast-util-gfm";
 import { toHast } from "mdast-util-to-hast";
-import type { NodeHover, NodeQuery } from "twoslash";
 import type { RenderJSDocs } from "../types.ts";
 import {
 	jsdocTags,

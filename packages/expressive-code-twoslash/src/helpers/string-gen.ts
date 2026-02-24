@@ -1,4 +1,4 @@
-import type { NodeError } from "twoslash";
+import type { NodeError } from "@ec-ts/twoslash";
 import type { TwoslashTag } from "../types.ts";
 
 /**

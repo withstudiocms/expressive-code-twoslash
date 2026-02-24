@@ -1,18 +1,18 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { ExpressiveCodeBlock } from "@expressive-code/core";
 import type {
 	TwoslashExecuteOptions,
 	TwoslashGenericFunction,
 	TwoslashInstance,
 	TwoslashOptions,
-} from "twoslash";
-import { createTwoslasher } from "twoslash";
+} from "@ec-ts/twoslash";
+import { createTwoslasher } from "@ec-ts/twoslash";
+import { createTwoslasher as createTwoslasherVue } from "@ec-ts/twoslash-vue";
+import type { ExpressiveCodeBlock } from "@expressive-code/core";
 import {
 	type CreateTwoslashESLintOptions,
 	createTwoslasher as createTwoslasherEslint,
 } from "twoslash-eslint";
-import { createTwoslasher as createTwoslasherVue } from "twoslash-vue";
 import ts from "typescript";
 import type { PluginTwoslashOptions } from "../types.ts";
 import { reTrigger, twoslashDefaultTags } from "./regex.ts";

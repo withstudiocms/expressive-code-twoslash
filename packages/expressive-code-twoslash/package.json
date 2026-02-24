@@ -42,18 +42,18 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@ec-ts/twoslash": "workspace:^",
+		"@ec-ts/twoslash-vue": "workspace:^",
 		"@typescript-eslint/parser": "^8.56.0",
 		"css-js-gen": "workspace:^",
 		"mdast-util-from-markdown": "catalog:mdast",
 		"mdast-util-gfm": "catalog:mdast",
 		"mdast-util-to-hast": "catalog:mdast",
-		"twoslash": "catalog:twoslash",
-		"twoslash-eslint": "catalog:twoslash",
-		"twoslash-vue": "catalog:twoslash"
+		"twoslash-eslint": "catalog:twoslash"
 	},
 	"peerDependencies": {
 		"@expressive-code/core": "catalog:min",
 		"expressive-code": "catalog:min",
-		"typescript": "catalog:min"
+		"typescript": "^5.5.0"
 	}
 }
