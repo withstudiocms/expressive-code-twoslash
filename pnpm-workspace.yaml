@@ -21,7 +21,7 @@ catalogs:
     twoslash-protocol: ^0.3.6
     twoslash-eslint: ^0.3.6
 
-    # TODO: The following 2 packages are being forked and migrated to this repo, and will be published under the @ec-ts scope.
+    # The following 2 packages are being forked and migrated to this repo, and will be published under the @ec-ts scope.
     # Once the migration is complete, these packages should be removed from the catalog and the references to them should
     # be updated to point to the workspace:^ version of the packages.
     twoslash: ^0.3.6
