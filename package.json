@@ -7,7 +7,8 @@
 		"node": ">=22.20.0"
 	},
 	"workspaces": [
-		"./packages/*"
+		"./packages/*",
+		"./packages/@ec-ts/*"
 	],
 	"pnpm": {
 		"patchedDependencies": {
