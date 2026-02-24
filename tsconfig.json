@@ -3,6 +3,12 @@
 	"include": [],
 	"references": [
 		{
+			"path": "packages/@ec-ts/twoslash"
+		},
+		{
+			"path": "packages/@ec-ts/vfs"
+		},
+		{
 			"path": "packages/css-js-gen"
 		},
 		{

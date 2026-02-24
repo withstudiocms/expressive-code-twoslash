@@ -18,8 +18,13 @@ catalogs:
     expressive-code: "^0.41.6"
     typescript: ^5.7.3
   twoslash:
-    twoslash: ^0.3.6
+    twoslash-protocol: ^0.3.6
     twoslash-eslint: ^0.3.6
+
+    # The following 2 packages are being forked and migrated to this repo, and will be published under the @ec-ts scope.
+    # Once the migration is complete, these packages should be removed from the catalog and the references to them should
+    # be updated to point to the workspace:^ version of the packages.
+    twoslash: ^0.3.6
     twoslash-vue: ^0.3.6
 
 packages:

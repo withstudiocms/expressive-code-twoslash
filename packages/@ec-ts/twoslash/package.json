@@ -1,0 +1,62 @@
+{
+	"name": "@ec-ts/twoslash",
+	"type": "module",
+	"version": "0.0.0",
+	"description": "Markup for generating rich type information in your documentation ahead of time",
+	"author": "TypeScript team",
+	"license": "MIT",
+	"homepage": "https://github.com/withstudiocms/expressive-code-twoslash",
+	"repository": {
+		"url": "https://github.com/withstudiocms/expressive-code-twoslash",
+		"type": "git",
+		"directory": "packages/@ec-ts/twoslash"
+	},
+	"bugs": {
+		"url": "https://github.com/withstudiocms/expressive-code-twoslash/issues"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./core": {
+			"types": "./dist/core.d.ts",
+			"import": "./dist/core.js"
+		},
+		"./fallback": {
+			"types": "./dist/fallback.d.ts",
+			"import": "./dist/fallback.js"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"./core": [
+				"./dist/core.d.ts"
+			],
+			"./fallback": [
+				"./dist/fallback.d.ts"
+			],
+			"*": [
+				"./dist/index.d.ts"
+			]
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsdown --config ./tsdown.config.ts",
+		"dev": "tsdown --config ./tsdown.config.ts --watch --no-clean",
+		"test": "vitest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.5.0"
+	},
+	"dependencies": {
+		"@ec-ts/vfs": "workspace:^",
+		"twoslash-protocol": "catalog:twoslash"
+	},
+	"devDependencies": {
+		"ohash": "^2.0.11"
+	}
+}
