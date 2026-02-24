@@ -4,6 +4,7 @@ import { defaultHandbookOptions } from "../src/defaults";
 import type { CompilerOptionDeclaration } from "../src/types/options";
 
 async function generateFlagKeys() {
+	// biome-ignore lint/suspicious/noExplicitAny: This is the design of the Source API
 	const tsOptionDeclarations = (ts as any).optionDeclarations as CompilerOptionDeclaration[];
 
 	const keys = [
