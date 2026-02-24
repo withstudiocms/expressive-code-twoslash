@@ -33,7 +33,7 @@ const projectsWithTests: { scope?: string; names: string[] }[] = [
 	},
 	{
 		scope: "ec-ts",
-		names: ["twoslash", "vfs"],
+		names: ["twoslash", "twoslash-vue", "vfs"],
 	},
 ];
 
