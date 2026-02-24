@@ -6,6 +6,9 @@
 			"path": "packages/@ec-ts/twoslash"
 		},
 		{
+			"path": "packages/@ec-ts/twoslash-vue"
+		},
+		{
 			"path": "packages/@ec-ts/vfs"
 		},
 		{

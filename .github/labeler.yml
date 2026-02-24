@@ -15,6 +15,11 @@ ec-ts:twoslash:
       - any-glob-to-any-file:
           - packages/@ec-ts/twoslash/*
 
+ec-ts:twoslash-vue:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/@ec-ts/twoslash-vue/*
+
 ec-ts:vfs:
   - changed-files:
       - any-glob-to-any-file:

@@ -1,0 +1,78 @@
+/// <reference types="vite/client" />
+/** biome-ignore-all lint/suspicious/noExplicitAny: Allowed in tests */
+/** biome-ignore-all lint/style/noNonNullAssertion: Allowed in tests */
+
+import { extname } from "node:path";
+import process from "node:process";
+import type { TwoslashReturn } from "@ec-ts/twoslash";
+import * as allure from "allure-js-commons";
+import { describe, expect, it } from "vitest";
+import { createTwoslasher } from "../src/index.ts";
+import { parentSuiteName } from "./test-utils.ts";
+
+// To add a test, create a file in the fixtures folder and it will will run through
+// as though it was the codeblock.
+
+const fixtures = import.meta.glob<string>("./fixtures/**/*.*", {
+	query: "?raw",
+	import: "default",
+});
+
+// A temporary list of regex to match with the path of the file to test
+const filters: RegExp[] = [
+	// /completions-files/,
+];
+
+if (process.env.CI && filters.length)
+	throw new Error("Should not filters fixture tests in CI, did you forget to remove them?");
+
+const twoslasher = createTwoslasher();
+
+describe(parentSuiteName, () => {
+	Object.entries(fixtures).forEach(([path, fixture]) => {
+		path = path.replace(/\\/g, "/");
+		const expectThrows = path.includes("/throws/");
+		const inExt = extname(path).slice(1);
+		const outExt = expectThrows ? ".txt" : ".json";
+		const outPath = path.replace("/fixtures/", "/results/").replace(/\.[^/.]+$/, outExt);
+
+		it.skipIf(filters.length && !filters.some((f) => path.match(f)))(path, async () => {
+			await allure.parentSuite(parentSuiteName);
+			await allure.suite("Fixture Tests");
+			await allure.subSuite(path);
+
+			let result: TwoslashReturn = undefined!;
+			try {
+				result = twoslasher(await fixture(), inExt, {
+					customTags: ["annotate"],
+				});
+			} catch (err: any) {
+				if (expectThrows) {
+					await expect(err.message).toMatchFileSnapshot(outPath);
+					return;
+				} else {
+					throw err;
+				}
+			}
+
+			if (expectThrows) {
+				throw new Error("Expected to throw");
+			} else {
+				await expect(cleanFixture(result)).toMatchFileSnapshot(outPath);
+			}
+		});
+	});
+});
+
+function cleanFixture(result: TwoslashReturn) {
+	return JSON.stringify(
+		{
+			code: result.code,
+			nodes: result.nodes,
+			flags: result.meta.flagNotations,
+			// compilerOptions: ts.meta.compilerOptions
+		},
+		null,
+		2,
+	).replaceAll(process.cwd(), "[home]");
+}
