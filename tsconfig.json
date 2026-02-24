@@ -3,13 +3,16 @@
 	"include": [],
 	"references": [
 		{
+			"path": "packages/@ec-ts/twoslash"
+		},
+		{
+			"path": "packages/@ec-ts/vfs"
+		},
+		{
 			"path": "packages/css-js-gen"
 		},
 		{
 			"path": "packages/expressive-code-twoslash"
-		},
-		{
-			"path": "packages/@ec-ts/vfs"
 		}
 	]
 }
