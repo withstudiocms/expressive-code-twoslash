@@ -54,6 +54,6 @@
 	"peerDependencies": {
 		"@expressive-code/core": "catalog:min",
 		"expressive-code": "catalog:min",
-		"typescript": "^5.5.0"
+		"typescript": "catalog:min"
 	}
 }

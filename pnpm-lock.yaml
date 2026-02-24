@@ -45,6 +45,9 @@ catalogs:
     expressive-code:
       specifier: ^0.41.6
       version: 0.41.6
+    typescript:
+      specifier: ^5.5.0
+      version: 5.9.3
   twoslash:
     '@vue/language-core':
       specifier: ^3.2.0
@@ -184,7 +187,7 @@ importers:
         specifier: catalog:twoslash
         version: 0.3.6
       typescript:
-        specifier: ^5.5.0
+        specifier: catalog:min
         version: 5.9.3
     devDependencies:
       ohash:
@@ -203,7 +206,7 @@ importers:
         specifier: catalog:twoslash
         version: 0.3.6
       typescript:
-        specifier: ^5.5.0
+        specifier: catalog:min
         version: 5.9.3
 
   packages/@ec-ts/vfs:
@@ -212,7 +215,7 @@ importers:
         specifier: ^30.0.0
         version: 30.0.0
       typescript:
-        specifier: '*'
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/css-js-gen:
@@ -254,7 +257,7 @@ importers:
         specifier: catalog:twoslash
         version: 0.3.6(eslint@10.0.0(jiti@1.21.6))
       typescript:
-        specifier: ^5.5.0
+        specifier: catalog:min
         version: 5.9.3
 
   playground:
