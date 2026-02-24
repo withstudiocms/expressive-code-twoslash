@@ -1,0 +1,1 @@
+{"id":"5093e0af6e9355ba35d8c5f6cfea6f8e","fullName":"packages/@ec-ts/vfs/test/index.test.ts#@ec-ts/vfs Tests throws when you request a lib file which isn't in the fsMap","name":"throws when you request a lib file which isn't in the fsMap","status":"passed","testResultsByEnv":{"default":"b67f9bb4ac5c0ba5bc3e3a72903b0fdd"}}
