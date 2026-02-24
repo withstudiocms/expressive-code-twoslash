@@ -55,6 +55,9 @@ catalogs:
     twoslash-eslint:
       specifier: ^0.3.6
       version: 0.3.6
+    twoslash-protocol:
+      specifier: ^0.3.6
+      version: 0.3.6
     twoslash-vue:
       specifier: ^0.3.6
       version: 0.3.6
@@ -171,6 +174,22 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
+
+  packages/@ec-ts/twoslash:
+    dependencies:
+      '@ec-ts/vfs':
+        specifier: workspace:^
+        version: link:../vfs
+      twoslash-protocol:
+        specifier: catalog:twoslash
+        version: 0.3.6
+      typescript:
+        specifier: ^5.5.0
+        version: 5.9.3
+    devDependencies:
+      ohash:
+        specifier: ^2.0.11
+        version: 2.0.11
 
   packages/@ec-ts/vfs:
     devDependencies:

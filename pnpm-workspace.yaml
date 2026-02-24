@@ -18,6 +18,7 @@ catalogs:
     expressive-code: "^0.41.6"
     typescript: ^5.7.3
   twoslash:
+    twoslash-protocol: ^0.3.6
     twoslash: ^0.3.6
     twoslash-eslint: ^0.3.6
     twoslash-vue: ^0.3.6
