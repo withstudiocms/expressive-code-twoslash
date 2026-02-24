@@ -1,6 +1,4 @@
 import path from "node:path";
-import { definePlugin, type ExpressiveCodePlugin } from "@expressive-code/core";
-import { ExpressiveCode } from "expressive-code";
 import type {
 	NodeCompletion,
 	NodeError,
@@ -8,7 +6,9 @@ import type {
 	NodeHover,
 	NodeQuery,
 	NodeTag,
-} from "twoslash";
+} from "@ec-ts/twoslash";
+import { definePlugin, type ExpressiveCodePlugin } from "@expressive-code/core";
+import { ExpressiveCode } from "expressive-code";
 import type { CompilerOptions, ModuleResolutionKind } from "typescript";
 import ts from "typescript";
 import {

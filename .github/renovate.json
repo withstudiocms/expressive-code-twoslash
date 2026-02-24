@@ -8,6 +8,21 @@
 			"matchFileNames": ["packages/expressive-code-twoslash/**"]
 		},
 		{
+			"groupName": "Twoslash Core Dependencies",
+			"matchManagers": ["npm"],
+			"matchFileNames": ["packages/@ec-ts/twoslash/**"]
+		},
+		{
+			"groupName": "Twoslash Vue Dependencies",
+			"matchManagers": ["npm"],
+			"matchFileNames": ["packages/@ec-ts/twoslash-vue/**"]
+		},
+		{
+			"groupName": "VFS Dependencies",
+			"matchManagers": ["npm"],
+			"matchFileNames": ["packages/@ec-ts/vfs/**"]
+		},
+		{
 			"groupName": "CSS JS Gen Dependencies",
 			"matchManagers": ["npm"],
 			"matchFileNames": ["packages/css-js-gen/**"]

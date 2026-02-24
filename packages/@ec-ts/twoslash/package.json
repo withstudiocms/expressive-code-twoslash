@@ -50,7 +50,7 @@
 		"test": "vitest"
 	},
 	"peerDependencies": {
-		"typescript": "^5.5.0"
+		"typescript": "catalog:min"
 	},
 	"dependencies": {
 		"@ec-ts/vfs": "workspace:^",

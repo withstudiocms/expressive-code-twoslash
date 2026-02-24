@@ -1,5 +1,5 @@
+import type { NodeCompletion, TwoslashReturn } from "@ec-ts/twoslash";
 import type { ExpressiveCodeBlock } from "expressive-code";
-import type { NodeCompletion, TwoslashReturn } from "twoslash";
 import { completionIcons } from "../icons/completionIcons.ts";
 import type { CompletionIcon, CompletionItem } from "../types.ts";
 

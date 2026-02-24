@@ -18,5 +18,6 @@ export const defaultHandbookOptions: HandbookOptions = {
 	noErrorValidation: false,
 	noStaticSemanticInfo: false,
 	showEmit: false,
+	showEmittedFile: undefined,
 	keepNotations: false,
 };

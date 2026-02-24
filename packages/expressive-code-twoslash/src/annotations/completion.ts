@@ -1,10 +1,10 @@
+import type { NodeCompletion } from "@ec-ts/twoslash";
 import {
 	type AnnotationRenderOptions,
 	ExpressiveCodeAnnotation,
 	type ExpressiveCodeLine,
 } from "@expressive-code/core";
 import { h } from "@expressive-code/core/hast";
-import type { NodeCompletion } from "twoslash";
 import { getTextWidthInPixels } from "../helpers/index.ts";
 import type { CompletionItem } from "../types.ts";
 

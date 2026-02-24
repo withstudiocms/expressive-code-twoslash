@@ -29,9 +29,9 @@
 	},
 	"devDependencies": {
 		"@types/jest": "^30.0.0",
-		"typescript": "*"
+		"typescript": "catalog:"
 	},
 	"peerDependencies": {
-		"typescript": "*"
+		"typescript": "catalog:min"
 	}
 }

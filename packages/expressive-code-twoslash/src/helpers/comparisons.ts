@@ -1,4 +1,4 @@
-import type { NodeCompletion, TwoslashNode } from "twoslash";
+import type { NodeCompletion, TwoslashNode } from "@ec-ts/twoslash";
 
 /**
  * Checks if the given node is of type `NodeCompletion`.

@@ -1,10 +1,10 @@
+import type { NodeError } from "@ec-ts/twoslash";
 import {
 	type AnnotationRenderOptions,
 	ExpressiveCodeAnnotation,
 	type ExpressiveCodeLine,
 } from "@expressive-code/core";
 import { type Element, h } from "@expressive-code/core/hast";
-import type { NodeError } from "twoslash";
 import { getErrorLevelClass, getErrorLevelString } from "../helpers/index.ts";
 
 export class TwoslashErrorUnderlineAnnotation extends ExpressiveCodeAnnotation {

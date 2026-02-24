@@ -29,7 +29,7 @@ export interface HandbookOptions {
 	 * Must be used with showEmit, lets you choose the file to present instead of the source - defaults to index.js which
 	 * means when you just use `showEmit` above it shows the transpiled JS.
 	 */
-	showEmittedFile?: string;
+	showEmittedFile?: string | undefined;
 
 	/**
 	 * Do not remove twoslash notations from output code, the nodes will have the position of the input code.

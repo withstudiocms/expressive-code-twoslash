@@ -1,6 +1,6 @@
+import type { NodeHover } from "@ec-ts/twoslash";
 import { type AnnotationRenderOptions, ExpressiveCodeAnnotation } from "@expressive-code/core";
 import { type Element, h, type Root } from "@expressive-code/core/hast";
-import type { NodeHover } from "twoslash";
 import type { RenderJSDocs } from "../types.ts";
 
 /**

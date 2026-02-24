@@ -42,7 +42,7 @@
 		"test": "vitest"
 	},
 	"peerDependencies": {
-		"typescript": "^5.5.0"
+		"typescript": "catalog:min"
 	},
 	"dependencies": {
 		"@vue/language-core": "catalog:twoslash",
