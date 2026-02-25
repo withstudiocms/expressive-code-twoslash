@@ -11,7 +11,7 @@ catalogs:
     astro-expressive-code: ^0.41.6
     rehype-expressive-code: ^0.41.6
   mdast:
-    mdast-util-from-markdown: ^2.0.2
+    mdast-util-from-markdown: ^2.0.3
     mdast-util-gfm: ^3.1.0
     mdast-util-to-hast: ^13.2.1
   min:
@@ -19,7 +19,7 @@ catalogs:
     expressive-code: ^0.41.6
     typescript: ^5.5.0
   twoslash:
-    "@vue/language-core": ^3.2.0
+    "@vue/language-core": ^3.2.5
     twoslash-protocol: ^0.3.6
     twoslash-eslint: ^0.3.6
 
