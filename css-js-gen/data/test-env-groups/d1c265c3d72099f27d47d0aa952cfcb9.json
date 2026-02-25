@@ -1,1 +1,1 @@
-{"id":"d1c265c3d72099f27d47d0aa952cfcb9","fullName":"packages/@ec-ts/vfs/test/fsbacked.test.ts#@ec-ts/vfs Tests can import files in the virtual fs","name":"can import files in the virtual fs","status":"passed","testResultsByEnv":{"default":"1f0c8df0763280bb455d66b50335316e"}}
+{"id":"d1c265c3d72099f27d47d0aa952cfcb9","fullName":"packages/@ec-ts/vfs/test/fsbacked.test.ts#@ec-ts/vfs Tests can import files in the virtual fs","name":"can import files in the virtual fs","status":"passed","testResultsByEnv":{"default":"cba87470ce9d851874d153f53a17e52f"}}

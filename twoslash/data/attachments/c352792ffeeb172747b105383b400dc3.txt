@@ -1,0 +1,68 @@
+
+> root@ test /home/runner/work/expressive-code-twoslash/expressive-code-twoslash
+> vitest
+
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/home/runner/work/expressive-code-twoslash/expressive-code-twoslash[39m
+
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/new.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 2348[2mms[22m[39m
+     [33m[2m✓[22m[39m should pass [33m 2336[2mms[22m[39m
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/queries.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 2659[2mms[22m[39m
+     [33m[2m✓[22m[39m works in a trivial case [33m 2142[2mms[22m[39m
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/utils.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/extra-files.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 2950[2mms[22m[39m
+     [33m[2m✓[22m[39m prepends and appends extra files correctly [33m 1736[2mms[22m[39m
+     [33m[2m✓[22m[39m supports extra files [33m 1212[2mms[22m[39m
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/tags.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 2704[2mms[22m[39m
+     [33m[2m✓[22m[39m extracts custom tags [33m 1737[2mms[22m[39m
+     [33m[2m✓[22m[39m removes tags which are cut [33m 964[2mms[22m[39m
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/custom_transformers.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1856[2mms[22m[39m
+     [33m[2m✓[22m[39m applies custom transformers [33m 1853[2mms[22m[39m
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/compiler_options.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 3052[2mms[22m[39m
+     [33m[2m✓[22m[39m emits CommonJS [33m 1920[2mms[22m[39m
+     [33m[2m✓[22m[39m supports space before @filename [33m 1129[2mms[22m[39m
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/cutting.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 10328[2mms[22m[39m
+     [33m[2m✓[22m[39m supports hiding the example code [33m 1965[2mms[22m[39m
+     [33m[2m✓[22m[39m supports hiding the example code with multi-files [33m 1096[2mms[22m[39m
+     [33m[2m✓[22m[39m supports handling queries in cut code [33m 938[2mms[22m[39m
+     [33m[2m✓[22m[39m supports handling queries in cut multi-file code [33m 1112[2mms[22m[39m
+     [33m[2m✓[22m[39m supports hiding after a line [33m 888[2mms[22m[39m
+     [33m[2m✓[22m[39m supports carriage return (1) [33m 781[2mms[22m[39m
+     [33m[2m✓[22m[39m supports carriage return (2) [33m 864[2mms[22m[39m
+     [33m[2m✓[22m[39m supports space before cut comments (1) [33m 979[2mms[22m[39m
+     [33m[2m✓[22m[39m supports space before cut comments (2) [33m 879[2mms[22m[39m
+     [33m[2m✓[22m[39m supports cut comments at end of file [33m 825[2mms[22m[39m
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/modules.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1130[2mms[22m[39m
+     [33m[2m✓[22m[39m works with a dependency in @types for the project [33m 1128[2mms[22m[39m
+ [32m✓[39m [30m[46m @ec-ts/twoslash [49m[39m test/highlights.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1807[2mms[22m[39m
+     [33m[2m✓[22m[39m supports highlighting something [33m 1804[2mms[22m[39m
+ [32m✓[39m [30m[43m @ec-ts/twoslash-vue [49m[39m test/query.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m [30m[43m @ec-ts/twoslash-vue [49m[39m test/fixtures.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 6004[2mms[22m[39m
+     [33m[2m✓[22m[39m ./fixtures/completion.vue [33m 3335[2mms[22m[39m
+     [33m[2m✓[22m[39m ./fixtures/cut-around-vue.vue [33m 336[2mms[22m[39m
+     [33m[2m✓[22m[39m ./fixtures/cut-in-vue.vue [33m 506[2mms[22m[39m
+     [33m[2m✓[22m[39m ./fixtures/example.vue [33m 1297[2mms[22m[39m
+     [33m[2m✓[22m[39m ./fixtures/query-basic.vue [33m 527[2mms[22m[39m
+ [32m✓[39m [30m[45m @ec-ts/vfs [49m[39m test/index.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 5042[2mms[22m[39m
+     [33m[2m✓[22m[39m runs a virtual environment and gets the right results from the LSP [33m 1029[2mms[22m[39m
+     [33m[2m✓[22m[39m runs a virtual environment with the default globals [33m 541[2mms[22m[39m
+     [33m[2m✓[22m[39m compiles in the right DTS files [33m 523[2mms[22m[39m
+     [33m[2m✓[22m[39m emits new files to the fsMap [33m 522[2mms[22m[39m
+     [33m[2m✓[22m[39m empty file content [33m 432[2mms[22m[39m
+     [33m[2m✓[22m[39m moduleDetection options [33m 1772[2mms[22m[39m
+ [32m✓[39m [30m[45m css-js-gen [49m[39m test/index.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+[90mstdout[2m | test/fsbacked.test.ts[2m > [22m[2m@ec-ts/vfs Tests[2m > [22m[2msearches node_modules/@types
+[22m[39m[]
+
+ [32m✓[39m [30m[45m @ec-ts/vfs [49m[39m test/fsbacked.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 4273[2mms[22m[39m
+     [33m[2m✓[22m[39m can use a FS backed system  [33m 2178[2mms[22m[39m
+     [33m[2m✓[22m[39m can import files in the virtual fs [33m 1065[2mms[22m[39m
+     [33m[2m✓[22m[39m searches node_modules/@types [33m 579[2mms[22m[39m
+     [33m[2m✓[22m[39m can delete files in the virtual fs [33m 449[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m15 passed[39m[22m[90m (15)[39m
+[2m      Tests [22m [1m[32m94 passed[39m[22m[90m (94)[39m
+[2m   Start at [22m 13:46:07
+[2m   Duration [22m 21.34s[2m (transform 1.41s, setup 742ms, import 13.92s, tests 44.22s, environment 3ms)[22m
+
+JUNIT report written to /home/runner/work/expressive-code-twoslash/expressive-code-twoslash/junit-report.xml
