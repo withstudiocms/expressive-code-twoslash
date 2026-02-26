@@ -105,9 +105,13 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 		...twoslashEslintOptions,
 	});
 
-	const snippetTsconfigPath = resolveTsconfigPath(cwd, tsConfigPath);
-	const { options: baseCompilerOptions } = parseSnippetTsconfig(snippetTsconfigPath);
+	// Get the TSConfig path for getting the default library files for Twoslash
+	const _TsConfigPath = resolveTsconfigPath(cwd, tsConfigPath);
 
+	// Get the default compiler options from the parsed TSConfig, which includes the default library files for Twoslash
+	const { options: baseCompilerOptions } = parseSnippetTsconfig(_TsConfigPath);
+
+	// Get the directory of the default library files for Twoslash, which is needed for proper module resolution in Twoslash
 	const tsLibDirectory = path.dirname(ts.getDefaultLibFilePath(baseCompilerOptions));
 
 	return definePlugin({
@@ -138,8 +142,10 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 					// Add the include to the includes map if it exists
 					if (include) includes.add(include, codeWithIncludes);
 
+					// If the trigger is "eslint", we want to set a full filename with extension instead of just the language identifier,
+					// because ESLint's Twoslasher needs the full filename to properly parse the code block and provide accurate completions.
 					const extension =
-						trigger === "twoslash" ? codeBlock.language : `index.${codeBlock.language}`;
+						trigger === "eslint" ? `index.${codeBlock.language}` : codeBlock.language;
 
 					// Twoslash the code block
 					const twoslash = twoslasher(codeWithIncludes, extension, {
@@ -153,7 +159,9 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 						},
 					});
 
-					// Update EC code block with the twoslash information
+					// Update EC code block with the twoslash information this is important to ensure that if the end user
+					// is using the @showEmit functionality, the emitted code is properly displayed in the code block.
+					// Twoslash output code, could be TypeScript, but could also be a JS/JSON/d.ts representation of the code.
 					if (twoslash.extension) {
 						codeBlock.language = twoslash.extension;
 					}
