@@ -15,8 +15,8 @@ catalogs:
     mdast-util-gfm: ^3.1.0
     mdast-util-to-hast: ^13.2.1
   min:
-    "@expressive-code/core": ^0.41.6
-    expressive-code: ^0.41.6
+    "@expressive-code/core": ^0.41.7
+    expressive-code: ^0.41.7
     typescript: ^5.5.0
   twoslash:
     "@vue/language-core": ^3.2.5

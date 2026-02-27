@@ -43,7 +43,7 @@ While the `.js` file is probably the most useful file out of the box, TypeScript
 <Tabs>
 <TabItem label="Rendered Output">
 
-```ts twoslash title="index.d.ts"
+```ts twoslash
 // @declaration
 // @showEmit
 // @showEmittedFile: index.d.ts
@@ -54,7 +54,7 @@ export const hello = 'world'
 <TabItem label="Markdown">
 
 ``````md
-```ts twoslash title="index.d.ts"
+```ts twoslash
 // @declaration
 // @showEmit
 // @showEmittedFile: index.d.ts
@@ -70,7 +70,7 @@ export const hello = 'world'
 <Tabs>
 <TabItem label="Rendered Output">
 
-```ts twoslash title="index.js.map"
+```ts twoslash
 // @sourceMap
 // @showEmit
 // @showEmittedFile: index.js.map
@@ -81,7 +81,7 @@ export const hello = 'world'
 <TabItem label="Markdown">
 
 ``````md
-```ts twoslash title="index.js.map"
+```ts twoslash
 // @sourceMap
 // @showEmit
 // @showEmittedFile: index.js.map
@@ -97,7 +97,7 @@ export const hello = 'world'
 <Tabs>
 <TabItem label="Rendered Output">
 
-```ts twoslash title="index.d.ts.map"
+```ts twoslash
 // @declaration
 // @declarationMap
 // @showEmit
@@ -109,7 +109,7 @@ export const hello: string = 'world'
 <TabItem label="Markdown">
 
 ``````md
-```ts twoslash title="index.d.ts.map"
+```ts twoslash
 // @declaration
 // @declarationMap
 // @showEmit
@@ -123,6 +123,10 @@ export const hello: string = 'world'
 
 ### Multi-file code samples
 
+<Aside variant="warning">
+When using `@showEmittedFile` in a multi-file code sample, you need to make sure that you also add a title to your code block. This is due to a limitation in the way Twoslash handles multi-file code samples. Without a title, the emitted code will be incorrectly displayed.
+</Aside>
+
 <Tabs>
 <TabItem label="Rendered Output">
 
@@ -130,12 +134,12 @@ export const hello: string = 'world'
 // @showEmit
 // @showEmittedFile: b.js
 // @filename: a.ts
-export const helloWorld: string = 'Hi';
+export const helloWorld: string = 'Hi'
 
 // @filename: b.ts
-import { helloWorld } from './a';
+import { helloWorld } from './a.js'
 
-console.log(helloWorld);
+console.log(helloWorld)
 ```
 
 </TabItem>
@@ -146,12 +150,12 @@ console.log(helloWorld);
 // @showEmit
 // @showEmittedFile: b.js
 // @filename: a.ts
-export const helloWorld: string = 'Hi';
+export const helloWorld: string = 'Hi'
 
 // @filename: b.ts
-import { helloWorld } from './a';
+import { helloWorld } from './a.js'
 
-console.log(helloWorld);
+console.log(helloWorld)
 ```
 ``````
 

@@ -1,0 +1,77 @@
+---
+title: Multi-file code samples
+sidebar:
+  order: 2
+---
+
+import { TabItem, Tabs } from "@astrojs/starlight/components";
+
+Twoslash supports multi-file code samples. This is done by using the `@filename` directive which tells Twoslash to create a new file with the given name and put the following code in that file until the next `@filename` directive or the end of the code sample.
+
+## Simple multi-file code sample
+
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash
+// @filename: a.ts
+export const helloWorld: string = 'Hi';
+
+// @filename: b.ts
+import { helloWorld } from './a';
+
+console.log(helloWorld);
+```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash
+// @filename: a.ts
+export const helloWorld: string = 'Hi';
+
+// @filename: b.ts
+import { helloWorld } from './a';
+
+console.log(helloWorld);
+```
+``````
+
+</TabItem>
+</Tabs>
+
+## Multi-file code sample with hidden files
+
+Taking the above example, we can hide the contents of `a.ts` by using the `---cut---` directive. This is useful for showing only the relevant code to the reader while still having the full code sample available for Twoslash to compile and run.
+
+<Tabs>
+<TabItem label="Rendered Output">
+
+```ts twoslash
+// @filename: a.ts
+export const helloWorld: string = 'Hi'
+// ---cut---
+// @filename: b.ts
+import { helloWorld } from './a'
+
+console.log(helloWorld)
+```
+
+</TabItem>
+<TabItem label="Markdown">
+
+``````md
+```ts twoslash
+// @filename: a.ts
+export const helloWorld: string = 'Hi'
+// ---cut---
+// @filename: b.ts
+import { helloWorld } from './a'
+
+console.log(helloWorld)
+```
+``````
+
+</TabItem>
+</Tabs>

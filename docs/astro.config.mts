@@ -188,6 +188,10 @@ export default defineConfig({
 							link: "usage/code-cutting",
 						},
 						{
+							label: "Multi-file Code Samples",
+							link: "usage/multi-file",
+						},
+						{
 							label: "Overriding Compiler Options",
 							link: "usage/ts-compiler-flags",
 						},
