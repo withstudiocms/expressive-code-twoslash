@@ -40,8 +40,9 @@ export function processTwoslashCodeBlock(
 
 	// Remove any extra lines from the EC code block
 	if (twoslashCodeBlock.length < ecCodeBlock.length) {
-		for (let i = twoslashCodeBlock.length; i < ecCodeBlock.length; i++) {
-			codeBlock.deleteLine(twoslashCodeBlock.length);
+		for (let i = ecCodeBlock.length - 1; i >= twoslashCodeBlock.length; i--) {
+			const exists = codeBlock.getLine(i);
+			if (exists) codeBlock.deleteLine(i);
 		}
 	}
 }
