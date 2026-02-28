@@ -1,1 +1,1 @@
-{"id":"8379bcd0174c7dc56a618a8c1429add4","fullName":"packages/@ec-ts/vfs/test/fsbacked.test.ts#@ec-ts/vfs Tests can delete files in the virtual fs","name":"can delete files in the virtual fs","status":"passed","testResultsByEnv":{"default":"14e7f72fe8a7384249edc9ee0c1a40f7"}}
+{"id":"8379bcd0174c7dc56a618a8c1429add4","fullName":"packages/@ec-ts/vfs/test/fsbacked.test.ts#@ec-ts/vfs Tests can delete files in the virtual fs","name":"can delete files in the virtual fs","status":"passed","testResultsByEnv":{"default":"91adf075d3a60a772ccc4c74506c2b5e"}}
