@@ -70,10 +70,7 @@ const defaultCompilerOptions: CompilerOptions = {
 };
 
 let tsLibDirectory: string;
-
 let includesMap: Map<string, string>;
-let twoslashCache: Map<string, unknown>;
-let fsMap: Map<string, string>;
 
 /**
  * Add Twoslash support to your Expressive Code TypeScript code blocks.
@@ -124,8 +121,6 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 
 	// Map to hold the includes for Twoslash code blocks, keyed by the include name
 	includesMap = includesMap || new Map();
-	twoslashCache = twoslashCache || new Map();
-	fsMap = fsMap || new Map();
 
 	return definePlugin({
 		name: "expressive-code-twoslash",
@@ -157,9 +152,7 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 
 					// Twoslash the code block
 					const twoslash = twoslasher(codeWithIncludes, extension, {
-						cache: twoslashCache,
 						tsLibDirectory,
-						fsMap,
 						...twoslashOptions,
 						compilerOptions: {
 							...defaultCompilerOptions,
