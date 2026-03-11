@@ -69,6 +69,12 @@ const defaultCompilerOptions: CompilerOptions = {
 	lib: ["lib.es2022.d.ts", "lib.dom.d.ts", "lib.dom.iterable.d.ts"],
 };
 
+let tsLibDirectory: string;
+
+let includesMap: Map<string, string>;
+let twoslashCache: Map<string, unknown>;
+let fsMap: Map<string, string>;
+
 /**
  * Add Twoslash support to your Expressive Code TypeScript code blocks.
  *
@@ -105,19 +111,21 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 		...twoslashEslintOptions,
 	});
 
-	// Get the TSConfig path for getting the default library files for Twoslash
-	const _TsConfigPath = resolveTsconfigPath(cwd, tsConfigPath);
+	if (!tsLibDirectory) {
+		// Get the TSConfig path for getting the default library files for Twoslash
+		const _TsConfigPath = resolveTsconfigPath(cwd, tsConfigPath);
 
-	// Get the default compiler options from the parsed TSConfig, which includes the default library files for Twoslash
-	const { options: baseCompilerOptions } = parseSnippetTsconfig(_TsConfigPath);
+		// Get the default compiler options from the parsed TSConfig, which includes the default library files for Twoslash
+		const { options: baseCompilerOptions } = parseSnippetTsconfig(_TsConfigPath);
 
-	// Get the directory of the default library files for Twoslash, which is needed for proper module resolution in Twoslash
-	const tsLibDirectory = path.dirname(ts.getDefaultLibFilePath(baseCompilerOptions));
+		// Get the directory of the default library files for Twoslash, which is needed for proper module resolution in Twoslash
+		tsLibDirectory = path.dirname(ts.getDefaultLibFilePath(baseCompilerOptions));
+	}
 
 	// Map to hold the includes for Twoslash code blocks, keyed by the include name
-	const includesMap = new Map();
-	const twoslashCache = new Map();
-	const fsMap = new Map();
+	includesMap = includesMap || new Map();
+	twoslashCache = twoslashCache || new Map();
+	fsMap = fsMap || new Map();
 
 	return definePlugin({
 		name: "expressive-code-twoslash",
