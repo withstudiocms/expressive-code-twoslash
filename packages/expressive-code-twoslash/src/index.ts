@@ -33,6 +33,7 @@ import {
 	renderJSDocs,
 	renderType,
 	resolveTsconfigPath,
+	type TwoslasherThunk,
 	TwoslashIncludesManager,
 } from "./helpers/index.ts";
 import floatingUiCore from "./module-code/floating-ui-core.min.ts";
@@ -71,6 +72,7 @@ const defaultCompilerOptions: CompilerOptions = {
 
 let tsLibDirectory: string;
 let includesMap: Map<string, string>;
+const TwoslasherMap = new Map<string, TwoslasherThunk>();
 
 /**
  * Add Twoslash support to your Expressive Code TypeScript code blocks.
@@ -102,11 +104,15 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 	} = options;
 
 	// Get the Twoslash transformation function based on the provided instance configurations and options
-	const shouldTransform = getTwoslasher(instanceConfigs, {
-		...twoslashOptions,
-		...twoslashVueOptions,
-		...twoslashEslintOptions,
-	});
+	const shouldTransform = getTwoslasher(
+		instanceConfigs,
+		{
+			...twoslashOptions,
+			...twoslashVueOptions,
+			...twoslashEslintOptions,
+		},
+		TwoslasherMap,
+	);
 
 	if (!tsLibDirectory) {
 		// Get the TSConfig path for getting the default library files for Twoslash
