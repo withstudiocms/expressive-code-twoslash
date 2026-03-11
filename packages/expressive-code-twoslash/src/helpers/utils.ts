@@ -7,12 +7,9 @@ import type {
 	TwoslashOptions,
 } from "@ec-ts/twoslash";
 import { createTwoslasher } from "@ec-ts/twoslash";
-import { createTwoslasher as createTwoslasherVue } from "@ec-ts/twoslash-vue";
+import type { CreateTwoslashVueOptions } from "@ec-ts/twoslash-vue";
 import type { ExpressiveCodeBlock } from "@expressive-code/core";
-import {
-	type CreateTwoslashESLintOptions,
-	createTwoslasher as createTwoslasherEslint,
-} from "twoslash-eslint";
+import type { CreateTwoslashESLintOptions } from "twoslash-eslint";
 import ts from "typescript";
 import type { PluginTwoslashOptions } from "../types.ts";
 import { reTrigger, twoslashDefaultTags } from "./regex.ts";
@@ -54,6 +51,10 @@ export function checkForCustomTagsAndMerge(twoslashOptions: TwoslashOptions | un
 	} as TwoslashOptions;
 }
 
+export type TwoslasherThunk = () => Promise<
+	TwoslashInstance | TwoslashGenericFunction<TwoslashExecuteOptions>
+>;
+
 /**
  * Interface representing the data structure for a Twoslash instance, including its trigger pattern, supported languages, and the corresponding twoslasher functions.
  */
@@ -61,14 +62,76 @@ export interface TwoslashMapData {
 	trigger: RegExp;
 	languages: readonly string[];
 	twoslashers: (options: TwoslashOptions) => {
-		default: TwoslashGenericFunction<TwoslashExecuteOptions>;
-		[key: string]: TwoslashGenericFunction<TwoslashExecuteOptions>;
+		default: TwoslasherThunk;
+		[key: string]: TwoslasherThunk;
 	};
 }
 
 export const BuiltInTwoslashers = ["twoslash", "eslint"] as const;
 
 export type BuiltInTwoslashers = (typeof BuiltInTwoslashers)[number];
+
+export const TwoslasherMap = new Map<string, TwoslasherThunk>();
+
+/**
+ * Retrieves or creates a base Twoslash instance and caches it in the `TwoslasherMap` for future use. If an instance already exists for the "twoslash" key, it returns the cached instance; otherwise, it creates a new one using the provided options and stores it in the map before returning it.
+ */
+const getBaseTwoslasher = (opts?: TwoslashOptions | undefined): TwoslasherThunk => {
+	const key = "twoslash";
+	const twoslasher = TwoslasherMap.get(key);
+	if (!twoslasher) {
+		const instance = async () => createTwoslasher(opts);
+		TwoslasherMap.set(key, instance);
+		return instance;
+	}
+	return twoslasher;
+};
+
+/**
+ * Retrieves or creates a Twoslash instance specific to Vue and caches it in the `TwoslasherMap` for future use. If an instance already exists for the "twoslash-vue" key, it returns the cached instance; otherwise, it attempts to create a new one using the provided options and stores it in the map before returning it. If the module fails to load, it logs an error and throws a new error with a user-friendly message.
+ */
+const getVueTwoslasher = (
+	createOptions?: CreateTwoslashVueOptions | undefined,
+): TwoslasherThunk => {
+	const key = "twoslash-vue";
+	const twoslasher = TwoslasherMap.get(key);
+	if (!twoslasher) {
+		try {
+			const instance = async () =>
+				(await import("@ec-ts/twoslash-vue")).createTwoslasher(createOptions);
+			TwoslasherMap.set(key, instance);
+			return instance;
+		} catch (error) {
+			console.error("Failed to load twoslash-vue:", error);
+			throw new Error("Failed to load twoslash-vue. Please ensure vue is installed and try again.");
+		}
+	}
+	return twoslasher;
+};
+
+/**
+ * Retrieves or creates a Twoslash instance specific to ESLint and caches it in the `TwoslasherMap` for future use. If an instance already exists for the "eslint" key, it returns the cached instance; otherwise, it attempts to create a new one using the provided options and stores it in the map before returning it. If the module fails to load, it logs an error and throws a new error with a user-friendly message.
+ */
+const getEslintTwoslasher = (opts?: TwoslashOptions | undefined): TwoslasherThunk => {
+	const key = "eslint";
+	const twoslasher = TwoslasherMap.get(key);
+	if (!twoslasher) {
+		try {
+			const instance = async () =>
+				(await import("twoslash-eslint")).createTwoslasher(
+					opts as CreateTwoslashESLintOptions,
+				) as TwoslashGenericFunction<TwoslashExecuteOptions>;
+			TwoslasherMap.set(key, instance);
+			return instance;
+		} catch (error) {
+			console.error("Failed to load twoslash-eslint:", error);
+			throw new Error(
+				"Failed to load twoslash-eslint. Please ensure eslint is installed and try again.",
+			);
+		}
+	}
+	return twoslasher;
+};
 
 /**
  * A map that holds the configuration for built-in twoslash instances, including their trigger patterns, supported languages, and the corresponding twoslasher functions.
@@ -80,8 +143,8 @@ export const TwoslashInstanceMap = new Map<BuiltInTwoslashers, TwoslashMapData>(
 			trigger: reTrigger,
 			languages: ["ts", "tsx", "vue"],
 			twoslashers: (options: TwoslashOptions) => ({
-				default: createTwoslasher(options),
-				vue: createTwoslasherVue(options),
+				default: getBaseTwoslasher(options),
+				vue: getVueTwoslasher(options),
 			}),
 		},
 	],
@@ -91,9 +154,7 @@ export const TwoslashInstanceMap = new Map<BuiltInTwoslashers, TwoslashMapData>(
 			trigger: /\beslint\b/,
 			languages: ["ts", "tsx"],
 			twoslashers: (options: TwoslashOptions) => ({
-				default: createTwoslasherEslint(
-					options as CreateTwoslashESLintOptions,
-				) as TwoslashGenericFunction<TwoslashExecuteOptions>,
+				default: getEslintTwoslasher(options),
 			}),
 		},
 	],
@@ -162,7 +223,7 @@ export const getTwoslasher = (
 		{} as Record<string, TwoslashMapData>,
 	);
 
-	return <A>(
+	return async <A>(
 		codeBlock: ExpressiveCodeBlock,
 		fn: (
 			transformer: TwoslashInstance | TwoslashGenericFunction<TwoslashExecuteOptions>,
@@ -175,7 +236,7 @@ export const getTwoslasher = (
 			if (languages.includes(codeBlock.language) && trigger.test(codeBlock.meta)) {
 				const transformer =
 					twoslashers(options)[codeBlock.language] ?? twoslashers(options).default;
-				return fn(transformer, key);
+				return fn(await transformer(), key);
 			}
 		}
 		return null;

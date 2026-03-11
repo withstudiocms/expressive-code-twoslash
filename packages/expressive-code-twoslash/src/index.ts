@@ -114,6 +114,11 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 	// Get the directory of the default library files for Twoslash, which is needed for proper module resolution in Twoslash
 	const tsLibDirectory = path.dirname(ts.getDefaultLibFilePath(baseCompilerOptions));
 
+	// Map to hold the includes for Twoslash code blocks, keyed by the include name
+	const includesMap = new Map();
+	const twoslashCache = new Map();
+	const fsMap = new Map();
+
 	return definePlugin({
 		name: "expressive-code-twoslash",
 		jsModules: [floatingUiCore, floatingUiDom, hoverDocsManager],
@@ -123,11 +128,6 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 			async preprocessCode({ codeBlock, config }) {
 				// Check if the code block should be transformed with Twoslash based on the trigger and language
 				await shouldTransform(codeBlock, async (twoslasher, trigger) => {
-					// Map to hold the includes for Twoslash code blocks, keyed by the include name
-					const includesMap = new Map();
-					const twoslashCache = new Map();
-					const fsMap = new Map();
-
 					// Create a new instance of the TwoslashIncludesManager
 					const includes = new TwoslashIncludesManager(includesMap);
 					// Create a new instance of the Expressive Code Engine for use in the plugin
