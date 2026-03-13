@@ -6,7 +6,6 @@ import type {
 	TwoslashInstance,
 	TwoslashOptions,
 } from "@ec-ts/twoslash";
-import { createTwoslasher } from "@ec-ts/twoslash";
 import type { CreateTwoslashVueOptions } from "@ec-ts/twoslash-vue";
 import type { ExpressiveCodeBlock } from "@expressive-code/core";
 import type { CreateTwoslashESLintOptions } from "twoslash-eslint";
@@ -83,7 +82,7 @@ const getBaseTwoslasher = (
 	const key = "twoslash";
 	const twoslasher = TwoslasherMap.get(key);
 	if (!twoslasher) {
-		const instance = async () => createTwoslasher(opts);
+		const instance = async () => (await import("@ec-ts/twoslash")).createTwoslasher(opts);
 		TwoslasherMap.set(key, instance);
 		return instance;
 	}
