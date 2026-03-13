@@ -130,7 +130,9 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 	}
 
 	// Map to hold the includes for Twoslash code blocks, keyed by the include name
-	includesMap = includesMap || new Map();
+	if (!includesMap) {
+		includesMap = new Map<string, string>();
+	}
 
 	return definePlugin({
 		name: "expressive-code-twoslash",
