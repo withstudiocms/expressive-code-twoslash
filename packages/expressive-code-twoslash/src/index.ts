@@ -70,8 +70,12 @@ const defaultCompilerOptions: CompilerOptions = {
 	lib: ["lib.es2022.d.ts", "lib.dom.d.ts", "lib.dom.iterable.d.ts"],
 };
 
+// Singletons to hold tsLibDirectory, includesMap, and the Expressive Code Engine instance for use across the plugin
 let tsLibDirectory: string;
 let includesMap: Map<string, string>;
+let ecEngine: ExpressiveCode;
+
+// Map to hold the Twoslasher functions for different triggers, keyed by the trigger name (e.g., "default", "vue", "eslint")
 const TwoslasherMap = new Map<string, TwoslasherThunk>();
 
 /**
@@ -137,10 +141,14 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 			async preprocessCode({ codeBlock, config }) {
 				// Check if the code block should be transformed with Twoslash based on the trigger and language
 				await shouldTransform(codeBlock, async (twoslasher, trigger) => {
+					// If the EC Engine is not initialized, create a new instance of the Expressive Code Engine for use in the plugin
+					if (!ecEngine) {
+						// Create a new instance of the Expressive Code Engine for use in the plugin
+						ecEngine = new ExpressiveCode(ecConfig(config));
+					}
+
 					// Create a new instance of the TwoslashIncludesManager
 					const includes = new TwoslashIncludesManager(includesMap);
-					// Create a new instance of the Expressive Code Engine for use in the plugin
-					const ecEngine = new ExpressiveCode(ecConfig(config));
 
 					// Apply the includes to the code block
 					const codeWithIncludes = includes.applyInclude(codeBlock.code);
