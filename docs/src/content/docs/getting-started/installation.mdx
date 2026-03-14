@@ -176,4 +176,16 @@ ecTwoSlash({
 });
 ```
 
+#### A note about Memory Issues
 
+If you are running Astro, and run into build errors about running out of memory, you may need to change the `lib` option to be more specific or empty. By default, EC Twoslash includes the following libs:
+
+```ts
+lib: ["lib.es2022.d.ts", "lib.dom.d.ts", "lib.dom.iterable.d.ts"],
+```
+
+Another option is to set the `NODE_OPTIONS` environment variable to increase the memory limit for Node.js. For example:
+
+```bash
+NODE_OPTIONS="--max-old-space-size=8192" astro build
+```

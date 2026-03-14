@@ -33,6 +33,7 @@ import {
 	renderJSDocs,
 	renderType,
 	resolveTsconfigPath,
+	type TwoslasherThunk,
 	TwoslashIncludesManager,
 } from "./helpers/index.ts";
 import floatingUiCore from "./module-code/floating-ui-core.min.ts";
@@ -69,6 +70,14 @@ const defaultCompilerOptions: CompilerOptions = {
 	lib: ["lib.es2022.d.ts", "lib.dom.d.ts", "lib.dom.iterable.d.ts"],
 };
 
+// Singletons to hold tsLibDirectory, includesMap, and the Expressive Code Engine instance for use across the plugin
+let tsLibDirectory: string;
+let includesMap: Map<string, string>;
+let ecEngine: ExpressiveCode;
+
+// Map to hold the Twoslasher functions for different triggers, keyed by the trigger name (e.g., "default", "vue", "eslint")
+const TwoslasherMap = new Map<string, TwoslasherThunk>();
+
 /**
  * Add Twoslash support to your Expressive Code TypeScript code blocks.
  *
@@ -99,20 +108,31 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 	} = options;
 
 	// Get the Twoslash transformation function based on the provided instance configurations and options
-	const shouldTransform = getTwoslasher(instanceConfigs, {
-		...twoslashOptions,
-		...twoslashVueOptions,
-		...twoslashEslintOptions,
-	});
+	const shouldTransform = getTwoslasher(
+		instanceConfigs,
+		{
+			...twoslashOptions,
+			...twoslashVueOptions,
+			...twoslashEslintOptions,
+		},
+		TwoslasherMap,
+	);
 
-	// Get the TSConfig path for getting the default library files for Twoslash
-	const _TsConfigPath = resolveTsconfigPath(cwd, tsConfigPath);
+	if (!tsLibDirectory) {
+		// Get the TSConfig path for getting the default library files for Twoslash
+		const _TsConfigPath = resolveTsconfigPath(cwd, tsConfigPath);
 
-	// Get the default compiler options from the parsed TSConfig, which includes the default library files for Twoslash
-	const { options: baseCompilerOptions } = parseSnippetTsconfig(_TsConfigPath);
+		// Get the default compiler options from the parsed TSConfig, which includes the default library files for Twoslash
+		const { options: baseCompilerOptions } = parseSnippetTsconfig(_TsConfigPath);
 
-	// Get the directory of the default library files for Twoslash, which is needed for proper module resolution in Twoslash
-	const tsLibDirectory = path.dirname(ts.getDefaultLibFilePath(baseCompilerOptions));
+		// Get the directory of the default library files for Twoslash, which is needed for proper module resolution in Twoslash
+		tsLibDirectory = path.dirname(ts.getDefaultLibFilePath(baseCompilerOptions));
+	}
+
+	// Map to hold the includes for Twoslash code blocks, keyed by the include name
+	if (!includesMap) {
+		includesMap = new Map<string, string>();
+	}
 
 	return definePlugin({
 		name: "expressive-code-twoslash",
@@ -123,15 +143,14 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 			async preprocessCode({ codeBlock, config }) {
 				// Check if the code block should be transformed with Twoslash based on the trigger and language
 				await shouldTransform(codeBlock, async (twoslasher, trigger) => {
-					// Map to hold the includes for Twoslash code blocks, keyed by the include name
-					const includesMap = new Map();
-					const twoslashCache = new Map();
-					const fsMap = new Map();
+					// If the EC Engine is not initialized, create a new instance of the Expressive Code Engine for use in the plugin
+					if (!ecEngine) {
+						// Create a new instance of the Expressive Code Engine for use in the plugin
+						ecEngine = new ExpressiveCode(ecConfig(config));
+					}
 
 					// Create a new instance of the TwoslashIncludesManager
 					const includes = new TwoslashIncludesManager(includesMap);
-					// Create a new instance of the Expressive Code Engine for use in the plugin
-					const ecEngine = new ExpressiveCode(ecConfig(config));
 
 					// Apply the includes to the code block
 					const codeWithIncludes = includes.applyInclude(codeBlock.code);
@@ -149,9 +168,7 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 
 					// Twoslash the code block
 					const twoslash = twoslasher(codeWithIncludes, extension, {
-						cache: twoslashCache,
 						tsLibDirectory,
-						fsMap,
 						...twoslashOptions,
 						compilerOptions: {
 							...defaultCompilerOptions,

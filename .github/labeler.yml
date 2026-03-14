@@ -3,29 +3,29 @@
 css-js-gen:
   - changed-files:
       - any-glob-to-any-file:
-          - packages/css-js-gen/*
+          - packages/css-js-gen/**
 
 docs:
   - changed-files:
       - any-glob-to-any-file:
-          - docs/*
+          - docs/**
 
 ec-ts:twoslash:
   - changed-files:
       - any-glob-to-any-file:
-          - packages/@ec-ts/twoslash/*
+          - packages/@ec-ts/twoslash/**
 
 ec-ts:twoslash-vue:
   - changed-files:
       - any-glob-to-any-file:
-          - packages/@ec-ts/twoslash-vue/*
+          - packages/@ec-ts/twoslash-vue/**
 
 ec-ts:vfs:
   - changed-files:
       - any-glob-to-any-file:
-          - packages/@ec-ts/vfs/*
+          - packages/@ec-ts/vfs/**
 
 twoslash:
   - changed-files:
       - any-glob-to-any-file:
-          - packages/expressive-code-twoslash/*
+          - packages/expressive-code-twoslash/**
