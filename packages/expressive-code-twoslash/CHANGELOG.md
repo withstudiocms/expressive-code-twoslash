@@ -1,5 +1,11 @@
 # expressive-code-twoslash
 
+## 0.6.1
+
+### Patch Changes
+
+- [#103](https://github.com/withstudiocms/expressive-code-twoslash/pull/103) [`3ddf10f`](https://github.com/withstudiocms/expressive-code-twoslash/commit/3ddf10f0d7324e1fa8dbec25318f647ad826a31c) Thanks [@Adammatthiesen](https://github.com/Adammatthiesen)! - Fixes Twoslasher instance creation
+
 ## 0.6.0
 
 ### Minor Changes
