@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Setup Apollo Git Bot
         id: bot-token
-        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.2
         with:
           app-id: ${{ secrets.STUDIOCMS_GIT_BOT_APP_ID }}
           private-key: ${{ secrets.STUDIOCMS_GIT_BOT_PRIVATE_KEY }}
@@ -26,7 +26,7 @@ jobs:
           token: ${{ steps.bot-token.outputs.token }}
 
       - name: Install Tools & Dependencies
-        uses: withstudiocms/automations/.github/actions/install@e8ab1d958f7a32e610f9d96fe36eedd8ee6a0d73 # main
+        uses: withstudiocms/automations/.github/actions/install@18ae9dbfa56fd5d58b71b3e196261eac79460518 # main
 
       - name: Build packages
         run: pnpm ci:build
