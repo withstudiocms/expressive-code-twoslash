@@ -19,4 +19,4 @@ jobs:
       contents: write
       pull-requests: write
     secrets: inherit
-    uses: withstudiocms/automations/.github/workflows/renovate-changeset.yml@e8ab1d958f7a32e610f9d96fe36eedd8ee6a0d73 # main
+    uses: withstudiocms/automations/.github/workflows/renovate-changeset.yml@18ae9dbfa56fd5d58b71b3e196261eac79460518 # main
