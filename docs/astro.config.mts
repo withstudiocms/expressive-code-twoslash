@@ -33,7 +33,7 @@ export default defineConfig({
 			social: [
 				{
 					label: "GitHub",
-					href: "https://github.com/withstudiocms/express-code-twoslash/",
+					href: "https://github.com/withstudiocms/expressive-code-twoslash/",
 					icon: "github",
 				},
 				{
@@ -58,7 +58,7 @@ export default defineConfig({
 				},
 			],
 			editLink: {
-				baseUrl: "https://github.com/withstudiocms/express-code-twoslash/edit/main/docs/",
+				baseUrl: "https://github.com/withstudiocms/expressive-code-twoslash/edit/main/docs/",
 			},
 			customCss: ["./src/styles/starlight.css"],
 			head: [
