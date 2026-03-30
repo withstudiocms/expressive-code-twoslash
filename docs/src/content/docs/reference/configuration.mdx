@@ -211,6 +211,63 @@ export default defineEcConfig({
 });
 ```
 
+### cache
+
+<PropertySignature>
+- Type: `boolean | TwoslashCacheOptions`
+- Default: `false`
+</PropertySignature>
+
+The `cache` option enables the opt-in persistent disk cache for Twoslash JSON results. Set it to `true` to use the default cache directory, or pass an object to customize where entries are stored, how verbose logging should be, and how cache invalidation should work.
+
+#### Example
+
+```ts twoslash title="ec.config.mjs" {7-12}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from "expressive-code-twoslash";
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      cache: {
+        dir: ".cache/twoslash",
+        fingerprint: "docs-v2",
+        logLevel: "summary",
+      },
+    }),
+  ],
+});
+```
+
+#### TwoslashCacheOptions
+
+##### dir
+
+<PropertySignature>
+- Type: `string`
+- Default: `.cache/expressive-code-twoslash`
+</PropertySignature>
+
+Directory used to persist cached Twoslash JSON artifacts. Relative paths resolve from the plugin `cwd`.
+
+##### fingerprint
+
+<PropertySignature>
+- Type: `string`
+- Default: `undefined`
+</PropertySignature>
+
+Optional caller-controlled invalidation string. Change it whenever you want to force a new cache namespace without moving directories.
+
+##### logLevel
+
+<PropertySignature>
+- Type: `"off" | "summary" | "debug"`
+- Default: `"summary"`
+</PropertySignature>
+
+Controls cache logging verbosity. Use `off` to stay silent, `summary` for one end-of-build summary, or `debug` to also log cache read and write errors as they happen.
+
 ### twoslashOptions
 
 <PropertySignature>

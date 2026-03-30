@@ -200,6 +200,14 @@ export default defineConfig({
 							link: "usage/external-types",
 						},
 						{
+							label: "Build-Time Cache",
+							link: "usage/build-time-cache",
+							badge: {
+								text: "v0.6.2",
+								variant: "success",
+							},
+						},
+						{
 							label: "Show Emitted Files",
 							link: "usage/show-emitted-files",
 							badge: {

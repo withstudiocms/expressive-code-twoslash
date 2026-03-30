@@ -11,29 +11,49 @@ A Expressive Code plugin that adds Twoslash support to your Expressive Code Type
 
 [Read the full documentation →](https://twoslash.studiocms.dev)
 
+## Build-Time Cache
+
+Disk caching is opt-in:
+
+```ts
+ecTwoSlash({
+  cache: {
+    dir: ".cache/twoslash",
+    logLevel: "summary",
+  },
+});
+```
+
+- `dir`: cache directory, resolved from the plugin `cwd`
+- `fingerprint`: optional caller-controlled invalidation string
+- `logLevel`: `off`, `summary`, or `debug`
+
+The cache key includes the snippet contents, effective Twoslash options, cache fingerprint, plugin version, `@ec-ts/twoslash` version, and TypeScript version.
+
 ## Currently Supported Languages
 
-| Language | Identifier |
-| -------- | ---------- |
-| TypeScript | `ts` |
-| React TSX | `tsx` |
-| Vue | `vue` |
+| Language   | Identifier |
+| ---------- | ---------- |
+| TypeScript | `ts`       |
+| React TSX  | `tsx`      |
+| Vue        | `vue`      |
 
 ## Currently Supported Features
 
-| Feature                                                   | Supported Status |
-|-----------------------------------------------------------|------------------|
-| [JSDocs and Type Hover boxes](https://twoslash.studiocms.dev/getting-started/basic)     | ✅ |
-| [Error Handling/Messages](https://twoslash.studiocms.dev/usage/banners/errors)          | ✅ |
-| [Type Extraction](https://twoslash.studiocms.dev/usage/queries/extractions)             | ✅ |
-| [Code Completions](https://twoslash.studiocms.dev/usage/queries/completions)            | ✅ |
-| [Code Highlighting](https://twoslash.studiocms.dev/usage/queries/highlights)            | ✅ |
-| [Code Cutting](https://twoslash.studiocms.dev/usage/code-cutting)                       | ✅ |
-| [Callouts](https://twoslash.studiocms.dev/usage/banners/callouts)                       | ✅ |
-| [TS Compiler Overrides](https://twoslash.studiocms.dev/usage/ts-compiler-flags)         | ✅ |
-| [Show Emitted Files](https://twoslash.studiocms.dev/usage/show-emitted-files)           | ✅ |
+| Feature                                                                             | Supported Status |
+| ----------------------------------------------------------------------------------- | ---------------- |
+| [JSDocs and Type Hover boxes](https://twoslash.studiocms.dev/getting-started/basic) | ✅               |
+| [Error Handling/Messages](https://twoslash.studiocms.dev/usage/banners/errors)      | ✅               |
+| [Type Extraction](https://twoslash.studiocms.dev/usage/queries/extractions)         | ✅               |
+| [Code Completions](https://twoslash.studiocms.dev/usage/queries/completions)        | ✅               |
+| [Code Highlighting](https://twoslash.studiocms.dev/usage/queries/highlights)        | ✅               |
+| [Code Cutting](https://twoslash.studiocms.dev/usage/code-cutting)                   | ✅               |
+| [Callouts](https://twoslash.studiocms.dev/usage/banners/callouts)                   | ✅               |
+| [TS Compiler Overrides](https://twoslash.studiocms.dev/usage/ts-compiler-flags)     | ✅               |
+| [Show Emitted Files](https://twoslash.studiocms.dev/usage/show-emitted-files)       | ✅               |
 
 ### TODO
+
 - [ ] Make Annotations accessible
 - [ ] Use EC's Markdown processing system once released. (Requires support from EC (Planned))
 

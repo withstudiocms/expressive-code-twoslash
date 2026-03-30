@@ -29,7 +29,7 @@ import { defineConfig } from "vitest/config";
  */
 const projectsWithTests: { scope?: string; names: string[] }[] = [
 	{
-		names: ["css-js-gen"],
+		names: ["expressive-code-twoslash", "css-js-gen"],
 	},
 	{
 		scope: "ec-ts",

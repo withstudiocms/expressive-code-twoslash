@@ -19,6 +19,7 @@ import { PackageManagers } from 'starlight-package-managers'
 | [Code Cutting](/usage/code-cutting)                       | ✅               |
 | [Callouts](/usage/banners/callouts)                       | ✅               |
 | [TS Compiler Overrides](/usage/ts-compiler-flags)         | ✅               |
+| [Build-Time Cache](/usage/build-time-cache)               | ✅               |
 | [Show Emitted Files](/usage/show-emitted-files)           | ✅               |
 
 ### Installation
@@ -164,6 +165,7 @@ ecTwoSlash({
   includeJsDoc: true,
 // @annotate: allowNonStandardJsDocTags is required for like this to work
   allowNonStandardJsDocTags: true,
+  cache: false,
   twoslashOptions: {
     compilerOptions: {
       moduleResolution: 100 satisfies ts.ModuleResolutionKind.Bundler,

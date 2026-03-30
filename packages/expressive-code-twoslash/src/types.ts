@@ -2,8 +2,11 @@ import type { TwoslashOptions } from "@ec-ts/twoslash";
 import type { CreateTwoslashVueOptions } from "@ec-ts/twoslash-vue";
 import type { Element } from "@expressive-code/core/hast";
 import type { CreateTwoslashESLintOptions } from "twoslash-eslint";
+import type { TwoslashCacheOptions } from "./cache/types.ts";
 import type { completionIcons } from "./icons/completionIcons.ts";
 import type { customTagsIcons } from "./icons/customTagsIcons.ts";
+
+export type { TwoslashCacheOptions };
 
 /**
  * Type representing the options for creating a Twoslash instance with Vue support, excluding the standard Twoslash options.
@@ -131,6 +134,13 @@ export interface PluginTwoslashOptions {
 	 * @remarks This is only used if the `eslint` language is included in the `languages` option and will be ignored otherwise.
 	 */
 	readonly twoslashEslintOptions?: CreateTwoslashESLintOptions;
+
+	/**
+	 * Enables a persistent disk cache for Twoslash JSON results.
+	 *
+	 * Disabled by default.
+	 */
+	readonly cache?: boolean | TwoslashCacheOptions;
 }
 
 /**
