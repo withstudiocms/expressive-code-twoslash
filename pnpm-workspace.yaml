@@ -17,7 +17,7 @@ catalogs:
   min:
     "@expressive-code/core": ^0.41.7
     expressive-code: ^0.41.7
-    typescript: ^5.5.0
+    typescript: ^5.5.0 || ^6.0.0
   twoslash:
     "@vue/language-core": ^3.2.5
     twoslash-protocol: ^0.3.6
