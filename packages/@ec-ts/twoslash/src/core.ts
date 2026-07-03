@@ -111,7 +111,7 @@ export function createTwoslasher(createOptions: CreateTwoslashOptions = {}): Two
 		extension = "ts",
 		options: TwoslashExecuteOptions = {},
 	): TwoslashReturn {
-		const tsMajorVersion = Number(ts.versionMajorMinor.split('.')[0])
+		const tsMajorVersion = Number(ts.versionMajorMinor.split(".")[0]);
 		const meta: TwoslashReturnMeta = {
 			extension: typesToExtension(extension),
 			compilerOptions: {
