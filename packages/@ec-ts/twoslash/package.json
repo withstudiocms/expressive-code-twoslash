@@ -1,7 +1,7 @@
 {
 	"name": "@ec-ts/twoslash",
 	"type": "module",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Markup for generating rich type information in your documentation ahead of time",
 	"author": "TypeScript team",
 	"license": "MIT",

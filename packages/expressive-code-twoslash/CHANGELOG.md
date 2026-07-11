@@ -1,5 +1,20 @@
 # expressive-code-twoslash
 
+## 0.6.2
+
+### Patch Changes
+
+- [#121](https://github.com/withstudiocms/expressive-code-twoslash/pull/121) [`0cca179`](https://github.com/withstudiocms/expressive-code-twoslash/commit/0cca179d385e6f44453a4cafa8300c3b75af135a) Thanks [@JoshuaKGoldberg](https://github.com/JoshuaKGoldberg)! - Added support for typescript@6.0.0
+
+- [#111](https://github.com/withstudiocms/expressive-code-twoslash/pull/111) [`7be325c`](https://github.com/withstudiocms/expressive-code-twoslash/commit/7be325ce51576f9cc7550b32dc1eaf65d6416895) Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update dependency @typescript-eslint/parser to ^8.57.1
+
+- [#117](https://github.com/withstudiocms/expressive-code-twoslash/pull/117) [`5e49dc8`](https://github.com/withstudiocms/expressive-code-twoslash/commit/5e49dc8defbbd96af793753fb9494b3743cd5aa6) Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update dependency @typescript-eslint/parser to ^8.63.0
+
+- Updated dependencies [[`0cca179`](https://github.com/withstudiocms/expressive-code-twoslash/commit/0cca179d385e6f44453a4cafa8300c3b75af135a)]:
+  - @ec-ts/twoslash@1.0.1
+  - @ec-ts/twoslash-vue@1.0.1
+  - css-js-gen@1.1.1
+
 ## 0.6.1
 
 ### Patch Changes
