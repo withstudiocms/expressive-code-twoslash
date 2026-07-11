@@ -20,6 +20,11 @@ import {
 	TwoslashHoverAnnotation,
 	TwoslashStaticAnnotation,
 } from "./annotations/index.ts";
+import {
+	createTwoslashCache,
+	getTwoslashCacheEnvironment,
+	resolveTwoslashCacheOptions,
+} from "./cache/index.ts";
 import { instanceConfigsDefaults, twoslashEslintDefaults } from "./consts.ts";
 import {
 	checkForCustomTagsAndMerge,
@@ -40,9 +45,13 @@ import floatingUiCore from "./module-code/floating-ui-core.min.ts";
 import floatingUiDom from "./module-code/floating-ui-dom.min.ts";
 import hoverDocsManager from "./module-code/popup.min.ts";
 import { getTwoSlashBaseStyles, twoSlashStyleSettings } from "./styles.ts";
-import type { PluginTwoslashOptions, TwoSlashStyleSettings } from "./types.ts";
+import type {
+	PluginTwoslashOptions,
+	TwoSlashStyleSettings,
+	TwoslashCacheOptions,
+} from "./types.ts";
 
-export type { PluginTwoslashOptions, TwoSlashStyleSettings };
+export type { PluginTwoslashOptions, TwoSlashStyleSettings, TwoslashCacheOptions };
 
 declare module "@expressive-code/core" {
 	export interface StyleSettings {
@@ -105,7 +114,16 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 			...twoslashEslintDefaults,
 			...options.twoslashEslintOptions,
 		},
+		cache,
 	} = options;
+
+	const resolvedTsConfigPath = resolveTsconfigPath(cwd, tsConfigPath);
+	const { source: tsConfigSource, options: baseCompilerOptions } =
+		parseSnippetTsconfig(resolvedTsConfigPath);
+	const twoslashCache = createTwoslashCache(
+		resolveTwoslashCacheOptions(cwd, cache),
+		getTwoslashCacheEnvironment(),
+	);
 
 	// Get the Twoslash transformation function based on the provided instance configurations and options
 	const shouldTransform = getTwoslasher(
@@ -119,12 +137,6 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 	);
 
 	if (!tsLibDirectory) {
-		// Get the TSConfig path for getting the default library files for Twoslash
-		const _TsConfigPath = resolveTsconfigPath(cwd, tsConfigPath);
-
-		// Get the default compiler options from the parsed TSConfig, which includes the default library files for Twoslash
-		const { options: baseCompilerOptions } = parseSnippetTsconfig(_TsConfigPath);
-
 		// Get the directory of the default library files for Twoslash, which is needed for proper module resolution in Twoslash
 		tsLibDirectory = path.dirname(ts.getDefaultLibFilePath(baseCompilerOptions));
 	}
@@ -166,15 +178,37 @@ export default function ecTwoSlash(options: PluginTwoslashOptions = {}): Express
 					const extension =
 						trigger === "eslint" ? `index.${codeBlock.language}` : codeBlock.language;
 
-					// Twoslash the code block
-					const twoslash = twoslasher(codeWithIncludes, extension, {
+					const twoslashExecutionOptions = {
 						tsLibDirectory,
 						...twoslashOptions,
 						compilerOptions: {
 							...defaultCompilerOptions,
 							...(twoslashOptions?.compilerOptions ?? {}),
 						},
-					});
+					};
+
+					// Twoslash the code block
+					const twoslash = twoslashCache
+						? await twoslashCache.getOrCompute(
+								{
+									code: codeWithIncludes,
+									createOptions: {
+										trigger,
+										instanceConfigs,
+										twoslashOptions,
+										twoslashVueOptions,
+										twoslashEslintOptions,
+									},
+									extension,
+									executeOptions: twoslashExecutionOptions,
+									pluginContext: {
+										resolvedTsConfigPath,
+										tsConfigSource,
+									},
+								},
+								async () => twoslasher(codeWithIncludes, extension, twoslashExecutionOptions),
+							)
+						: twoslasher(codeWithIncludes, extension, twoslashExecutionOptions);
 
 					// Update EC code block with the twoslash information this is important to ensure that if the end user
 					// is using the @showEmit functionality, the emitted code is properly displayed in the code block.

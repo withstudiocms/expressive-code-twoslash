@@ -1,0 +1,100 @@
+---
+title: Build-Time Cache
+description: Speed up repeated Twoslash builds with the opt-in disk cache.
+sidebar:
+  order: 7
+---
+
+import { Aside, TabItem, Tabs } from '@astrojs/starlight/components';
+
+EC-Twoslash can persist Twoslash JSON output to disk and reuse it on later builds. The cache is disabled by default and only turns on when you set the `cache` option.
+
+## Enable the cache
+
+<Tabs>
+<TabItem label="Astro">
+
+```ts twoslash title="ec.config.mjs" {7-12}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from 'expressive-code-twoslash';
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      cache: true,
+    }),
+  ],
+});
+```
+
+</TabItem>
+<TabItem label="Starlight">
+
+```ts twoslash title="ec.config.mjs" {7-12}
+import { defineEcConfig } from '@astrojs/starlight/expressive-code';
+import ecTwoSlash from 'expressive-code-twoslash';
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      cache: true,
+    }),
+  ],
+});
+```
+
+</TabItem>
+</Tabs>
+
+With `cache: true`, EC-Twoslash writes entries to `.cache/expressive-code-twoslash` relative to the plugin `cwd`.
+
+## Customize cache behavior
+
+```ts twoslash title="ec.config.mjs" {7-14}
+import { defineEcConfig } from 'astro-expressive-code';
+import ecTwoSlash from 'expressive-code-twoslash';
+
+export default defineEcConfig({
+  plugins: [
+    ecTwoSlash({
+      cache: {
+        dir: '.cache/twoslash',
+        fingerprint: 'docs-v2',
+        logLevel: 'summary',
+      },
+    }),
+  ],
+});
+```
+
+- `dir`: cache directory, resolved from the plugin `cwd`
+- `fingerprint`: optional invalidation string for forcing a fresh cache namespace
+- `logLevel`: `off`, `summary`, or `debug`
+
+## Cache keys
+
+Each cache key includes the rendered snippet input plus the relevant execution context. That means cache entries are automatically invalidated when the code sample or Twoslash environment changes.
+
+The key currently includes:
+
+- snippet contents
+- effective Twoslash create and execute options
+- plugin context passed into the render
+- cache fingerprint
+- `expressive-code-twoslash` version
+- `@ec-ts/twoslash` version
+- `typescript` version
+
+<Aside>
+Use `fingerprint` when you want to manually bust the cache, for example after changing external files that affect many snippets or when rotating CI cache keys.
+</Aside>
+
+## Logging
+
+- `off`: no cache logging
+- `summary`: prints one end-of-build summary with hits, misses, writes, and errors
+- `debug`: prints the summary plus per-entry read and write errors
+
+## When to use it
+
+The cache helps most when your docs render the same Twoslash blocks across repeated local builds or CI runs. For one-off builds, leaving it disabled keeps behavior simple.
