@@ -20,13 +20,13 @@ jobs:
           private-key: ${{ secrets.STUDIOCMS_GIT_BOT_PRIVATE_KEY }}
 
       - name: Checkout Repo
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           token: ${{ steps.bot-token.outputs.token }}
 
       - name: Install Tools & Dependencies
-        uses: withstudiocms/automations/.github/actions/install@2f4fab1a66855feadec9e960bdbdc4368c23aa18 # main
+        uses: withstudiocms/automations/.github/actions/install@f32588d80ce35d57905264f7fa473b0f6e297c0a # main
 
       - name: Build packages
         run: pnpm ci:build
@@ -35,7 +35,7 @@ jobs:
         run: pnpm ci:test
 
       - name: Run Allure Action
-        uses: allure-framework/allure-action@bd0373251ed3f1c5ac9aa44ac86ed40d839b3094 # v0.8.0
+        uses: allure-framework/allure-action@6e955eb19eef06cf8243a2d09f119a064e41df80 # v0.9.0
         with:
           report-directory: "./allure-report"
           github-token: ${{ steps.bot-token.outputs.token }}
