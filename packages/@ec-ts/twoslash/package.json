@@ -57,6 +57,6 @@
 		"twoslash-protocol": "catalog:twoslash"
 	},
 	"devDependencies": {
-		"ohash": "^2.0.11"
+		"ohash": "^2.0.12"
 	}
 }
