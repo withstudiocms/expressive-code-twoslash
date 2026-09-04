@@ -44,7 +44,7 @@
 	"dependencies": {
 		"@ec-ts/twoslash": "workspace:^",
 		"@ec-ts/twoslash-vue": "workspace:^",
-		"@typescript-eslint/parser": "^8.63.0",
+		"@typescript-eslint/parser": "^8.69.0",
 		"css-js-gen": "workspace:^",
 		"mdast-util-from-markdown": "catalog:mdast",
 		"mdast-util-gfm": "catalog:mdast",
