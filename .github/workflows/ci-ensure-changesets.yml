@@ -26,13 +26,13 @@ jobs:
       contents: read
     steps:
       - name: Check out code using Git
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Install Tools & Dependencies
-        uses: withstudiocms/automations/.github/actions/install@2f4fab1a66855feadec9e960bdbdc4368c23aa18 # main
+        uses: withstudiocms/automations/.github/actions/install@f32588d80ce35d57905264f7fa473b0f6e297c0a # main
 
       - name: Check Changeset Status
         run: pnpm changeset:status
